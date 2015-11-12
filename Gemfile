@@ -13,6 +13,7 @@ gem "ember-cli-rails"
 gem 'font-awesome-rails'
 gem 'bootstrap-sass'
 gem 'active_model_serializers', '~> 0.10.0.rc3'
+gem 'normalize-rails'
 
 group :development, :test do
   gem 'byebug'
