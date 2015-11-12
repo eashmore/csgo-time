@@ -9,6 +9,7 @@ Rails.application.routes.draw do
     resources :teams, except: [:new, :edit, :destroy]
     resources :items, except: [:new, :edit]
 
+    resources :bets, except: [:new, :edit, :update]
     resources :match_lineups, only: [:create]
   end
 end
