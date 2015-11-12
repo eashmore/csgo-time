@@ -5,6 +5,9 @@ Rails.application.routes.draw do
   resources :sessions, except: [:edit, :update, :show]
 
   namespace :api, defaults: { format: :json } do
-    resources :matches
+    resources :matches, except: [:new, :edit, :destroy]
+    resources :teams, except: [:new, :edit, :destroy]
+
+    resources :match_lineups, only: [:create]
   end
 end
