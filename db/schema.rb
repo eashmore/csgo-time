@@ -62,7 +62,7 @@ ActiveRecord::Schema.define(version: 20151112060656) do
     t.integer  "winner_id"
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
-    t.time     "start_time"
+    t.string   "start_time"
   end
 
   add_index "matches", ["winner_id"], name: "index_matches_on_winner_id", using: :btree
@@ -70,7 +70,7 @@ ActiveRecord::Schema.define(version: 20151112060656) do
   create_table "teams", force: :cascade do |t|
     t.string   "name"
     t.float    "odds",       default: 1.0
-    t.string   "avatar_url"
+    t.string   "avatar_url", default: ""
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
   end

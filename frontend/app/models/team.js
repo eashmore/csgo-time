@@ -5,5 +5,5 @@ export default DS.Model.extend({
   odds: DS.attr('number'),
   avatar_url: DS.attr('string'),
 
-  matches: DS.has_many('match')
+  matches: DS.hasMany('match')
 });
