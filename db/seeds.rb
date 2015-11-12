@@ -5,3 +5,12 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+time = Time.new
+match = Match.create(start_time: time)
+
+team1 = Team.create(name: "WOW_WE_LAGGED")
+team2 = Team.create(name: "php_poets")
+
+MatchLineup.create(match_id: match.id, team_id: team1.id)
+MatchLineup.create(match_id: match.id, team_id: team2.id)

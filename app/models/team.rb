@@ -3,6 +3,6 @@ class Team < ActiveRecord::Base
   validates :name, uniqueness: true
 
   has_many :match_lineups
-  has_many :matches, through: :match_lineups, source: :team
+  has_many :matches, through: :match_lineups
 
 end
