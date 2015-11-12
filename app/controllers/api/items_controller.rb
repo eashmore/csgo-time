@@ -32,4 +32,11 @@ class Api::ItemsController < ApplicationController
     @item = Item.find(params[:id])
     @item.destroy
   end
+
+  private
+  def item_params
+    params.require(:item).permit(:name, :price, :gun_type, :condition, :rarity,
+                                 :is_stattrack, :is_souvenir, :image_url,
+                                 :user_id, :bet_id)
+  end
 end
