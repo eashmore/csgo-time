@@ -2,7 +2,7 @@ class Api::MatchLineupsController < ApplicationController
   def create
     @lineup = MatchLineup.new(match_lineup_params)
 
-    if @linup.save
+    if @lineup.save
       render json: @lineup
     else
       render json: @lineup.errors.full_messages, status: :unprocessable_entity

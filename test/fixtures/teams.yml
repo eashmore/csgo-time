@@ -3,9 +3,9 @@
 one:
   name: MyString
   odds: 1.5
-  avatar: MyString
+  avatar_url: MyString
 
 two:
   name: MyString
   odds: 1.5
-  avatar: MyString
+  avatar_url: MyString
