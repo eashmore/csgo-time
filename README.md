@@ -2,8 +2,9 @@
 ## Minimum Viable Product
 This app will allow the betting of items on the outcome of CS:GO matches. It will be built on Rails and Ember and allow users to:
 
-- [ ] Create accounts
-- [ ] Create sessions (log in)
+- [X] Create accounts
+- [X] Create sessions (log in)
+- [ ] View match details
 - [ ] Deposit and withdraw items onto account
 - [ ] Bet items on matches
 - [ ] Receive winnings from the betting pool through parimutuel betting
