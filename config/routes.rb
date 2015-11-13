@@ -12,4 +12,6 @@ Rails.application.routes.draw do
     resources :bets, except: [:new, :edit, :update]
     resources :match_lineups, only: [:create]
   end
+
+  get '*path', to: 'static_pages#root'
 end
