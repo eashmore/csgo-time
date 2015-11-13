@@ -6,7 +6,6 @@ export default Ember.Route.extend({
     return match.get('teams');
   },
 
-  renderTemplate() {
-    this.render();
-  }
+  controllerName: 'teams',
+
 });

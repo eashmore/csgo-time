@@ -6,8 +6,8 @@ var Router = Ember.Router.extend({
 });
 
 Router.map(function() {
-  this.route('matches/nextMatch', { path: '/' }, function() {
-    this.route('teams', { path:'/', resetNamespace: true }, function() {
+  this.route('matches', { path: '/' }, function() {
+    this.route('teams', { resetNamespace: true }, function() {
       this.route('show', {path: 'teams/:team_id'});
     });
   });
@@ -20,7 +20,6 @@ Router.map(function() {
     this.route('new', {path: 'teams/:team_id'});
   });
 
-  this.route('match');
 });
 
 export default Router;
