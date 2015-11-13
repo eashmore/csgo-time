@@ -1,3 +1,3 @@
-{{#each model}}
-  <h2>This match starts at {{model.start_time}}</h2>
+{{#each model as |match|}}
+  <h2>This match starts at {{match.startTime}}</h2>
 {{/each}}
