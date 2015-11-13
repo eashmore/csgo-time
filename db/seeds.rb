@@ -7,8 +7,7 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 User.create(username: 'username', password: 'password')
 
-time = Time.now.to_f * 1000
-match = Match.create(start_time: time)
+match = Match.create()
 
 team1 = Team.create(name: "WOW_WE_LAGGED")
 team2 = Team.create(name: "php_poets")
