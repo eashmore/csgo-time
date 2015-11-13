@@ -9,6 +9,7 @@ export default DS.RESTSerializer.extend(DS.EmbeddedRecordsMixin, {
   },
 
   attrs: {
+
     // matches
     teams: { embedded: 'always' },
     winner: { embedded: 'always' },
@@ -16,7 +17,16 @@ export default DS.RESTSerializer.extend(DS.EmbeddedRecordsMixin, {
     // teams
     matches: { embedded: 'always' },
 
-    // users
-    items: { embedded: 'always' }
+    // matches, teams and users
+    bets: { embedded: 'always' },
+
+    // users and bets
+    items: { embedded: 'always' },
+
+    // bets
+    user: { embedded: 'always' },
+    match: { embedded: 'always' },
+    team: { embedded: 'always' }
+
   }
 });

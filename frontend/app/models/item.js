@@ -11,5 +11,5 @@ export default DS.Model.extend({
   imageUrl: DS.attr('string'),
 
   users: DS.hasMany('user'),
-  // bets: DS.hasMany('bet')
+  bet: DS.belongsTo('bet')
 });

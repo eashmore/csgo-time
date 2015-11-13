@@ -16,6 +16,10 @@ Router.map(function() {
     this.route('items', { path: '/users/:user_id' });
   });
 
+  this.route('bets', function() {
+    this.route('new', {path: 'teams/:team_id'});
+  });
+
   this.route('match');
 });
 
