@@ -10,6 +10,6 @@ export default DS.Model.extend({
   isSouvenir: DS.attr('boolean'),
   imageUrl: DS.attr('string'),
 
-  users: DS.hasMany('user'),
+  user: DS.belongsTo('user'),
   bet: DS.belongsTo('bet')
 });
