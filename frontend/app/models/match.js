@@ -5,6 +5,6 @@ export default DS.Model.extend({
   has_started: DS.attr('boolean'),
   current_round: DS.attr('number'),
 
-  teams: DS.hasMany('team'),
-  winner: DS.belongsTo('team')
+  teams: DS.hasMany('team', { inverse: 'matches' }),
+  winner: DS.belongsTo('team', { inverse: null })
 });

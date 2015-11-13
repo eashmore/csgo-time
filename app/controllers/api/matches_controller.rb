@@ -1,7 +1,7 @@
 class Api::MatchesController < ApplicationController
   def index
-    @matches = Match.all
-    render json: @matches
+    @nextMatch = Match.all.last
+    render json: @nextMatch
   end
 
   def create

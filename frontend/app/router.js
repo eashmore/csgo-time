@@ -6,10 +6,10 @@ var Router = Ember.Router.extend({
 });
 
 Router.map(function() {
-  this.route('match', { path: '/' }, function() {
-    this.route('show', { path: '/match/:match_id'});
+  this.route('matches', { path: '/' }, function() {
+    this.route('show', { path: '/matches/:match_id'});
+    this.route('teams', { path:'/teams/:team_id' });
   });
-  this.route('team', { path:'/teams/:team_id' });
 });
 
 export default Router;
