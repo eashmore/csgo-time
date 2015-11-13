@@ -14,6 +14,9 @@ export default DS.RESTSerializer.extend(DS.EmbeddedRecordsMixin, {
     winner: { embedded: 'always' },
 
     // teams
-    matches: { embedded: 'always' }
+    matches: { embedded: 'always' },
+
+    // users
+    items: { embedded: 'always' }
   }
 });

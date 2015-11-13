@@ -11,5 +11,7 @@ export default DS.Model.extend({
   }),
 
   teams: DS.hasMany('team', { inverse: 'matches' }),
-  winner: DS.belongsTo('team', { inverse: null })
+  winner: DS.belongsTo('team', { inverse: null }),
+  // bets: DS.hasMany('bet')
+  
 });

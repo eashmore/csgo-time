@@ -11,6 +11,11 @@ Router.map(function() {
       this.route('show', {path: 'teams/:team_id'});
     });
   });
+
+  this.route('users', { path: '/user/:user_id'}, function() {
+    this.route('items', { path: '/users/:user_id' });
+  });
+
   this.route('match');
 });
 
