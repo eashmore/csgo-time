@@ -6,22 +6,21 @@ var Router = Ember.Router.extend({
 });
 
 Router.map(function() {
-  this.route('matches', { path: '/' }, function() {
-    this.route('teams', { resetNamespace: true }, function() {
+  this.resource('matches', { path: '/' }, function() {
+    this.resource('teams', function() {
       this.route('show', {path: '/:team_id'});
     });
   });
 
-  this.route('users', { path: '/user/'}, function() {
-    this.route('items', function() {
+  this.resource('users', { path: '/user/'}, function() {
+    this.resource('items', function() {
       this.route('generate');
     });
   });
 
-  this.route('bets', function() {
+  this.resource('bets', function() {
     this.route('new');
   });
-
 });
 
 export default Router;
