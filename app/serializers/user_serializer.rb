@@ -1,3 +1,5 @@
+ActiveModel::Serializer.config.adapter = :json
+
 class UserSerializer < ActiveModel::Serializer
   attributes :id, :username
 

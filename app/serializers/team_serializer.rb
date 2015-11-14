@@ -1,3 +1,5 @@
+ActiveModel::Serializer.config.adapter = :json
+
 class TeamSerializer < ActiveModel::Serializer
   attributes :id, :name, :odds, :avatar_url
 

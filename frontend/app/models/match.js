@@ -7,7 +7,7 @@ export default DS.Model.extend({
   winnerId: DS.attr('number'),
 
   startTime: Ember.computed(function() {
-    var start = new Date().setHours(20,0,0);
+    let start = new Date().setHours(20,0,0);
     return new Date(start);
   }),
 

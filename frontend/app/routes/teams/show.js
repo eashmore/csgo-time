@@ -5,16 +5,20 @@ export default Ember.Route.extend({
     return this.store.findRecord('team', params.team_id);
   },
 
-  renderTemplate() {
+  renderTemplate(c, model) {
     this.render();
 
-    this.store.findRecord('user', window.CURRENT_USER).then(function(user) {
-      this.render('items', {
-        into: "teams.show",
-        outlet: "stash",
-        model: user.get('items')
-      });
-    }.bind(this));
+    let currentUser = this.modelFor('application');
+    this.render('items.betting', {
+      into: "teams.show",
+      outlet: "stash",
+      model: currentUser.get('items')
+    });
 
+    this.render('bets.new', {
+      into: 'teams.show',
+      outlet: 'new-bet',
+      model: model
+    });
   }
 });

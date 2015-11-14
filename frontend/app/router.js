@@ -9,6 +9,10 @@ Router.map(function() {
   this.resource('matches', { path: '/' }, function() {
     this.resource('teams', function() {
       this.route('show', {path: '/:team_id'});
+
+      this.resource('bets', function() {
+        this.route('new');
+      });
     });
   });
 
@@ -18,8 +22,8 @@ Router.map(function() {
     });
   });
 
-  this.resource('bets', function() {
-    this.route('new');
+  this.route('items', function() {
+    this.route('betting');
   });
 });
 

@@ -33,7 +33,7 @@ export default Ember.Controller.extend({
 
   actions: {
     generateItem(item) {
-      var newItem = this.store.createRecord('item', {
+      let newItem = this.store.createRecord('item', {
         name: item.itemName,
         price: item.price,
         gunType: item.gunType,

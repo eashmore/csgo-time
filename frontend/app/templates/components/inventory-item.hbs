@@ -1,3 +1,5 @@
-<a href="#" {{action "moveItem" item}}>
+<a class="list-item" href="#" id="item{{item.id}}"
+  {{action "moveItem" item element="currentTarget"}}
+>
   {{item.name}}
 </a>
