@@ -9,6 +9,8 @@ export default DS.Model.extend({
   isStattrack: DS.attr('boolean'),
   isSouvenir: DS.attr('boolean'),
   imageUrl: DS.attr('string'),
+  userId: DS.attr('number'),
+  betId: DS.attr('number'),
 
   user: DS.belongsTo('user'),
   bet: DS.belongsTo('bet')

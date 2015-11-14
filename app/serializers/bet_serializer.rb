@@ -1,5 +1,5 @@
 class BetSerializer < ActiveModel::Serializer
-  attributes :id
+  attributes :id, :user_id, :match_id, :team_id
 
   belongs_to :user
   belongs_to :match
