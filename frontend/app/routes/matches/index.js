@@ -13,7 +13,7 @@ export default Ember.Route.extend({
 
     let controller = this.controllerFor('teams.index');
     this.render('teams.index', {
-      into: 'matches',
+      into: 'matches.index',
       outlet: 'teams',
       controller: controller,
       model: currentMatch.get('teams'),
