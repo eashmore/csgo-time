@@ -10,8 +10,6 @@ export default Ember.Controller.extend({
       let matches = team.get('matches');
       var nextMatch = matches.objectAt(matches.get('length') - 1);
 
-      // Ember.Logger.log(nextMatch.get('id'));
-
       var newBet = this.store.createRecord('bet', {
         userId: currentUser.get('id'),
         teamId: team.get('id'),
@@ -29,9 +27,11 @@ export default Ember.Controller.extend({
 
       itemIds.forEach(function(itemId) {
         let item = this.store.peekRecord('item', itemId);
-        item.setProperties({'userId': 0, 'betId': newBet.get('id')});
+        item.setProperties({'userId': 0, 'betId': newBet.get('id'), 'user': null});
         item.save();
       }.bind(this));
+
+      this.transitionToRoute('matches.index');
     }
   }
 });
