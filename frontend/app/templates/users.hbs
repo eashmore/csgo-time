@@ -1,9 +1,7 @@
 <h2>{{model.username}}</h2>
 
-<ul>
-  {{render "items.generate"}}
-</ul>
+{{outlet "new-items"}}
 
 <hr>
 
-{{inventory-list obj=model}}
+{{outlet "stash"}}
