@@ -1,7 +1,7 @@
 ActiveModel::Serializer.config.adapter = :json
 
 class BetSerializer < ActiveModel::Serializer
-  attributes :id, :user_id, :match_id, :team_id
+  attributes :id, :total_value, :user_id, :match_id, :team_id
 
   belongs_to :user
   belongs_to :match

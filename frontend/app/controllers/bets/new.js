@@ -4,6 +4,13 @@ import $ from 'jquery';
 export default Ember.Controller.extend({
   actions: {
     submitBet() {
+      let itemElements = $('.newbet').find('.list-item');
+
+      let itemIds = [];
+      for (var i = 0; i < itemElements.length; i++) {
+        itemIds.push($(itemElements[i]).attr('data-item-id'));
+      }
+
       var currentUser = this.store.peekRecord('user', window.CURRENT_USER);
       var team = this.model;
 
@@ -13,23 +20,21 @@ export default Ember.Controller.extend({
       var newBet = this.store.createRecord('bet', {
         userId: currentUser.get('id'),
         teamId: team.get('id'),
-        matchId: nextMatch.get('id')
+        matchId: nextMatch.get('id'),
       });
 
-      newBet.save();
-
-      let itemElements = $('.newbet').find('.list-item');
-
-      let itemIds = [];
-      for (var i = 0; i < itemElements.length; i++) {
-        itemIds.push($(itemElements[i]).attr('data-item-id'));
-      }
-
+      var totalBet = 0;
       itemIds.forEach(function(itemId) {
         let item = this.store.peekRecord('item', itemId);
         item.setProperties({'userId': 0, 'betId': newBet.get('id'), 'user': null});
         item.save();
+
+        totalBet += item.get('price');
       }.bind(this));
+
+      newBet.set('totalValue', totalBet);
+
+      newBet.save();
 
       this.transitionToRoute('matches.index');
     }

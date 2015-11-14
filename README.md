@@ -4,8 +4,8 @@ This app will allow the betting of items on the outcome of CS:GO matches. It wil
 
 - [X] Create accounts
 - [X] Create sessions (log in)
-- [ ] View match details
-- [ ] Deposit and withdraw items onto account
+- [X] View match details
+- [X] Deposit and withdraw items onto account
 - [ ] Bet items on matches
 - [ ] Receive winnings from the betting pool through parimutuel betting
 

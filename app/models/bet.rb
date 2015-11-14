@@ -1,5 +1,5 @@
 class Bet < ActiveRecord::Base
-  validates :user, :match, :team, presence: true
+  validates :total_value, :user, :match, :team, presence: true
 
   belongs_to :user
   belongs_to :match
