@@ -22,9 +22,7 @@ Router.map(function() {
     });
   });
 
-  this.route('items', function() {
-    this.route('betting');
-  });
+  this.route('items');
 });
 
 export default Router;

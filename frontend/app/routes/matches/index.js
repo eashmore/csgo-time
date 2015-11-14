@@ -5,6 +5,8 @@ export default Ember.Route.extend({
     return this.store.findAll('match');
   },
 
+  controllerName: 'matches',
+
   renderTemplate(c, matches) {
     let matchIdx = matches.get('length') - 1;
     let currentMatch = matches.objectAt(matchIdx);
