@@ -1,3 +1,5 @@
 <ul>
-  {{yield}}
+  {{#each obj.items as |item|}}
+    {{inventory-item item=item}}
+  {{/each}}
 </ul>

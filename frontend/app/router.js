@@ -12,7 +12,7 @@ Router.map(function() {
     });
   });
 
-  this.route('users', { path: '/user/:user_id'}, function() {
+  this.route('users', { path: '/user/'}, function() {
     this.route('items', function() {
       this.route('generate');
     });

@@ -1,1 +1,9 @@
-{{outlet}}
+<h2>{{model.username}}</h2>
+
+<ul>
+  {{render "items.generate"}}
+</ul>
+
+<hr>
+
+{{inventory-list obj=model}}
