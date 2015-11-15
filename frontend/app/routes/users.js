@@ -2,7 +2,10 @@ import Ember from 'ember';
 
 export default Ember.Route.extend({
   model() {
-    return this.store.peekRecord('user', window.CURRENT_USER);
+    return Ember.RSVP.hash({
+      user: this.store.peekRecord('user', window.CURRENT_USER),
+      itemDB: this.store.findAll('itemdb')
+    });
   },
 
   renderTemplate(c, model) {
@@ -10,13 +13,14 @@ export default Ember.Route.extend({
 
     this.render('items.generate', {
       into: 'users',
-      outlet: 'new-items'
+      outlet: 'new-items',
+      model: model.itemDB
     });
 
-    this.render('items', {
+    this.render('items.stash', {
       into: 'users',
       outlet: 'stash',
-      model: model.get('items')
+      model: model.user.get('items')
     });
   }
 });

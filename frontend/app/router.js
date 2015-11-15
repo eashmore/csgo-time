@@ -16,13 +16,12 @@ Router.map(function() {
     });
   });
 
-  this.resource('users', { path: '/user/'}, function() {
+  this.resource('users', { path: '/user'}, function() {
     this.resource('items', function() {
+      this.route('stash');
       this.route('generate');
     });
   });
-
-  this.route('items');
 });
 
 export default Router;

@@ -18,12 +18,14 @@ export default Ember.Controller.extend({
   },
 
   getItemIds() {
-    let itemElements = $('.newbet').find('.list-item');
-    let itemIds = [];
+    var itemElements = $('.newbet').find('.list-item');
+    var itemIds = [];
 
     for (var i = 0; i < itemElements.length; i++) {
       itemIds.push($(itemElements[i]).attr('data-item-id'));
     }
+
+    return itemIds;
   },
 
   actions: {

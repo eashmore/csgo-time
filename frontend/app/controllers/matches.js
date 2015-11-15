@@ -64,7 +64,7 @@ export default Ember.Controller.extend({
       let bets = match.get('bets');
 
       let payout = this.getPayout(winTeam, bets);
-
+      
 
     }
   }
