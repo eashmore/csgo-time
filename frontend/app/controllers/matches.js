@@ -6,7 +6,7 @@ export default Ember.Controller.extend({
     var winnerPool = 0;
 
     bets.forEach(function(bet) {
-      let betValue = bet.get('totalValue');
+      var betValue = bet.get('totalValue');
       betPool += betValue;
       if (bet.get('team_id') === team.get('id')) {
         winnerPool += betValue;
@@ -15,57 +15,104 @@ export default Ember.Controller.extend({
 
     betPool = this.takeCut(betPool);
 
-    let payout = betPool/winnerPool;
+    var payout = betPool/winnerPool;
     return payout;
   },
 
   takeCut(pool) {
-    let cut = pool * 0.15;
+    var cut = pool * 0.15;
     pool -= cut;
     return pool;
   },
 
-  makeChange(target, items) {
-    if (items.length === 0) {
-      return null;
+  closestPayoutValue(target, items) {
+    if (target <= 0) {
+      return 0;
     }
 
-    items = items.sort(function(a, b) {
-      return a - b;
-    });
+    var bestDiff = null;
 
     for(var i = 0; i < items.length; i++) {
-      let price = items[i].get('price');
+      var price = items[i].get('price');
+
+      if (bestDiff === null) {
+        bestDiff = price;
+      }
+
+      if (price > target) {
+        if (Math.abs(target - (bestDiff + price)) < Math.abs(target - bestDiff)) {
+          bestDiff += price;
+          return bestDiff;
+        }
+        continue;
+      }
+
+      var remainder = target - price;
+      var remainingItems = items.slice(i, items.length);
+      var bestRemainder = this.makeChange(remainder, remainingItems);
+
+      var currentRemainder = (price + bestRemainder);
+
+      if (Math.abs(target - currentRemainder) < Math.abs(target - bestDiff)) {
+        bestDiff = currentRemainder;
+      }
+    }
+
+    return bestDiff;
+  },
+
+  bestPayout(target, items) {
+    if (target === 0) {
+      return [];
+    }
+
+    var currentRemainder = null;
+
+    for(var i = 0; i < items.length; i++) {
+      var price = items[i].get('price');
 
       if (price > target) {
         continue;
       }
 
-      let remainder = target - price;
-      let remainingItems = items.slice(1);
+      var remainder = target - price;
+      var remainingItems = items.slice(i, items.length);
       var bestRemainder = this.makeChange(remainder, remainingItems);
 
-      if (bestRemainder === null) {
-        continue;
-      }
-
-      var currentRemainder = [items[i]] + bestRemainder;
-
-      if (!bestRemainder || (currentRemainder.length < bestRemainder.length)) {
-        bestRemainder = currentRemainder;
-      }
+      currentRemainder = [items[i]].concat(bestRemainder);
     }
+
+    return currentRemainder;
+  },
+
+  payUser(payout, user) {
+    payout.forEach(function(item) {
+      item.set('user_id', user.get('id'));
+      user.get('items').pushObject(item);
+    });
   },
 
   actions: {
     payBets() {
-      let match = this.get('model');
-      let winTeam = match.get('winner');
-      let bets = match.get('bets');
+      var match = this.get('model');
+      var winTeam = match.get('winner');
+      var bets = match.get('bet');
+      var winners = winTeam.get('bet');
 
-      let payout = this.getPayout(winTeam, bets);
-      
+      var items = this.store.findAll('itemdb', { async: false });
 
+      items = items.toArray().sort(function(a, b) {
+        return b.get('price') - a.get('price');
+      });
+
+      var payoutRatio = this.getPayout(winTeam, bets);
+
+      winners.forEach(function(bet) {
+        var payoutValue = payoutRatio * bet.get('totalValue');
+        var closestPayoutValue = this.closestPayoutValue(payoutValue, items);
+        var payout = this.bestPayout(closestPayoutValue, items);
+        this.payUser(payout, bet.get('user'));
+      });
     }
   }
 });
