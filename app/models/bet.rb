@@ -1,5 +1,5 @@
 class Bet < ActiveRecord::Base
-  validates :total_value, :user, :match, :team, :items, presence: true
+  validates :total_value, :user, :match, :team, presence: true
   validates :total_value, numericality: { greater_than: 10 }
   validates :items, length: { minumum: 1, maximum: 10 }
 

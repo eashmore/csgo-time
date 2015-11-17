@@ -1,17 +1,36 @@
 import Ember from 'ember';
 
 export default Ember.Controller.extend({
-  getPayout(team, bets) {
+
+  itemGenerator(item, userId) {
+    var newItem = this.store.createRecord('item', {
+      name: item.get('name'),
+      price: item.get('price'),
+      gunType: item.get('gunType'),
+      imageUrl: item.get('imageUrl'),
+      condition: item.get('condition'),
+      rarity: item.get('rarity'),
+      isStattrack: item.get('isStattrack'),
+      isSouvenir: item.get('isSouvenir'),
+      userId: userId
+    });
+
+    newItem.save();
+
+    return newItem;
+  },
+
+  getPayoutRatio(team, bets) {
     var betPool = 0;
     var winnerPool = 0;
 
     bets.forEach(function(bet) {
       var betValue = bet.get('totalValue');
       betPool += betValue;
-      if (bet.get('team_id') === team.get('id')) {
+      if (bet.get('teamId') == team.get('id')) {
         winnerPool += betValue;
       }
-    });
+    }.bind(this));
 
     betPool = this.takeCut(betPool);
 
@@ -25,51 +44,21 @@ export default Ember.Controller.extend({
     return pool;
   },
 
-  closestPayoutValue(target, items) {
+  getPayout(target, items) {
+    target = (Math.round(target * 100)) / 100;
     if (target <= 0) {
-      return 0;
-    }
-
-    var bestDiff = null;
-
-    for(var i = 0; i < items.length; i++) {
-      var price = items[i].get('price');
-
-      if (bestDiff === null) {
-        bestDiff = price;
-      }
-
-      if (price > target) {
-        if (Math.abs(target - (bestDiff + price)) < Math.abs(target - bestDiff)) {
-          bestDiff += price;
-          return bestDiff;
-        }
-        continue;
-      }
-
-      var remainder = target - price;
-      var remainingItems = items.slice(i, items.length);
-      var bestRemainder = this.makeChange(remainder, remainingItems);
-
-      var currentRemainder = (price + bestRemainder);
-
-      if (Math.abs(target - currentRemainder) < Math.abs(target - bestDiff)) {
-        bestDiff = currentRemainder;
-      }
-    }
-
-    return bestDiff;
-  },
-
-  bestPayout(target, items) {
-    if (target === 0) {
       return [];
     }
 
-    var currentRemainder = null;
+    items = items.sort(function(a,b) {
+      return b-a;
+    });
 
-    for(var i = 0; i < items.length; i++) {
-      var price = items[i].get('price');
+    var payout = [];
+
+    for (var i = 0; i < items.length; i++) {
+      var item = items[i];
+      var price = item.get('price');
 
       if (price > target) {
         continue;
@@ -77,42 +66,59 @@ export default Ember.Controller.extend({
 
       var remainder = target - price;
       var remainingItems = items.slice(i, items.length);
-      var bestRemainder = this.makeChange(remainder, remainingItems);
 
-      currentRemainder = [items[i]].concat(bestRemainder);
+      var currentPayout = this.getPayout(remainder, remainingItems);
+      if(!currentPayout) {
+        continue;
+      }
+
+      payout = [items[i]].concat(currentPayout);
+      return payout;
+
     }
 
-    return currentRemainder;
+    return payout;
   },
 
   payUser(payout, user) {
-    payout.forEach(function(item) {
-      item.set('user_id', user.get('id'));
-      user.get('items').pushObject(item);
-    });
+    for (var i = 0; i < payout.length; i++) {
+      var userId = user.get('id');
+      this.itemGenerator(payout[i], userId);
+    }
   },
 
   actions: {
     payBets() {
       var match = this.get('model');
       var winTeam = match.get('winner');
-      var bets = match.get('bet');
-      var winners = winTeam.get('bet');
+      // var winners = winTeam.get('bets');
+      var winners = [];
+      var bets = match.get('bets');
 
-      var items = this.store.findAll('itemdb', { async: false });
-
-      items = items.toArray().sort(function(a, b) {
-        return b.get('price') - a.get('price');
+      bets.forEach(function(bet) {
+        if (bet.get('teamId') == winTeam.get('id')) {
+          winners.push(bet);
+        }
       });
 
-      var payoutRatio = this.getPayout(winTeam, bets);
+      if (!bets) {
+        return null;
+      }
 
-      winners.forEach(function(bet) {
-        var payoutValue = payoutRatio * bet.get('totalValue');
-        var closestPayoutValue = this.closestPayoutValue(payoutValue, items);
-        var payout = this.bestPayout(closestPayoutValue, items);
-        this.payUser(payout, bet.get('user'));
-      });
+      this.store.findAll('itemdb').then(function(items) {
+        items = items.toArray().sort(function(a, b) {
+          return b.get('price') - a.get('price');
+        });
+
+        var payoutRatio = this.getPayoutRatio(winTeam, bets);
+        for (var i = 0; i < winners.length; i++) {
+          var bet = winners[i];
+          var payoutValue = payoutRatio * bet.get('totalValue');
+          var payout = this.getPayout(payoutValue, items);
+          this.payUser(payout, bet.get('user'));
+        }
+
+      }.bind(this));
     }
   }
 });
