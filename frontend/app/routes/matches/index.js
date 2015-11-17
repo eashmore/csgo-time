@@ -10,27 +10,35 @@ export default Ember.Route.extend({
   controllerName: 'matches',
 
   afterModel(matches) {
-    var matchIdx = matches.get('length') - 1;
-    this.currentMatch = matches.objectAt(matchIdx);
+    // var matchIdx = matches.get('length') - 1;
+    this.currentMatch = matches.objectAt(0);
+    // matches.objectAt(2).get('length')
+    Ember.Logger.log(this.currentMatch);
 
     var that = this;
-    if (!that.currentMatch.get('hasStarted')) {
-      var controller = this.controllerFor('matches.index');
-      var timer = setInterval(function() {
-        var time = controller.updateTime(that.currentMatch);
-        if (time <= 0) {
-          clearInterval(timer);
-          that.render('matches.inprogress', {
-            into: 'matches',
-            model: that.currentMatch
-          });
-        }
-      }.bind(controller), 1000);
-    }
-  },
+    var controller = this.controllerFor('matches.index');
+    var timer = setInterval(function() {
+      var time = controller.updateTime(that.currentMatch);
+      if (time <= 0) {
+        clearInterval(timer);
+
+        // that.currentMatch.set('hasStarted', true);
+        // that.currentMatch.save();
+
+        that.render('matches.inprogress', {
+          into: 'matches',
+          model: matches.objectAt(0)
+        });
+
+      }
+    }.bind(controller), 1000);
+},
 
   renderTemplate(c) {
-    this.render('matches.index', { model: this.currentMatch, controller: c });
+    this.render('matches.index', {
+      model: this.currentMatch,
+      controller: c
+    });
 
     let controller = this.controllerFor('teams.index');
     this.render('teams.index', {

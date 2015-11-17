@@ -7,6 +7,8 @@ var Router = Ember.Router.extend({
 
 Router.map(function() {
   this.resource('matches', { path: '/' }, function() {
+    this.route('inprogress');
+    
     this.resource('teams', function() {
       this.route('show', {path: '/:team_id'});
 
@@ -21,10 +23,6 @@ Router.map(function() {
       this.route('stash');
       this.route('generate');
     });
-  });
-
-  this.route('matches', function() {
-    this.route('inprogress');
   });
 });
 

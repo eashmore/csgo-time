@@ -11,22 +11,21 @@ export default DS.RESTSerializer.extend(DS.EmbeddedRecordsMixin, {
   attrs: {
 
     // matches
-    teams: { embedded: 'always' },
-    winner: { embedded: 'always' },
+    teams: { deserialize: 'records', serialize: false },
 
     // teams
-    matches: { embedded: 'always' },
+    matches: { deserialize: 'records', serialize: false },
 
     // matches, teams and users
-    bets: { embedded: 'always' },
+    bets: { deserialize: 'records', serialize: false },
 
     // users and bets
-    items: { embedded: 'always' },
+    items: { deserialize: 'records', serialize: false },
 
     // bets
-    user: { embedded: 'always' },
-    match: { embedded: 'always' },
-    team: { embedded: 'always' }
+    user: { deserialize: 'records', serialize: false },
+    match: { deserialize: 'records', serialize: false },
+    team: { deserialize: 'records', serialize: false }
 
   }
 });

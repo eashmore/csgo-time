@@ -2,7 +2,7 @@ User.create(username: 'username', password: 'password')
 
 # match = Match.create()
 
-match = Match.create(winner_id: 1, has_started: false)
+match = Match.create(map: "de_dust2", current_round: 0)
 
 
 team1 = Team.create(name: "WOW_WE_LAGGED")

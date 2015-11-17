@@ -3,7 +3,7 @@ class CreateMatches < ActiveRecord::Migration
     create_table :matches do |t|
       t.datetime :start_time
       t.boolean :has_started, default: false
-      t.integer :current_round
+      t.integer :current_round, default: 1
       t.integer :winner_id
 
       t.timestamps null: false
