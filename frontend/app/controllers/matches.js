@@ -88,7 +88,7 @@ export default Ember.Controller.extend({
     }
   },
 
-  updateTime() {
+  updateTime(match) {
     var secToHours = function(sec) {
       var sec_num = parseInt(sec, 10);
       var hours   = Math.floor(sec_num / 3600);
@@ -102,24 +102,19 @@ export default Ember.Controller.extend({
       return time;
     };
 
-    var model = this.get('model');
-    var startTime = model.get('startTime');
+    var startTime = match.get('startTime');
 
     var timeLeft = new Date(startTime) - (new Date());
     timeLeft = timeLeft / 1000;
-    timeLeft = secToHours(timeLeft);
 
-    if (timeLeft <= 0) {
-      this.startMatch();
-    }
+    // testing
+    timeLeft = 0;
 
-    this.set('timeLeft', timeLeft);
+    var timeLeftString = secToHours(timeLeft);
 
-  },
+    this.set('timeLeft', timeLeftString);
 
-  startMatch(match) {
-    match.setProperties({'currentRound': 1, 'has_started': true});
-    match.save();
+    return timeLeft;
   },
 
   actions: {

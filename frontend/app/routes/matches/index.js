@@ -5,29 +5,39 @@ export default Ember.Route.extend({
     return this.store.findAll('match');
   },
 
+  currentMatch: "",
+
   controllerName: 'matches',
 
-  afterModel() {
-    var controller = this.controllerFor('matches.index');
-    setInterval(controller.updateTime.bind(controller), 1000);
+  afterModel(matches) {
+    var matchIdx = matches.get('length') - 1;
+    this.currentMatch = matches.objectAt(matchIdx);
+
+    var that = this;
+    if (!that.currentMatch.get('hasStarted')) {
+      var controller = this.controllerFor('matches.index');
+      var timer = setInterval(function() {
+        var time = controller.updateTime(that.currentMatch);
+        if (time <= 0) {
+          clearInterval(timer);
+          that.render('matches.inprogress', {
+            into: 'matches',
+            model: that.currentMatch
+          });
+        }
+      }.bind(controller), 1000);
+    }
   },
 
-  renderTemplate(c, matches) {
-    let matchIdx = matches.get('length') - 1;
-    let currentMatch = matches.objectAt(matchIdx);
-
-    if (currentMatch.get('hasStarted')) {
-      this.render('matches.inprogress', { model: currentMatch });
-    } else {
-      this.render('matches.index', { model: currentMatch, controller: c });
-    }
+  renderTemplate(c) {
+    this.render('matches.index', { model: this.currentMatch, controller: c });
 
     let controller = this.controllerFor('teams.index');
     this.render('teams.index', {
-      into: 'matches',
+      into: 'matches.index',
       outlet: 'teams',
       controller: controller,
-      model: currentMatch.get('teams'),
+      model: this.currentMatch.get('teams'),
     });
   }
 });
