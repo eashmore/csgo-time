@@ -1,6 +1,7 @@
 import Ember from 'ember';
 
 export default Ember.Controller.extend({
+  timeLeft: "",
 
   itemGenerator(item, userId) {
     var newItem = this.store.createRecord('item', {
@@ -87,6 +88,40 @@ export default Ember.Controller.extend({
     }
   },
 
+  updateTime() {
+    var secToHours = function(sec) {
+      var sec_num = parseInt(sec, 10);
+      var hours   = Math.floor(sec_num / 3600);
+      var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
+      var seconds = sec_num - (hours * 3600) - (minutes * 60);
+
+      if (hours   < 10) {hours   = "0"+hours;}
+      if (minutes < 10) {minutes = "0"+minutes;}
+      if (seconds < 10) {seconds = "0"+seconds;}
+      var time = hours+' hour : '+minutes+' min : '+seconds+' sec';
+      return time;
+    };
+
+    var model = this.get('model');
+    var startTime = model.get('startTime');
+
+    var timeLeft = new Date(startTime) - (new Date());
+    timeLeft = timeLeft / 1000;
+    timeLeft = secToHours(timeLeft);
+
+    if (timeLeft <= 0) {
+      this.startMatch();
+    }
+
+    this.set('timeLeft', timeLeft);
+
+  },
+
+  startMatch(match) {
+    match.setProperties({'currentRound': 1, 'has_started': true});
+    match.save();
+  },
+
   actions: {
     payBets() {
       var match = this.get('model');
@@ -119,6 +154,6 @@ export default Ember.Controller.extend({
         }
 
       }.bind(this));
-    }
+    },
   }
 });

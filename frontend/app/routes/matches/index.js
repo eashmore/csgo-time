@@ -7,15 +7,24 @@ export default Ember.Route.extend({
 
   controllerName: 'matches',
 
+  afterModel() {
+    var controller = this.controllerFor('matches.index');
+    setInterval(controller.updateTime.bind(controller), 1000);
+  },
+
   renderTemplate(c, matches) {
     let matchIdx = matches.get('length') - 1;
     let currentMatch = matches.objectAt(matchIdx);
 
-    this.render('matches.index', { model: currentMatch });
+    if (currentMatch.get('hasStarted')) {
+      this.render('matches.inprogress', { model: currentMatch });
+    } else {
+      this.render('matches.index', { model: currentMatch, controller: c });
+    }
 
     let controller = this.controllerFor('teams.index');
     this.render('teams.index', {
-      into: 'matches.index',
+      into: 'matches',
       outlet: 'teams',
       controller: controller,
       model: currentMatch.get('teams'),

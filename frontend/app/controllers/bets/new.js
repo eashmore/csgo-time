@@ -29,6 +29,18 @@ export default Ember.Controller.extend({
     return itemIds;
   },
 
+  successfulSave(bet, itemHash) {
+    var keys = Object.keys(itemHash);
+    for (var i = 0; i < keys.length; i++) {
+      var item = itemHash[keys[i]];
+      item.setProperties({'userId': null, 'betId': bet.get('id'), 'user': null});
+      item.save();
+      // currentUser.get('items').removeObject(item);
+
+      this.transitionToRoute('matches.index');
+    }
+  },
+
   actions: {
     submitBet() {
       var newBet = this.newBet();
@@ -43,16 +55,7 @@ export default Ember.Controller.extend({
       }.bind(this));
 
       newBet.set('totalValue', totalBet);
-      newBet.save();
-
-      Object.keys(itemIds).forEach(function(itemId) {
-        var item = itemIds[itemId];
-        item.get('user').get('items').removeObject('item');
-        item.setProperties({'userId': null, 'betId': newBet.get('id'), 'user': null});
-        item.save();
-      });
-
-      this.transitionToRoute('matches.index');
+      newBet.save().then(this.successfulSave(newBet, itemIds));
     }
   }
 });

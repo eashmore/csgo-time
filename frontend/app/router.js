@@ -22,6 +22,10 @@ Router.map(function() {
       this.route('generate');
     });
   });
+
+  this.route('matches', function() {
+    this.route('inprogress');
+  });
 });
 
 export default Router;

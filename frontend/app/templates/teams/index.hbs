@@ -1,8 +1,6 @@
 {{#each model as |team|}}
   <a href="#" {{action "toTeamPage" team "team"}}>
     <label>{{team.name}}</label>
-    <br>
-    odds:{{team.odds}}
   </a>
   <br>
 {{/each}}

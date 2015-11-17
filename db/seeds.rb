@@ -1,6 +1,9 @@
 User.create(username: 'username', password: 'password')
 
-match = Match.create(winner_id: 1)
+# match = Match.create()
+
+match = Match.create(winner_id: 1, has_started: false)
+
 
 team1 = Team.create(name: "WOW_WE_LAGGED")
 team2 = Team.create(name: "php_poets")

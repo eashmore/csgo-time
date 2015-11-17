@@ -1,7 +1,9 @@
-<h2>This match starts: {{model.startTime}}</h2>
+<h2>Next match starts in:
+  {{timeLeft}}
+</h2>
 
 {{outlet}}
 
-{{outlet 'teams'}}
-
 <button {{action 'payBets'}}>Pay Bets</button>
+
+<br>
