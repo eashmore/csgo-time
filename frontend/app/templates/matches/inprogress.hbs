@@ -3,7 +3,7 @@
 Map: {{model.map}}<br>
 Current Round: {{model.currentRound}}<br>
 
-{{#each model.teams as |team|}}
+{{#each sortedTeams as |team|}}
   <img class="team-avatar" src="{{team.avatarUrl}}" alt="" />
   <p>{{team.name}}</p>
 {{/each}}

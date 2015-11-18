@@ -30,6 +30,6 @@ class Api::TeamsController < ApplicationController
 
   private
   def team_params
-    params.require(:team).permit(:name, :odds, :avatar_url)
+    params.require(:team).permit(:name, :odds, :score, :avatar_url)
   end
 end

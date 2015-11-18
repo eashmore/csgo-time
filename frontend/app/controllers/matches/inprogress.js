@@ -11,43 +11,48 @@ export default Ember.Controller.extend({
     this.simulateMatch();
   },
 
-  simulateRound(match) {
+  sortedTeams: function(){
+    var teams = this.model.get('teams');
+    return teams.sortBy('id');
+  }.property('boardItems.@each.id'),
+
+  simulateRound(match, team1, team2) {
     var win = Math.round(Math.random() - 0.2);
 
     if (win === 0) {
-      match.incrementProperty('team1Score');
-      match.incrementProperty('currentRound');
-      match.save();
-
+      team1.incrementProperty('score');
+      team1.save();
     } else {
-      match.incrementProperty('team2Score');
-      match.incrementProperty('currentRound');
-
-      match.save();
+      team2.incrementProperty('score');
+      team2.save();
     }
+    match.incrementProperty('currentRound');
+    match.save();
   },
 
   simulateMatch() {
     var sim = setInterval(function() {
       var match = this.model;
-      var teams = match.get('teams');
-      var winner;
+      var teams = this.get('sortedTeams');
 
-      this.set('team1Wins', match.get('team1Score'));
-      this.set('team2Wins', match.get('team2Score'));
+      var team1 = teams.get('firstObject');
+      var team2 = teams.get('lastObject');
+
+      this.set('team1Wins', team1.get('score'));
+      this.set('team2Wins', team2.get('score'));
 
       if (this.team1Wins >= 9 || this.team2Wins >= 9) {
         clearInterval(sim);
-        winner = this.team1Wins > this.team2wins ? teams.objectAt(0) : teams.objectAt(1);
+        var winner = this.team1Wins > this.team2wins ? team1 : team2;
         match.set('winnerId', winner.get('id'));
         match.save();
 
         var matchesController = this.get('matchesController');
         matchesController.payBets();
       } else {
-        this.simulateRound(match);
+        this.simulateRound(match, team1, team2);
 
       }
-    }.bind(this), 1000);
+    }.bind(this), 2000);
   }
 });
