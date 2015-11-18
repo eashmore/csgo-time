@@ -109,7 +109,7 @@ export default Ember.Controller.extend({
     timeLeft = timeLeft / 1000;
 
     // for testing
-    timeLeft = 0;
+    // timeLeft = 0;
     // timeLeft = -14400001;
 
     var timeLeftString = secToHours(timeLeft);
@@ -119,10 +119,10 @@ export default Ember.Controller.extend({
     return timeLeft;
   },
 
-  removeBets(bets, match) {
+  removeBets(bets) {
     bets.toArray().forEach(function(bet) {
       bet.set('matchId', 0);
-      match.get('bets').removeObject(bet);
+      bet.save();
     });
   },
 
@@ -157,6 +157,7 @@ export default Ember.Controller.extend({
 
       var payoutRatio = this.getPayoutRatio(winTeam, bets);
       for (var i = 0; i < winners.length; i++) {
+        Ember.Logger.log('here');
         var bet = winners[i];
         var payoutValue = payoutRatio * bet.get('totalValue');
         var payout = this.getPayout(payoutValue, items);
@@ -166,6 +167,6 @@ export default Ember.Controller.extend({
 
     }.bind(this));
 
-    this.removeBets(bets, match);
+    this.removeBets(bets);
   },
 });

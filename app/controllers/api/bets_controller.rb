@@ -10,12 +10,22 @@ class Api::BetsController < ApplicationController
   end
 
   def show
-    @bet = Bet.find(params[id])
+    @bet = Bet.find(params[:id])
     render json: @bet
   end
 
+  def update
+    @bet = Bet.find(params[:id])
+
+    if @bet.update(bet_params)
+      render json: @bet
+    else
+      render json: @bet.errors.full_messages, status: :unprocessable_entity
+    end
+  end
+
   def destroy
-    @bet = Bet.find(params[id])
+    @bet = Bet.find(params[:id])
     @bet.destroy
 
     render json: []
