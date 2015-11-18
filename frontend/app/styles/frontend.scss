@@ -20,6 +20,11 @@ nav.navbar {
   border: 0px solid black;
   border-radius: 0px;
 }
+nav.navbar-default .navbar-nav>li>a {
+  color: white;
+  // border-left: 1px solid black;
+  // border-right: 1px solid black;
+}
 
 .center-text {
   text-align: center;

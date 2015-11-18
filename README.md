@@ -6,8 +6,17 @@ This app will allow the betting of items on the outcome of CS:GO matches. It wil
 - [X] Create sessions (log in)
 - [X] View match details
 - [X] Deposit and withdraw items onto account
-- [ ] Bet items on matches
-- [ ] Receive winnings from the betting pool through parimutuel betting
+- [X] Bet items on matches
+- [X] Receive winnings from the betting pool through parimutuel betting
+
+## To-Do
+* Write integration tests
+* Improve accuracy of payout algorithm
+* Calculate odds for each team
+* Move content into component to keep code organized and DRY
+* More seeds data
+* Improve general UX
+* Refactor everything!
 
 ## Design Docs
 * [Proposed DB schema][schema]

@@ -20,7 +20,14 @@ column name     | data type | details
 id              | integer   | not null, primary key
 name            | string    | not null, unique
 odds            | float     | not null
-match_id        | integer   |
+match_id        | integer   | foreign key
+
+## match_linups
+column name     | data type | details
+----------------|-----------|-----------------------
+id              | integer   | not null, primary key
+match_id        | string    | not null, foreign key
+team_id         | integer   | not null, foreign key
 
 ## items
 column name     | data type | details
@@ -28,13 +35,15 @@ column name     | data type | details
 id              | integer   | not null, primary key
 name            | string    | not null
 price           | float     | not null
-user_id         | integer   | not null
-bet_id          | integer   |
+user_id         | integer   | foreign key
+bet_id          | integer   | foreign key
 
 ## bets
 column name     | data type | details
 ----------------|-----------|-----------------------
 id              | integer   | not null, primary key
-total_value     | integer   | not null
-user_id         | integer   | not null
-match_id        | integer   | not null
+total_value     | float     | not null
+user_id         | integer   | not null, foreign key
+match_id        | integer   | not null, foreign key
+user_id         | integer   | not null, foreign key
+team_id         | integer   | not null, foreign key
