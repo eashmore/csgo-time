@@ -6,13 +6,13 @@ body {
 }
 
 ::-webkit-scrollbar {
-    // background-color: #3a476a;
-    width: 7px;
+    background-color: #3a476a;
+    width:8px;
 }
 
 ::-webkit-scrollbar-thumb {
-    background-color: #303358;
-    border-radius: 1px;
+    background-color: #000123;
+    border-radius: 10px;
 }
 
 nav.navbar {
@@ -58,19 +58,23 @@ nav.navbar-default .navbar-nav>li>a {
 }
 
 .vs {
-  font-size: 75px;
+  font-size: 65px;
   font-weight: bold;
   position: relative;
   top: 20%;
+  z-index: -100;
+  color: white;
 }
-
 
 // teams
 .team-idx {
+  position: absolute;
+  z-index: -1000;
   background-color: rgba(100, 100, 100, .5);
   margin-left: 25%;
   margin-right: 25%;
-  height: 425px;
+  height: 50%;
+  width: 50%;
   border: 3px solid black;
   border-radius: 3px;
 }
@@ -78,7 +82,7 @@ nav.navbar-default .navbar-nav>li>a {
 .teams {
   z-index: 100;
   font-size: 25px;
-  color: black;
+  color: darkorange;
   cursor: pointer;
   margin-top: 25px;
 }
@@ -98,6 +102,16 @@ nav.navbar-default .navbar-nav>li>a {
   max-width: 250px;
   border-radius: 3px;
   border: 2px solid black;
+}
+
+.team-avatar:hover {
+  // outline: none;
+  border-color: #ffbd6c;
+  box-shadow: 0 0 10px #ffbd6c;
+}
+
+.btn.place-bet {
+  margin-top: 7%;
 }
 
 // items
@@ -127,15 +141,22 @@ nav.navbar-default .navbar-nav>li>a {
   float: right;
 }
 
-.inv-item{
+.inv-item {
   cursor: pointer;
   border-radius: 3px;
-  border: 3px solid #000123;
+  border: 3px solid grey;
   background-color: lightgray;
   margin: 15px;
   width: 185px;
   height: 160px;
   float: left;
+}
+
+.inv-item:hover {
+  cursor: pointer;
+  border: 5px solid darkgrey;
+  border-style: inset;
+  background-color: grey;
 }
 
 .item-image {

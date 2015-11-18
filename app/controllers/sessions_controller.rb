@@ -1,5 +1,6 @@
 class SessionsController < ApplicationController
   def new
+    sign_out! if current_user
   end
 
   def create
