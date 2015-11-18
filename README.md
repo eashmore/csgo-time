@@ -1,6 +1,6 @@
 # Kickback Project
 ## Minimum Viable Product
-This app will allow the betting of items on the outcome of CS:GO matches. It will be built on Rails and Ember and allow users to:
+This app will allow for the betting of items on the outcome of CS:GO matches. It will be built on Rails and Ember and allow users to:
 
 - [X] Create accounts
 - [X] Create sessions (log in)
@@ -20,5 +20,7 @@ This app will allow the betting of items on the outcome of CS:GO matches. It wil
 
 ## Design Docs
 * [Proposed DB schema][schema]
+* [Payout Algorithm][payout]
 
 [schema]: ./docs/schema.md
+[payout]: ./docs/payout.md

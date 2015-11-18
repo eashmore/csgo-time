@@ -52,10 +52,6 @@ export default Ember.Controller.extend({
       return [];
     }
 
-    items = items.sort(function(a,b) {
-      return b-a;
-    });
-
     var payout = [];
 
     for (var i = 0; i < items.length; i++) {
