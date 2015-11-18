@@ -3,7 +3,7 @@ import $ from 'jquery';
 
 export default Ember.Controller.extend({
   actions: {
-    betItem(element) {
+    betItem(element, isBet) {
       let elementId = element.get('id');
       let htmlId = "#item" + elementId;
       let $el = $(htmlId);
@@ -12,7 +12,13 @@ export default Ember.Controller.extend({
 
       $el.attr("data-item-id", elementId);
 
-      $('.newbet').append("<div>").append($el).append("</div>");
+      if (isBet) {
+        $('.stash').append($el);
+        isBet = false;
+      } else {
+        $('.newbet').append($el);
+        isBet = true;
+      }
     }
   }
 });

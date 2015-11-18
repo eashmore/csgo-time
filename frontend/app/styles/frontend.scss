@@ -2,7 +2,7 @@
 body {
   background: url('http://res.cloudinary.com/dqucbuno8/image/upload/v1447826196/Counter-Strike-Wallpaper-1920x1080-4_utq3oz.jpg') center top repeat-y #000000;
   background-color: black;
-  color: black;
+  color: white;
 }
 
 ::-webkit-scrollbar {
@@ -15,17 +15,6 @@ body {
     border-radius: 10px;
 }
 
-nav.navbar {
-  background-color: #d45500;
-  border: 0px solid black;
-  border-radius: 0px;
-}
-nav.navbar-default .navbar-nav>li>a {
-  color: white;
-  // border-left: 1px solid black;
-  // border-right: 1px solid black;
-}
-
 .center-text {
   text-align: center;
 }
@@ -36,15 +25,19 @@ nav.navbar-default .navbar-nav>li>a {
   clear: both;
 }
 
-// splash page
-// .splash-content {
-//   background-color: #646D7E;
-//   height: 650px;
-//   border-radius: 3px;
-// }
+// navbar
+nav.navbar {
+  background-color: #d45500;
+  border: 0px solid black;
+  border-radius: 0px;
+}
 
+nav.navbar-default .navbar-nav>li>a {
+  color: white;
+}
+
+// splash page
 .next-match {
-  // background-color: #303358;
   background-color: rgba(35, 35, 35, .8);
   margin-top: 3%;
   color: white;
@@ -104,14 +97,19 @@ nav.navbar-default .navbar-nav>li>a {
 }
 
 .team-avatar.team-bets:hover {
-  // outline: none;
   cursor: pointer;
   border-color: #ffbd6c;
   box-shadow: 0 0 10px #ffbd6c;
 }
 
-.btn.place-bet {
+.btn.betting-page {
   margin-top: 7%;
+}
+
+.btn.place-bet {
+  position: relative;
+  left: 1em;
+  top: 2em;
 }
 
 // items
@@ -142,6 +140,7 @@ nav.navbar-default .navbar-nav>li>a {
 }
 
 .inv-item {
+  color: black;
   cursor: pointer;
   border-radius: 3px;
   border: 3px solid grey;

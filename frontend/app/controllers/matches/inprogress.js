@@ -22,6 +22,7 @@ export default Ember.Controller.extend({
       team2.incrementProperty('score');
       team2.save();
     }
+    
     match.incrementProperty('currentRound');
     match.save();
   },

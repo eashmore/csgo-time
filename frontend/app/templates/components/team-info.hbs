@@ -1,5 +1,9 @@
 <img class="team-avatar team-bets" src="{{team.avatarUrl}}" {{action "toBetPage" team}}>
 <br>
+
 <label class="">{{team.name}}</label>
 <br>
-<button class="btn btn-warning place-bet" {{action "toBetPage" team}}>Bet on {{team.name}}</button>
+
+<button class="btn btn-warning betting-page" {{action "toBetPage" team}}>
+  Bet on {{team.name}}
+</button>

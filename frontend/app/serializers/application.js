@@ -9,7 +9,6 @@ export default DS.RESTSerializer.extend(DS.EmbeddedRecordsMixin, {
   },
 
   attrs: {
-
     // matches
     teams: { deserialize: 'records', serialize: false },
     winner: { deserialize: 'records', serialize: false },
