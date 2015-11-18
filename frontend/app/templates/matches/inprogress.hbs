@@ -1,5 +1,13 @@
+<div class="match-inprogress">
+
 Map: {{model.map}}<br>
 Current Round: {{model.currentRound}}<br>
 
+{{#each model.teams as |team|}}
+  <img class="team-avatar" src="{{team.avatarUrl}}" alt="" />
+  <p>{{team.name}}</p>
+{{/each}}
+
 {{team1Wins}}<br>
 {{team2Wins}}
+</div>
