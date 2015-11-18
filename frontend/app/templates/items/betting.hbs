@@ -1,5 +1,8 @@
-<ul class="stash">
-  {{#each model as |item|}}
-    {{inventory-item item=item action="betItem"}}
-  {{/each}}
-</ul>
+<div class="inv-list stash center-text">
+  <label>Your Stash</label>
+  <ul>
+    {{#each model as |item|}}
+      {{inventory-item item=item action="betItem"}}
+    {{/each}}
+  </ul>
+</div>

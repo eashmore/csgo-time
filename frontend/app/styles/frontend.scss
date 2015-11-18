@@ -1,16 +1,30 @@
+// general
 body {
+  background-color: #616D7E;
+  color: black;
+}
 
+::-webkit-scrollbar {
+    // background-color: #3a476a;
+    width: 7px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #303358;
+    border-radius: 1px;
 }
 
 .center-text {
   text-align: center;
 }
 
-.time-left {
-  font-size: 75px;
-  font-weight: bold;
+.clearfix:after {
+  content: "";
+  display: table;
+  clear: both;
 }
 
+// teams
 .teams {
   font-size: 25px;
   color: black;
@@ -25,10 +39,66 @@ body {
   float:right;
 }
 
+.time-left {
+  font-size: 75px;
+  font-weight: bold;
+  min-height: 80px;
+}
+
 .team-avatar {
   max-width: 250px;
 }
 
 .vs {
   font-size: 100px;
+}
+
+// items
+.inv-list {
+  width: 45%;
+  height: 600px;
+  overflow-y: scroll;
+  border: 3px solid #303358;
+  border-radius: 3px;
+  background-color: #3a476a;
+}
+
+.inv-list.stash {
+  float: left;
+}
+
+.inv-list.item-db {
+  float: right;
+  overflow: hidden;
+}
+
+.inv-list.new-bet {
+  float: right;
+}
+
+.inv-item{
+  cursor: pointer;
+  border-radius: 3px;
+  border: 3px solid #000123;
+  background-color: lightgray;
+  margin: 15px;
+  width: 185px;
+  height: 160px;
+  float: left;
+}
+
+.item-image {
+  height: 60px;
+}
+
+.imp-info {
+  font-weight: bold;
+}
+
+.souvenir {
+  background-color: yellow;
+}
+
+.stattrack {
+  background-color: darkorange;
 }

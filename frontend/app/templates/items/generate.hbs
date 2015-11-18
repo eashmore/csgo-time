@@ -1,5 +1,8 @@
-<ul>
-  {{#each model as |item|}}
-    {{item-generator action="generateItem" item=item}}
-  {{/each}}
-</ul>
+<div class="inv-list item-db center-text">
+  <label>Item Database</label>
+    <ul>
+      {{#each model as |item|}}
+        {{item-generator action="generateItem" item=item}}
+      {{/each}}
+    </ul>
+</div>

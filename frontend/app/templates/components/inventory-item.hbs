@@ -1,5 +1,20 @@
-<a class="list-item" href="#" id="item{{item.id}}"
+<div class="list-item inv-item" href="#" id="item{{item.id}}"
   {{action "moveItem" item element="currentTarget"}}
 >
-  {{item.name}}
-</a>
+  <label class="imp-info">{{item.name}}</label>
+  <br>
+  {{item.condition}}
+  {{item.rarity}}<br>
+  <img src="{{item.imageUrl}}" class="item-image" />
+  <br>
+  <label class="imp-info">
+    ${{item.price}}
+  </label>
+<br>
+  {{#if item.isStattrack}}
+    <div class="stattrack">StatTrack</div>
+  {{/if}}
+  {{#if item.isSouvenir}}
+    <div class="souvenir">Souvenir</div>
+  {{/if}}
+</div>

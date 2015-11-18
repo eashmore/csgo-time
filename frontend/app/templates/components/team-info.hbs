@@ -1,7 +1,7 @@
-<div {{action "toBetPage"}}>
+<div {{action "toBetPage" team}}>
   <img class="team-avatar" src="{{team.avatarUrl}}"/>
   <br>
   <label class="">{{team.name}}</label>
 </div>
 <hr>
-<button class="btn place-bet" {{action "toBetPage"}}>Bet on {{team.name}}</button>
+<button class="btn place-bet" {{action "toBetPage" team}}>Bet on {{team.name}}</button>
