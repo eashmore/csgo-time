@@ -2,16 +2,15 @@ User.create(username: 'username', password: 'password')
 
 # match = Match.create()
 
-match = Match.create(map: "de_dust2", current_round: 0)
+match = Match.create(map: "de_dust2", current_round: 0, has_started: false)
 
 
 team1 = Team.create(name: "WOW_WE_LAGGED",
   avatar_url: "http://res.cloudinary.com/dqucbuno8/image/upload/h_250,w_250/v1447814571/lag-kills-people_nrbbgr.png"
 )
 team2 = Team.create(name: "php_poets",
-  avatar_url: "http://res.cloudinary.com/dqucbuno8/image/upload/c_fill,h_250,w_250/v1447814908/dedicated-php-developer_v6s9pv.png"
+  avatar_url: "http://res.cloudinary.com/dqucbuno8/image/upload/c_fill,h_250,w_250/v1447827745/dedicated-php-developer_zfcdls.png"
 )
-
 MatchLineup.create(match_id: match.id, team_id: team1.id)
 MatchLineup.create(match_id: match.id, team_id: team2.id)
 

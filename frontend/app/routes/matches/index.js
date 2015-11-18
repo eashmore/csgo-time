@@ -16,6 +16,7 @@ export default Ember.Route.extend({
     var controller = this.controllerFor('matches.index');
     var timer = setInterval(function() {
       var time = controller.updateTime(that.currentMatch);
+      Ember.Logger.log(time);
       if (time <= 0) {
         if (time <= -14400001 && that.currentMatch.get('hasStarted')) {
           that.resetMatch();

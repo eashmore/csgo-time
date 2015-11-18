@@ -111,7 +111,7 @@ export default Ember.Controller.extend({
     // for testing
     // timeLeft = 0;
     // timeLeft = -14400001;
-    timeLeft = 100;
+    // timeLeft = 100;
 
     var timeLeftString = secToHours(timeLeft);
 

@@ -1,6 +1,7 @@
 // general
 body {
-  background-color: #616D7E;
+  background: url('http://res.cloudinary.com/dqucbuno8/image/upload/v1447826196/Counter-Strike-Wallpaper-1920x1080-4_utq3oz.jpg') center top repeat-y #000000;
+  background-color: black;
   color: black;
 }
 
@@ -14,6 +15,12 @@ body {
     border-radius: 1px;
 }
 
+nav.navbar {
+  background-color: #d45500;
+  border: 0px solid black;
+  border-radius: 0px;
+}
+
 .center-text {
   text-align: center;
 }
@@ -24,55 +31,94 @@ body {
   clear: both;
 }
 
-// teams
-.teams {
-  font-size: 25px;
-  color: black;
-  cursor: pointer
-}
+// splash page
+// .splash-content {
+//   background-color: #646D7E;
+//   height: 650px;
+//   border-radius: 3px;
+// }
 
-.teams.team1 {
-  float:left;
-}
-
-.teams.team2 {
-  float:right;
+.next-match {
+  // background-color: #303358;
+  background-color: rgba(35, 35, 35, .8);
+  margin-top: 3%;
+  color: white;
+  width: 100%;
 }
 
 .time-left {
   font-size: 75px;
   font-weight: bold;
-  min-height: 80px;
+  min-height: 85px;
+}
+
+.vs {
+  font-size: 75px;
+  font-weight: bold;
+  position: relative;
+  top: 20%;
+}
+
+
+// teams
+.team-idx {
+  background-color: rgba(100, 100, 100, .5);
+  margin-left: 25%;
+  margin-right: 25%;
+  height: 425px;
+  border: 3px solid black;
+  border-radius: 3px;
+}
+
+.teams {
+  z-index: 100;
+  font-size: 25px;
+  color: black;
+  cursor: pointer;
+  margin-top: 25px;
+}
+
+.teams.team1 {
+  float:left;
+  margin-left: 2%;
+}
+
+.teams.team2 {
+  float:right;
+  margin-right: 2%;
+
 }
 
 .team-avatar {
   max-width: 250px;
-}
-
-.vs {
-  font-size: 100px;
+  border-radius: 3px;
+  border: 2px solid black;
 }
 
 // items
 .inv-list {
-  width: 45%;
+  width: 36%;
   height: 600px;
   overflow-y: scroll;
   border: 3px solid #303358;
   border-radius: 3px;
-  background-color: #3a476a;
+  background-color: rgba(58, 71, 106, .8);
+  margin-top: 2%;
 }
 
 .inv-list.stash {
   float: left;
+  margin-left: 10%;
 }
 
 .inv-list.item-db {
+  margin-right: 10%;
   float: right;
   overflow: hidden;
 }
 
 .inv-list.new-bet {
+  margin-right: 10%;
   float: right;
 }
 

@@ -1,12 +1,15 @@
-<span class="center-text">
-<h2>Next match starts in:
-  <br>
-  <p class="time-left">
-    {{timeLeft}}
-  </p>
-</h2>
+<div class="splash-content center-text">
+  <h2 class="next-match">Next match starts in:
+    <br>
+    <p class="time-left">
+      {{timeLeft}}
+    </p>
+  </h2>
 
-{{outlet}}
-<br>
-{{outlet 'teams'}}
-</span>
+  {{outlet}}
+  <br>
+
+  <div class="team-idx">
+    {{outlet 'teams'}}
+  </div>
+</div>

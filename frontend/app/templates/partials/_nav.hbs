@@ -13,6 +13,10 @@
     </div>
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-left">
+        <li><a href="#" {{action "toHomePage"}}>View Teams</a></li>
+        <li><a href="#" {{action "toUserPage"}}>View Inventory</a></li>
+      </ul>
       <ul class="nav navbar-nav navbar-right">
         <li><a href="#" {{action "toUserPage"}}>{{model.username}}</a></li>
         <li><a href="#" {{action "signOut"}}>Sign Out</a></li>
