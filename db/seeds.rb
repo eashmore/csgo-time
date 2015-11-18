@@ -1,8 +1,6 @@
 User.create(username: 'username', password: 'password')
 
-# match = Match.create()
-
-match = Match.create(map: "de_dust2", current_round: 0, has_started: false)
+match = Match.create(map: "de_dust2", current_round: 1, has_started: false)
 
 
 team1 = Team.create(name: "WOW_WE_LAGGED",

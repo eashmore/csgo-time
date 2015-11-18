@@ -3,10 +3,6 @@ import Ember from 'ember';
 export default Ember.Controller.extend({
   matchesController: Ember.inject.controller('matches'),
 
-  team1Wins: "",
-
-  team2Wins: "",
-
   init() {
     this.simulateMatch();
   },
@@ -38,13 +34,14 @@ export default Ember.Controller.extend({
       var team1 = teams.get('firstObject');
       var team2 = teams.get('lastObject');
 
-      this.set('team1Wins', team1.get('score'));
-      this.set('team2Wins', team2.get('score'));
-
-      if (this.team1Wins >= 9 || this.team2Wins >= 9) {
+      if (team1.get('score') >= 9 || team2.get('score') >= 9) {
         clearInterval(sim);
-        var winner = this.team1Wins > this.team2wins ? team1 : team2;
+        var winner = team1.get('score') > team2.get('score') ? team1 : team2;
         match.set('winnerId', winner.get('id'));
+
+
+        match.set('winner', winner);
+        Ember.Logger.log(match.get('winner'));
         match.save();
 
         var matchesController = this.get('matchesController');

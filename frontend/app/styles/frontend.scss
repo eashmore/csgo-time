@@ -73,7 +73,7 @@ nav.navbar-default .navbar-nav>li>a {
   background-color: rgba(100, 100, 100, .5);
   margin-left: 25%;
   margin-right: 25%;
-  height: 50%;
+  height: 400px;
   width: 50%;
   border: 3px solid black;
   border-radius: 3px;
@@ -83,7 +83,6 @@ nav.navbar-default .navbar-nav>li>a {
   z-index: 100;
   font-size: 25px;
   color: darkorange;
-  cursor: pointer;
   margin-top: 25px;
 }
 
@@ -104,8 +103,9 @@ nav.navbar-default .navbar-nav>li>a {
   border: 2px solid black;
 }
 
-.team-avatar:hover {
+.team-avatar.team-bets:hover {
   // outline: none;
+  cursor: pointer;
   border-color: #ffbd6c;
   box-shadow: 0 0 10px #ffbd6c;
 }
@@ -176,6 +176,24 @@ nav.navbar-default .navbar-nav>li>a {
 }
 
 // inprogress match
+.match-details {
+  font-size: 20px;
+}
+
 .match-inprogress {
   color: white;
+  margin-top: 4%;
+}
+
+.teams.team-inprogress {
+  background-color: rgba(20, 20, 20, .8);
+  padding: 20px;
+  border-radius: 3px;
+  border: 3px solid black;
+}
+
+.winner {
+  font-size: 40px;
+  font-weight: bold;
+  height: 150px;
 }

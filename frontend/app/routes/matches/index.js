@@ -58,9 +58,12 @@ export default Ember.Route.extend({
     this.currentMatch.setProperties({
       'hasStarted': false,
       'startTime': startTime(),
-      'team1Score': 0,
-      'team2Score': 0,
-      'currentRound': 0
+      'currentRound': 1
+    });
+
+    this.currentMatch.get('teams').forEach(function(team) {
+      team.set('score', 0);
+      team.save();
     });
 
     this.currentMatch.save();

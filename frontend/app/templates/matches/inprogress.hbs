@@ -1,13 +1,23 @@
-<div class="match-inprogress">
+<div class="match-inprogress container center-text">
+  <div>
+    {{#each sortedTeams as |team|}}
+      <div class="teams team{{team.id}} team-inprogress">
+        <img class="team-avatar" src="{{team.avatarUrl}}" alt="" />
+        <p>{{team.name}}</p>
+        <p>Rounds Won: {{team.score}}</p>
+      </div>
+    {{/each}}
+  </div>
 
-Map: {{model.map}}<br>
-Current Round: {{model.currentRound}}<br>
+  <div class="winner">
+    {{#if model.winner.name}}
+      WINNER: <br>
+        {{model.winner.name}}
+    {{/if}}
+  </div>
+  <div class="match-details">
 
-{{#each sortedTeams as |team|}}
-  <img class="team-avatar" src="{{team.avatarUrl}}" alt="" />
-  <p>{{team.name}}</p>
-{{/each}}
-
-{{team1Wins}}<br>
-{{team2Wins}}
+    Map: {{model.map}}<br>
+    Round: {{model.currentRound}}<br>
+  </div>
 </div>

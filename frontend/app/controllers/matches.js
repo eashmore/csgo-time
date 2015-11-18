@@ -117,7 +117,7 @@ export default Ember.Controller.extend({
   },
 
   removeBets(bets) {
-    bets.toArray().forEach(function(bet) {
+    bets.forEach(function(bet) {
       bet.set('matchId', 0);
       bet.save();
     });
@@ -128,7 +128,7 @@ export default Ember.Controller.extend({
     var teams = match.get('teams');
 
     var winTeam;
-    teams.toArray().forEach(function(team) {
+    teams.forEach(function(team) {
       if (team.get('id') == match.get('winnerId')) {
         winTeam = team;
       }
@@ -137,7 +137,7 @@ export default Ember.Controller.extend({
     var winners = [];
     var bets = match.get('bets');
 
-    bets.toArray().forEach(function(bet) {
+    bets.forEach(function(bet) {
       if (bet.get('teamId') == winTeam.get('id')) {
         winners.push(bet);
       }
@@ -148,9 +148,7 @@ export default Ember.Controller.extend({
     }
 
     this.store.findAll('itemdb').then(function(items) {
-      items = items.toArray().sort(function(a, b) {
-        return b.get('price') - a.get('price');
-      });
+      items = items.sortBy('price');
 
       var payoutRatio = this.getPayoutRatio(winTeam, bets);
       for (var i = 0; i < winners.length; i++) {

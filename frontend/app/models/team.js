@@ -6,6 +6,6 @@ export default DS.Model.extend({
   score: DS.attr('number'),
   avatarUrl: DS.attr('string'),
 
-  matches: DS.hasMany('match'),
+  matches: DS.hasMany('match', { inverse: 'teams' }),
   bets: DS.hasMany('bet')
 });
