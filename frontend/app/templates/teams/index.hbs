@@ -1,6 +1,10 @@
 {{#each model as |team|}}
-  <a href="#" {{action "toTeamPage" team "team"}}>
-    <label>{{team.name}}</label>
-  </a>
-  <br>
+  <div class="teams team{{team.id}} center-text">
+    {{team-info team=team action="toTeamPage"}}
+  </div>
 {{/each}}
+
+<p class="center-text vs">VS</p>
+<p class="center-text">
+  Place your bets!
+</p>
