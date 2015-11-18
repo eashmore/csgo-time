@@ -10,26 +10,25 @@ export default Ember.Route.extend({
   controllerName: 'matches',
 
   afterModel(matches) {
-    // var matchIdx = matches.get('length') - 1;
     this.currentMatch = matches.objectAt(0);
-    // matches.objectAt(2).get('length')
-    Ember.Logger.log(this.currentMatch);
 
     var that = this;
     var controller = this.controllerFor('matches.index');
     var timer = setInterval(function() {
       var time = controller.updateTime(that.currentMatch);
       if (time <= 0) {
-        clearInterval(timer);
+        if (time <= -14400001 && that.currentMatch.get('hasStarted')) {
+          that.resetMatch();
+        } else {
+          clearInterval(timer);
+          that.currentMatch.set('hasStarted', true);
+          that.currentMatch.save();
 
-        // that.currentMatch.set('hasStarted', true);
-        // that.currentMatch.save();
-
-        that.render('matches.inprogress', {
-          into: 'matches',
-          model: matches.objectAt(0)
-        });
-
+          that.render('matches.inprogress', {
+            into: 'matches',
+            model: matches.objectAt(0)
+          });
+        }
       }
     }.bind(controller), 1000);
 },
@@ -47,5 +46,22 @@ export default Ember.Route.extend({
       controller: controller,
       model: this.currentMatch.get('teams'),
     });
+  },
+
+  resetMatch() {
+    var startTime = function() {
+      var start = new Date().setHours(20,0,0);
+      return new Date(start);
+    };
+
+    this.currentMatch.setProperties({
+      'hasStarted': false,
+      'startTime': startTime(),
+      'team1Score': 0,
+      'team2Score': 0,
+      'currentRound': 0
+    });
+
+    this.currentMatch.save();
   }
 });

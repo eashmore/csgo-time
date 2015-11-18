@@ -1,7 +1,8 @@
 import Ember from 'ember';
-import $ from 'jquery';
 
 export default Ember.Controller.extend({
+  matchesController: Ember.inject.controller('matches'),
+
   team1Wins: "",
 
   team2Wins: "",
@@ -11,7 +12,7 @@ export default Ember.Controller.extend({
   },
 
   simulateRound(match) {
-    var win = Math.round(Math.random());
+    var win = Math.round(Math.random() - 0.2);
 
     if (win === 0) {
       match.incrementProperty('team1Score');
@@ -21,7 +22,7 @@ export default Ember.Controller.extend({
     } else {
       match.incrementProperty('team2Score');
       match.incrementProperty('currentRound');
-      
+
       match.save();
     }
   },
@@ -40,10 +41,13 @@ export default Ember.Controller.extend({
         winner = this.team1Wins > this.team2wins ? teams.objectAt(0) : teams.objectAt(1);
         match.set('winnerId', winner.get('id'));
         match.save();
+
+        var matchesController = this.get('matchesController');
+        matchesController.payBets();
       } else {
         this.simulateRound(match);
 
       }
-    }.bind(this), 2000);
+    }.bind(this), 1000);
   }
 });

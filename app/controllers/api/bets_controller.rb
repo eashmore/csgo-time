@@ -17,6 +17,8 @@ class Api::BetsController < ApplicationController
   def destroy
     @bet = Bet.find(params[id])
     @bet.destroy
+
+    render json: []
   end
 
   private
