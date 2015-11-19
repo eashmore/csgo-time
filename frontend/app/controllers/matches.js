@@ -23,7 +23,7 @@ export default Ember.Controller.extend({
     timeLeft = timeLeft / 1000;
 
     // for testing
-    timeLeft = 0;
+    // timeLeft = 0;
     // timeLeft = -14400001;
     // timeLeft = 100;
 
@@ -77,7 +77,7 @@ export default Ember.Controller.extend({
     }
 
     var items = match.get('items');
-    items = items.sortBy('price').toArray();
+    items = items.sortBy('price').toArray().reverse();
 
     var winTeam = match.get('winner');
     var winners = [];

@@ -38,11 +38,13 @@ export default Ember.Controller.extend({
       if (team1.get('score') >= 9 || team2.get('score') >= 9) {
         clearInterval(sim);
         var winner = team1.get('score') > team2.get('score') ? team1 : team2;
+
         match.set('winnerId', winner.get('id'));
+        match.save().then(function() {
+          match.set('winner', winner);
+        });
 
-
-        match.set('winner', winner);
-        match.save();
+        Ember.Logger.log('here');
 
         var matchesController = this.get('matchesController');
         matchesController.payBets();

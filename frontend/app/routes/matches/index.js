@@ -57,7 +57,8 @@ export default Ember.Route.extend({
     this.currentMatch.setProperties({
       'hasStarted': false,
       'startTime': startTime(),
-      'currentRound': 1
+      'currentRound': 1,
+      'winnerId': null
     });
 
     this.currentMatch.get('teams').forEach(function(team) {
