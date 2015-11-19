@@ -8,9 +8,22 @@
 
   {{outlet}}
   <br>
+<div class="team-idx">
+  {{outlet 'teams'}}
+</div>
 
-  <div class="team-idx">
-    {{outlet 'teams'}}
-  </div>
+<p class="center-text match-info">
+  <label>
+    Total Prize Pool:
+    <br>
+    ${{prizePool}}
+  </label>
+  <p class="vs">
+    VS
+  </p>
+  Match starts at:
+  <br>
+  8:00pm PST
+</p>
 
 </div>

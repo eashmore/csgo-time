@@ -3,6 +3,21 @@ import Ember from 'ember';
 export default Ember.Controller.extend({
   timeLeft: "",
 
+  prizePool: function() {
+    var pool = 0;
+    this.model.get('bets').forEach(function(bet) {
+      pool += bet.get('totalValue');
+    });
+
+    return Math.round(pool);
+  }.property('prizePool'),
+
+  // placedBet: function() {
+  //   var bets = this.model.get('bets');
+  //   Ember.Logger.log(bets.findBy('userId', window.CURRENT_USER));
+  //   return bets.findBy('userId', window.CURRENT_USER);
+  // }.property('placedBet'),
+
   updateTime(match) {
     var secToHours = function(sec) {
       var sec_num = parseInt(sec, 10);
@@ -23,7 +38,7 @@ export default Ember.Controller.extend({
     timeLeft = timeLeft / 1000;
 
     // for testing
-    // timeLeft = 0;
+    timeLeft = 0;
     // timeLeft = -14400001;
     // timeLeft = 100;
 

@@ -50,20 +50,22 @@ nav.navbar-default .navbar-nav>li>a {
   min-height: 85px;
 }
 
+.match-info {
+  position: relative;
+  z-index: -100;
+  top: 75px;
+}
+
 .vs {
   font-size: 65px;
   font-weight: bold;
-  position: relative;
-  top: 20%;
-  z-index: -100;
-  color: white;
 }
 
 // teams
 .team-idx {
   position: absolute;
-  z-index: -1000;
-  background-color: rgba(100, 100, 100, .5);
+  z-index: 1000;
+  background-color: rgba(100, 100, 100, .4);
   margin-left: 25%;
   margin-right: 25%;
   height: 400px;
@@ -73,7 +75,6 @@ nav.navbar-default .navbar-nav>li>a {
 }
 
 .teams {
-  z-index: 100;
   font-size: 25px;
   color: darkorange;
   margin-top: 25px;
@@ -87,7 +88,6 @@ nav.navbar-default .navbar-nav>li>a {
 .teams.team2 {
   float:right;
   margin-right: 2%;
-
 }
 
 .team-avatar {
@@ -195,4 +195,9 @@ nav.navbar-default .navbar-nav>li>a {
   font-size: 40px;
   font-weight: bold;
   height: 150px;
+}
+
+.winner>p{
+  position: relative;
+  top: 130px;
 }

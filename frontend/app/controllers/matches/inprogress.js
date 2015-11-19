@@ -40,9 +40,8 @@ export default Ember.Controller.extend({
         var winner = team1.get('score') > team2.get('score') ? team1 : team2;
 
         match.set('winnerId', winner.get('id'));
-        match.save().then(function() {
-          match.set('winner', winner);
-        });
+        // match.set('winner', winner);
+        match.save();
 
         Ember.Logger.log('here');
 
