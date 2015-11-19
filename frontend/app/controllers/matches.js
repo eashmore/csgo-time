@@ -3,86 +3,6 @@ import Ember from 'ember';
 export default Ember.Controller.extend({
   timeLeft: "",
 
-  getPayoutRatio(team, bets, items) {
-    var betPool = 0;
-    var winnerPool = 0;
-
-    bets.forEach(function(bet) {
-
-      var betValue = bet.get('totalValue');
-      betPool += betValue;
-      if (bet.get('teamId') == team.get('id')) {
-        winnerPool += betValue;
-      }
-    }.bind(this));
-
-    betPool = this.takeCut(betPool, items);
-
-    var payout = betPool/winnerPool;
-    return payout;
-  },
-
-  takeCut(poolValue, items) {
-    var cutValue = poolValue * 0.15;
-
-    var cut = this.getPayout(cutValue, items);
-
-    cut.forEach(function(item) {
-      item.destroyRecord();
-    });
-
-    var pool = 0;
-    items.forEach(function(item) {
-      pool += item.get('price');
-    });
-
-    return pool;
-  },
-
-  getPayout(target, items) {
-
-    target = (Math.round(target * 100)) / 100;
-    if (target <= 0) {
-      return [];
-    }
-
-    var payout = [];
-
-    for (var i = 0; i < items.length; i++) {
-      var item = items[i];
-      var price = item.get('price');
-
-      if (price > target) {
-        continue;
-      }
-
-      var remainder = target - price;
-      var remainingItems = items.slice(i + 1, items.length);
-
-      var currentPayout = this.getPayout(remainder, remainingItems);
-      if(!currentPayout) {
-        continue;
-      }
-
-      payout = [items[i]].concat(currentPayout);
-      return payout;
-
-    }
-
-    return payout;
-  },
-
-  payUser(payout, user, match) {
-    var userId = user.get('id');
-
-    payout.forEach(function(item) {
-      item.set('userId', userId);
-      item.save();
-      user.get('items').pushObject(item);
-      match.get('items').removeObject(item);
-    });
-  },
-
   updateTime(match) {
     var secToHours = function(sec) {
       var sec_num = parseInt(sec, 10);
@@ -114,49 +34,119 @@ export default Ember.Controller.extend({
     return timeLeft;
   },
 
-  removeBets(bets) {
-    bets.forEach(function(bet) {
-      bet.set('matchId', 0);
-      bet.save();
-    });
+  getPayout(target, items) {
+    target = (Math.round(target * 100)) / 100;
+
+    if (target <= 0) {
+      return [];
+    }
+
+    var payout = [];
+
+    for (var i = 0; i < items.length; i++) {
+      var item = items[i];
+      var price = item.get('price');
+
+      if (price > target) {
+        continue;
+      }
+
+      var remainder = target - price;
+      var remainingItems = items.slice(i + 1, items.length);
+
+      var currentPayout = this.getPayout(remainder, remainingItems);
+      if(!currentPayout) {
+        continue;
+      }
+
+      payout = [items[i]].concat(currentPayout);
+      return payout;
+
+    }
+
+    return payout;
   },
 
   payBets() {
+    var that = this;
     var match = this.get('model');
-    // var teams = match.get('teams');
-    var items = match.get('items');
-
-    var winTeam = match.get('winner');
-    // teams.forEach(function(team) {
-    //   if (team.get('id') == match.get('winnerId')) {
-    //     winTeam = team;
-    //   }
-    // });
-    // var winners = winTeam.get('bets');
-    var winners = [];
     var bets = match.get('bets');
-    //
-    bets.forEach(function(bet) {
-      if (bet.get('teamId') == winTeam.get('id')) {
-        winners.push(bet);
-      }
-    });
 
     if (!bets) {
       return null;
     }
 
+    var items = match.get('items');
     items = items.sortBy('price').toArray();
-    var payoutRatio = this.getPayoutRatio(winTeam, bets, items);
+
+    var winTeam = match.get('winner');
+    var winners = [];
+
+    function getPayoutRatio() {
+      var betPool = 0;
+      var winnerPool = 0;
+
+      bets.forEach(function(bet) {
+
+        var betValue = bet.get('totalValue');
+        betPool += betValue;
+        if (bet.get('teamId') === parseInt(winTeam.get('id'))) {
+          winnerPool += betValue;
+          winners.push(bet);
+        }
+      });
+
+      betPool = takeCut(betPool);
+
+      var payout = (betPool/winnerPool);
+      return payout;
+    }
+
+    function takeCut(betValue) {
+      var cutValue = betValue * 0.15;
+
+      var cut = that.getPayout(cutValue, items);
+
+      cut.forEach(function(item) {
+        item.destroyRecord();
+      });
+
+      var pool = 0;
+      items.forEach(function(item) {
+        pool += item.get('price');
+      });
+
+      return pool;
+    }
+
+    function payUser(payout, user) {
+      var userId = user.get('id');
+
+      payout.forEach(function(item) {
+        item.set('userId', userId);
+        item.save();
+        user.get('items').pushObject(item);
+        match.get('items').removeObject(item);
+      });
+    }
+
+    function removeBets () {
+      bets.forEach(function(bet) {
+        bet.set('matchId', 0);
+        bet.save();
+      });
+    }
+
+    var payoutRatio = getPayoutRatio();
+
     for (var i = 0; i < winners.length; i++) {
       var bet = winners[i];
       var payoutValue = payoutRatio * bet.get('totalValue');
+      var payout = that.getPayout(payoutValue, items);
 
-      var payout = this.getPayout(payoutValue, items);
-
-      this.payUser(payout, bet.get('user'), match);
+      payUser(payout, bet.get('user'));
     }
 
-    this.removeBets(bets);
-  },
+    removeBets();
+  }
 });
