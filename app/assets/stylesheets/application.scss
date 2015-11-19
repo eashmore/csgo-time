@@ -21,19 +21,7 @@
 
 // general
 body {
-  background: url('http://res.cloudinary.com/dqucbuno8/image/upload/v1447826196/Counter-Strike-Wallpaper-1920x1080-4_utq3oz.jpg') center top repeat-y #000000;
-  background-color: black;
-  color: white;
-}
-
-::-webkit-scrollbar {
-    background-color: #3a476a;
-    width:8px;
-}
-
-::-webkit-scrollbar-thumb {
-    background-color: #000123;
-    border-radius: 10px;
+  color: black;
 }
 
 .center-text {
@@ -46,212 +34,71 @@ body {
   clear: both;
 }
 
-
 //sign-in page
-.log-in {
-  float: right
-}
-
-// navbar
-nav.navbar {
-  background-color: #d45500;
-  border: 0px solid black;
-  border-radius: 0px;
-}
-
-nav.navbar-default .navbar-nav>li>a {
-  color: white;
-}
-
-.nav-logo {
-  margin-top: -8%;
-  margin-left: 7%;
-}
-
-// splash page
-.next-match {
-  background-color: rgba(35, 35, 35, .8);
-  margin-top: 1%;
-  color: white;
+.login-span {
+  background-color: darkblue;
   width: 100%;
-}
-
-.time-left {
-  font-size: 75px;
-  font-weight: bold;
-  min-height: 85px;
-}
-
-.match-info {
+  height: 500px;
+  z-index: -10000;
   position: relative;
-  z-index: -100;
-  top: 50px;
 }
 
-.vs {
-  font-size: 65px;
-  font-weight: bold;
-}
-
-.prize-pool {
-  font-size: 35px;
-  font-weight: bold;
-}
-
-// teams
-.team-idx {
-  background-color: rgba(100, 100, 100, .4);
-  margin-left: 25%;
-  margin-right: 25%;
-  padding-bottom: 2%;
-  border: 3px solid black;
-  border-radius: 7px;
-}
-
-.teams {
-  font-size: 25px;
-  color: darkorange;
-  margin-top: 2%;
-}
-
-.teams.team1 {
-  float:left;
-  margin-left: 2%;
-}
-
-.teams.team2 {
-  float:right;
-  margin-right: 2%;
-}
-
-.team-avatar {
-  max-width: 250px;
-  border-radius: 3px;
-  border: 2px solid black;
-}
-
-.team-avatar.team-bets:hover {
-  cursor: pointer;
-  border-color: #d45500;
-  box-shadow: 0 0 20px #ffbd6c;
-}
-
-.btn.betting-page {
-  margin-top: 7%;
-}
-
-.btn.place-bet {
-  position: relative;
-  left: 1em;
-  top: 1em;
-}
-
-// items
-.inv-list {
-  width: 36%;
-  height: 600px;
-  overflow-y: scroll;
-  border: 3px solid #303358;
-  border-radius: 3px;
-  background-color: rgba(58, 71, 106, .8);
-}
-
-.inv-list.stash {
-  float: left;
-  margin-left: 10%;
-}
-
-.inv-list.item-db {
-  margin-right: 10%;
-  float: right;
-  overflow: hidden;
-}
-
-.inv-list.new-bet {
-  margin-right: 10%;
-  float: right;
-}
-
-.inv-item {
-  color: black;
-  cursor: pointer;
-  border-radius: 3px;
-  border: 3px solid grey;
-  background-color: lightgray;
-  margin: 15px;
-  width: 185px;
-  height: 160px;
-  float: left;
-}
-
-.inv-item:hover {
-  cursor: pointer;
-  border: 5px solid darkgrey;
-  border-style: inset;
-  background-color: grey;
-}
-
-.item-image {
-  height: 60px;
-}
-
-.imp-info {
-  font-weight: bold;
-}
-
-.souvenir {
-  background-color: yellow;
-}
-
-.stattrack {
-  background-color: darkorange;
-}
-
-// inprogress match
-.match-details {
-  font-size: 20px;
-}
-
-.match-inprogress {
+.account-session {
   color: white;
-  margin-top: 4%;
-}
-
-.teams.team-inprogress {
-  background-color: rgba(20, 20, 20, .8);
-  padding: 20px;
-  border-radius: 3px;
-  border: 3px solid black;
-}
-
-.winner {
-  font-size: 40px;
-  font-weight: bold;
-  height: 150px;
-}
-
-.winner>p{
+  float: right;
+  margin-right: 15%;
   position: relative;
-  top: 130px;
+  bottom: 37em;
 }
 
-//bets
-.recent-bets-list {
-  margin-top: 1%;
-  padding-bottom: 1%;
-  background-color: rgba(0, 1, 35, .6);
-  border: 3px solid #000123;
+.log-in {
+  margin-top: 15%;
+  background-color: rgba(135, 135, 135, .7);
+  width: 16em;
+  padding-bottom: 5%;
+  border: 1px solid white;
   border-radius: 3px;
 }
 
-.bets-label {
-  padding-bottom: 1%;
+.log-in>label {
+  background-color: orange;
+  display: block;
+  font-size: 30px;
+  padding: 1%
 }
 
-.recent-bet {
-  padding: 1%;
-  background-color: rgba(0, 1, 35, 1);
-  border: 3px solid black;
-  border-color: #ffbd6c;
-  box-shadow: 0 0 10px #ffbd6c;
+.login-logo {
+  z-index: -100;
+  position: absolute;
+  margin-left: 12%;
+  margin-top: 3%;
+}
+
+.login-image {
+  width: 100%;
+  min-height: 500px;
+  position: absolute;
+  z-index: -1000;
+  opacity: .7;
+}
+
+.tag {
+  color: white;
+  position: relative;
+  position: relative;
+  bottom: 5em;
+  margin-left: 25%;
+  font-size: 30px;
+}
+
+.site-info {
+
+}
+
+.left-info {
+  float: left;
+}
+
+.right-info {
+  float: right;
 }
