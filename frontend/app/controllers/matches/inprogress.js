@@ -22,7 +22,7 @@ export default Ember.Controller.extend({
       team2.incrementProperty('score');
       team2.save();
     }
-    
+
     match.incrementProperty('currentRound');
     match.save();
   },
@@ -42,7 +42,6 @@ export default Ember.Controller.extend({
 
 
         match.set('winner', winner);
-        Ember.Logger.log(match.get('winner'));
         match.save();
 
         var matchesController = this.get('matchesController');
@@ -51,6 +50,6 @@ export default Ember.Controller.extend({
         this.simulateRound(match, team1, team2);
 
       }
-    }.bind(this), 2000);
+    }.bind(this), 100);
   }
 });

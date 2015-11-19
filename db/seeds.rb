@@ -1,4 +1,4 @@
-User.create(username: 'username', password: 'password')
+User.create(username: 'Guest', password: 'password')
 
 match = Match.create(map: "de_dust2", current_round: 1, has_started: false)
 

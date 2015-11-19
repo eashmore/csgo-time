@@ -1,14 +1,34 @@
+<a href="../session/new">
+  <input type="button"
+    class="btn btn-default btn-warning"
+    value="Back to Sign In"
+  >
+</a>
+<br>
+
 <h2>Create an Account</h2>
-<form class="" action="<%= users_url %>" method="post">
-  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+  <form class='new-sess-form' action="<%= users_url %>" method="post">
 
-  <label>Username:
-    <input type="text" name="user[username]" value="<%= @user.username %>">
-  </label>
+    <input type="hidden" name="authenticity_token"
+      value= "<%= form_authenticity_token %>"
+    >
 
-  <label>Password
-    <input type="password" name="user[password]" value="">
-  </label>
+    <div class="form-group">
+      <label>
+        Username
+        <input type="text" class="form-control" name="user[username]" value="">
+      </label>
+    </div>
 
-  <input type="submit" value="Create Account">
+    <div class="form-group">
+      <label>
+        Password
+        <input type="password" class="form-control"
+          name="user[password]" value=""
+        >
+      </label>
+    </div>
+
+    <input type="submit" class="btn btn-default btn-success" value="Sign Up">
+  </form>
 </form>

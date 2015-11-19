@@ -5,6 +5,6 @@ class MatchSerializer < ActiveModel::Serializer
 
   has_many :teams
   has_many :bets
+  has_many :items
   belongs_to :winner
-
 end
