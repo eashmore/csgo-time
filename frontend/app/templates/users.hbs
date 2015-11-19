@@ -1,3 +1,13 @@
-  {{outlet "stash"}}
+<div class="center-text">
 
-  {{outlet "new-items"}}
+  <h3>
+    Hello {{model.user.username}}
+  </h3>
+  <p>
+    Simply click on an item to add/remove it from your stash.
+  </p>
+</div>
+
+{{outlet "stash"}}
+
+{{outlet "new-items"}}

@@ -3,13 +3,6 @@ import Ember from 'ember';
 export default Ember.Controller.extend({
   timeLeft: "",
 
-
-  // placedBet: function() {
-  //   var bets = this.model.get('bets');
-  //   Ember.Logger.log(bets.findBy('userId', window.CURRENT_USER));
-  //   return bets.findBy('userId', window.CURRENT_USER);
-  // }.property('placedBet'),
-
   updateTime(match) {
     var secToHours = function(sec) {
       var sec_num = parseInt(sec, 10);
@@ -39,7 +32,7 @@ export default Ember.Controller.extend({
     // for testing
     // timeLeft = 0;
     // timeLeft = -14400001;
-    timeLeft = 100;
+    // timeLeft = 100;
 
     var timeLeftString = timeLeft < 0 ? secToHours(0) : secToHours(timeLeft);
 

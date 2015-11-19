@@ -14,6 +14,7 @@ export default Ember.Route.extend({
     this.timeUntilMatch(currentMatch);
 
     this.prizePool();
+    this.recentBets(currentMatch.get('bets'));
     Ember.addObserver(currentMatch, currentMatch.get('bets'), this, this.prizePool);
   },
 
@@ -30,18 +31,33 @@ export default Ember.Route.extend({
       controller: teamController,
       model: this.currentMatch.get('teams'),
     });
+
   },
 
   prizePool() {
     var pool = 0;
-
     var bets = this.currentMatch.get('bets');
-
     bets.forEach(function(bet) {
       pool += bet.get('totalValue');
     });
 
     this.currentMatch.set('prizePool', Math.round(pool));
+  },
+
+  recentBets(bets) {
+    var recentBets = [];
+    bets = bets.toArray().reverse();
+
+    for (var i = 0; i < 6; i++) {
+    Ember.Logger.log(bets[i]);
+      if (i >= bets.length) {
+        break;
+      }
+
+      recentBets.push(bets[i]);
+    }
+
+    this.currentMatch.set('recentBets', recentBets);
   },
 
   timeUntilMatch(match) {
