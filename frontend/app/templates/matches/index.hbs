@@ -33,7 +33,8 @@
     </div>
     {{#each model.recentBets as |bet|}}
       <div class="recent-bet col-xs-2">
-        {{bet.user.username}} bet:
+        <label>{{bet.user.username}}</label>
+         bet:
         <br>
         ${{bet.totalValue}}
         <br>

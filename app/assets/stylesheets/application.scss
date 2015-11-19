@@ -63,6 +63,11 @@ nav.navbar-default .navbar-nav>li>a {
   color: white;
 }
 
+.nav-logo {
+  margin-top: -8%;
+  margin-left: 7%;
+}
+
 // splash page
 .next-match {
   background-color: rgba(35, 35, 35, .8);
@@ -98,7 +103,7 @@ nav.navbar-default .navbar-nav>li>a {
   background-color: rgba(100, 100, 100, .4);
   margin-left: 25%;
   margin-right: 25%;
-  height: 400px;
+  padding-bottom: 2%;
   border: 3px solid black;
   border-radius: 7px;
 }
@@ -106,7 +111,7 @@ nav.navbar-default .navbar-nav>li>a {
 .teams {
   font-size: 25px;
   color: darkorange;
-  margin-top: 25px;
+  margin-top: 2%;
 }
 
 .teams.team1 {
@@ -245,6 +250,7 @@ nav.navbar-default .navbar-nav>li>a {
 
 .recent-bet {
   padding: 1%;
+  background-color: rgba(0, 1, 35, 1);
   border: 3px solid black;
   border-color: #ffbd6c;
   box-shadow: 0 0 10px #ffbd6c;
