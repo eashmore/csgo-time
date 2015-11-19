@@ -7,12 +7,14 @@ export default Ember.Route.extend({
 
   currentMatch: "",
 
-  controllerName: 'matches',
-
   afterModel(matches) {
-    this.currentMatch = matches.objectAt(0);
+    var currentMatch = matches.objectAt(0);
+    this.set('currentMatch', currentMatch);
 
-    this.timeUntilMatch(this.currentMatch);
+    this.timeUntilMatch(currentMatch);
+
+    this.prizePool();
+    Ember.addObserver(currentMatch, currentMatch.get('bets'), this, this.prizePool);
   },
 
   renderTemplate(controller) {
@@ -28,6 +30,18 @@ export default Ember.Route.extend({
       controller: teamController,
       model: this.currentMatch.get('teams'),
     });
+  },
+
+  prizePool() {
+    var pool = 0;
+
+    var bets = this.currentMatch.get('bets');
+
+    bets.forEach(function(bet) {
+      pool += bet.get('totalValue');
+    });
+
+    this.currentMatch.set('prizePool', Math.round(pool));
   },
 
   timeUntilMatch(match) {
