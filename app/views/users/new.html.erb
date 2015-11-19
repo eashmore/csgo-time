@@ -1,34 +1,43 @@
-<a href="../session/new">
-  <input type="button"
-    class="btn btn-success"
-    value="Back to Sign In"
-  >
-</a>
-<br>
+<%= render partial: "./partials/site_info" %>
 
-<h2>Create an Account</h2>
-  <form class='new-sess-form' action="<%= users_url %>" method="post">
 
-    <input type="hidden" name="authenticity_token"
-      value= "<%= form_authenticity_token %>"
+<div class="account-session center-text">
+
+  <a href="../session/new">
+    <input type="button"
+      class="btn btn-warning"
+      value="Back to Log In"
     >
+  </a>
+  <br>
 
-    <div class="form-group">
-      <label>
-        Username
-        <input type="text" class="form-control" name="user[username]" value="">
-      </label>
-    </div>
+  <div class="log-in">
+    <label>Sign Up</label>
+      <form class='new-sess-form' action="<%= users_url %>" method="post">
 
-    <div class="form-group">
-      <label>
-        Password
-        <input type="password" class="form-control"
-          name="user[password]" value=""
+        <input type="hidden" name="authenticity_token"
+          value= "<%= form_authenticity_token %>"
         >
-      </label>
-    </div>
 
-    <input type="submit" class="btn btn-info" value="Sign Up">
-  </form>
-</form>
+        <div class="form-group">
+          <label>
+            Username
+            <input type="text" class="form-control" name="user[username]" value="">
+          </label>
+        </div>
+
+        <div class="form-group">
+          <label>
+            Password
+            <input type="password" class="form-control"
+              name="user[password]" value=""
+            >
+          </label>
+
+        </div>
+
+        <input type="submit" class="btn btn-warning" value="Sign Up">
+      </form>
+    </form>
+  </div>
+</div>
