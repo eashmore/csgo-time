@@ -55,19 +55,19 @@ winBets = winBets.sort(function(a, b) {
 });
 
 while (sortedItems.length) {
-  if (sortedItems[0].get('price') >= winBets[betIdx].get('payout')) {
+  var itemPrice = sortedItems[0].get('price');
+  var userCurrentPayout = winBets[0].get('payout');
+
+  if (itemPrice <= userCurrentPayout) {
     payUser(sortedItems[0], winBets[0]);
 
-    var newPayout = winBets[betIdx].get('payout') - sortedItems[0].get('price');
-    winBets[betIdx].set('payout', newPayout);
+    var newPayout = userCurrentPayout - itemPrice;
+    winBets[0].set('payout', newPayout);
 
-    var handledBet = winBets.shift();
-    winBets.push(handledBet);
     sortedItems.shift();
-
-    betIdx = 0;
-  } else {
-    betIdx++;
   }
+
+  var handledBet = winBets.shift();
+  winBets.push(handledBet);
 }
 </code></pre>

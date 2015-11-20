@@ -164,33 +164,25 @@ export default Ember.Controller.extend({
       bet.set('payout', payout);
     });
 
-    var betIdx = 0;
     winBets = winBets.sort(function(a, b) {
       return b.get('payout') - a.get('payout');
     });
 
     while (sortedItems.length) {
       var itemPrice = sortedItems[0].get('price');
-      var userCurrentPayout = winBets[betIdx].get('payout');
+      var userCurrentPayout = winBets[0].get('payout');
 
-      if (itemPrice >= userCurrentPayout) {
+      if (itemPrice <= userCurrentPayout) {
         payUser(sortedItems[0], winBets[0]);
 
         var newPayout = userCurrentPayout - itemPrice;
-        winBets[betIdx].set('payout', newPayout);
-
-        var handledBet = winBets.shift();
-        winBets.push(handledBet);
+        winBets[0].set('payout', newPayout);
+        
         sortedItems.shift();
-
-        betIdx = 0;
-      } else {
-        betIdx++;
-
-        if (betIdx >= winBets.get('length')) {
-          betIdx = 0;
-        }
       }
+
+      var handledBet = winBets.shift();
+      winBets.push(handledBet);
     }
 
     removeBets();
