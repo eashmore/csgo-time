@@ -4,9 +4,9 @@ import $ from 'jquery';
 export default Ember.Controller.extend({
   actions: {
     betItem(element, isBet) {
-      let elementId = element.get('id');
-      let htmlId = "#item" + elementId;
-      let $el = $(htmlId);
+      var elementId = element.get('id');
+      var htmlId = "#item" + elementId;
+      var $el = $(htmlId);
 
       $el.remove();
 

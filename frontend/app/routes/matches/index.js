@@ -15,7 +15,9 @@ export default Ember.Route.extend({
 
     this.prizePool();
     this.recentBets(currentMatch.get('bets'));
-    Ember.addObserver(currentMatch, currentMatch.get('bets'), this, this.prizePool);
+    Ember.addObserver(
+      currentMatch, currentMatch.get('bets'), this, this.prizePool
+    );
   },
 
   renderTemplate(controller) {
@@ -62,6 +64,7 @@ export default Ember.Route.extend({
   timeUntilMatch(match) {
     var that = this;
     var controller = this.controllerFor('matches.index');
+
     var timer = setInterval(function() {
       var time = controller.updateTime(that.currentMatch);
       if (time <= 0) {

@@ -2,23 +2,34 @@
   <div>
     {{#each sortedTeams as |team|}}
       <div class="teams team{{team.id}} team-inprogress">
+
         <img class="team-avatar" src="{{team.avatarUrl}}" alt="" />
+
         <p>{{team.name}}</p>
         <p>Rounds Won: {{team.score}}</p>
+
       </div>
     {{/each}}
   </div>
 
   <div class="winner">
     {{#if model.winner.name}}
-      WINNER:<br>
+      WINNER:
+      <br>
+      
       {{model.winner.name}}
+
       <p>Come back tomorrow to bet on a new match!</p>
+
     {{/if}}
   </div>
 
   <div class="match-details">
-    Map: {{model.map}}<br>
-    Round: {{model.currentRound}}<br>
+    Map: {{model.map}}
+    <br>
+
+    Round: {{model.currentRound}}
+    <br>
+
   </div>
 </div>

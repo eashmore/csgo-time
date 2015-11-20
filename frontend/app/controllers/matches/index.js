@@ -30,12 +30,11 @@ export default Ember.Controller.extend({
     timeLeft = timeLeft / 1000;
 
     // for testing
-    // timeLeft = 0;
+    timeLeft = 0;
     // timeLeft = -14400011;
     // timeLeft = 100;
 
     var timeLeftString = timeLeft < 0 ? secToHours(0) : secToHours(timeLeft);
-
     this.set('timeLeft', timeLeftString);
 
     return timeLeft;
@@ -95,7 +94,7 @@ export default Ember.Controller.extend({
     var winTeam = match.get('winner');
     var winBets = [];
 
-    function getPayoutRatio() {
+    var getPayoutRatio = function() {
       var betPool = 0;
       var winnerPool = 0;
 
@@ -112,9 +111,9 @@ export default Ember.Controller.extend({
 
       var payout = (betPool/winnerPool);
       return payout;
-    }
+    };
 
-    function takeCut(betValue) {
+    var takeCut = function(betValue) {
       var cutValue = betValue * 0.15;
 
       var cut = that.getRake(cutValue, sortedItems);
@@ -131,9 +130,9 @@ export default Ember.Controller.extend({
       });
 
       return pool;
-    }
+    };
 
-    function removeBets () {
+    var removeBets = function() {
       allBets.forEach(function(bet) {
         if (bet) {
           bet.setProperties({ 'matchId': 0, 'userId': 0 });
@@ -143,18 +142,18 @@ export default Ember.Controller.extend({
       });
 
       currentUser.get('bets').clear();
-    }
+    };
 
-    function payUser(item, bet) {
+    var payUser = function(item, bet) {
       var user = bet.get('user');
       var userId = user.get('id');
 
       user.get('items').pushObject(item);
       match.get('items').removeObject(item);
 
-      item.set('userId', userId);
+      item.setProperties({ 'userId': userId, 'betId': null });
       item.save();
-    }
+    };
 
     var payoutRatio = getPayoutRatio();
 
@@ -165,17 +164,19 @@ export default Ember.Controller.extend({
       bet.set('payout', payout);
     });
 
-
     var betIdx = 0;
     winBets = winBets.sort(function(a, b) {
       return b.get('payout') - a.get('payout');
     });
 
     while (sortedItems.length) {
-      if (sortedItems[0].get('price') >= winBets[betIdx].get('payout')) {
+      var itemPrice = sortedItems[0].get('price');
+      var userCurrentPayout = winBets[betIdx].get('payout');
+
+      if (itemPrice >= userCurrentPayout) {
         payUser(sortedItems[0], winBets[0]);
 
-        var newPayout = winBets[betIdx].get('payout') - sortedItems[0].get('price');
+        var newPayout = userCurrentPayout - itemPrice;
         winBets[betIdx].set('payout', newPayout);
 
         var handledBet = winBets.shift();
@@ -185,6 +186,10 @@ export default Ember.Controller.extend({
         betIdx = 0;
       } else {
         betIdx++;
+
+        if (betIdx >= winBets.get('length')) {
+          betIdx = 0;
+        }
       }
     }
 

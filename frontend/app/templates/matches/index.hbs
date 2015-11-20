@@ -1,45 +1,55 @@
 <div class="splash-content center-text">
   <h2 class="next-match">GO time starts in:
     <br>
+
     <p class="time-left">
       {{timeLeft}}
     </p>
+
   </h2>
 
   {{outlet}}
 
-  <br>
   <div class="team-idx clearfix">
     {{outlet 'teams'}}
     <div class="match-info">
+
       <span>
         Total Prize Pool:
         <br>
+
         <p class="prize-pool">${{model.prizePool}}</p>
-        <p class="vs">
-          VS
-        </p>
+        <p class="vs">VS</p>
+
         Match starts at:
         <br>
+
         8:00pm PST
       </span>
+
     </div>
   </div>
 
 
   <div class="container recent-bets-list">
+
     <div class="bets-label col-xs-12">
       Recent Bets:
     </div>
+
     {{#each model.recentBets as |bet|}}
       <div class="recent-bet col-xs-2">
         <label>{{bet.user.username}}</label>
+        
          bet:
         <br>
+
         ${{bet.totalValue}}
         <br>
+
          in items
       </div>
     {{/each}}
+
   </div>
 </div>
