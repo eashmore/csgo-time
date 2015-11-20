@@ -23,8 +23,10 @@ export default Ember.Controller.extend({
       team2.save();
     }
 
-    match.incrementProperty('currentRound');
-    match.save();
+    if (match.get('currentRound') < 16) {
+      match.incrementProperty('currentRound');
+      match.save();
+    }
   },
 
   simulateMatch() {

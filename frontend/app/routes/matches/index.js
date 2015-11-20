@@ -66,6 +66,7 @@ export default Ember.Route.extend({
       var time = controller.updateTime(that.currentMatch);
       if (time <= 0) {
         if (time <= -14400001 && that.currentMatch.get('hasStarted')) {
+          clearInterval(timer);
           that.resetMatch();
         } else {
           clearInterval(timer);
@@ -100,5 +101,15 @@ export default Ember.Route.extend({
     });
 
     this.currentMatch.save();
+
+    var setBet = function(bet) {
+      var userId = bet.get('id');
+      bet.setProperties({ 'matchId': 1, 'userId': userId });
+      bet.save();
+    };
+
+    for (var i = 1; i <= 10; i++) {
+      this.store.findRecord('bet', i).then(setBet);
+    }
   }
 });

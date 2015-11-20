@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   namespace :api, defaults: { format: :json } do
     resources :matches, except: [:new, :edit, :destroy]
     resources :teams, except: [:new, :edit, :destroy]
-    resources :items, except: [:new, :edit, :index]
+    resources :items, except: [:new, :edit]
     resources :itemdbs, only: [:create, :index, :show]
 
     resources :bets, except: [:new, :edit, :index]
