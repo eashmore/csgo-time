@@ -78,6 +78,7 @@ export default Ember.Controller.extend({
     var that = this;
     var match = this.get('model');
     var bets = match.get('bets');
+    var currentUser = this.store.peekRecord('user', window.CURRENT_USER);
 
     if (!bets) {
       return null;
@@ -94,7 +95,6 @@ export default Ember.Controller.extend({
       var winnerPool = 0;
 
       bets.forEach(function(bet) {
-
         var betValue = bet.get('totalValue');
         betPool += betValue;
         if (bet.get('teamId') === parseInt(winTeam.get('id'))) {
@@ -138,9 +138,11 @@ export default Ember.Controller.extend({
     }
 
     function removeBets () {
+      currentUser.get('bets').clear();
       bets.forEach(function(bet) {
-        bet.set('matchId', 0);
+        bet.setProperties({ 'matchId': 0, 'userId': 0 });
         bet.save();
+        match.get('bets').removeObject(bet);
       });
     }
 

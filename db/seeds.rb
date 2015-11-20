@@ -1,7 +1,18 @@
+User.create(username: 'olofm', password: 'password')
+User.create(username: 'device', password: 'password')
+User.create(username: 'GuardiaN', password: 'password')
+User.create(username: 'Happy', password: 'password')
+User.create(username: 'Snax', password: 'password')
+User.create(username: 'KRiMZ', password: 'password')
+User.create(username: 'flusha', password: 'password')
+User.create(username: 's1mple', password: 'password')
+User.create(username: 'Skadoodle', password: 'password')
+User.create(username: 'kennyS', password: 'password')
+
+
 User.create(username: 'Guest', password: 'password')
 
 match = Match.create(map: "de_dust2", current_round: 1, has_started: false)
-
 
 team1 = Team.create(name: "WOW_WE_LAGGED",
   avatar_url: "http://res.cloudinary.com/dqucbuno8/image/upload/h_250,w_250/v1447814571/lag-kills-people_nrbbgr.png"

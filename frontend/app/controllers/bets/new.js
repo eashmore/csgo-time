@@ -34,6 +34,7 @@ export default Ember.Controller.extend({
       item.save();
       match.get('bets').pushObject(bet);
       currentUser.get('items').removeObject(item);
+      currentUser.get('betItems').pushObject(item);
 
       this.transitionToRoute('matches.index');
     }

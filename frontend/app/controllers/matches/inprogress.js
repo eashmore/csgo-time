@@ -1,7 +1,7 @@
 import Ember from 'ember';
 
 export default Ember.Controller.extend({
-  matchesController: Ember.inject.controller('matches'),
+  matchesController: Ember.inject.controller('matches.index'),
 
   init() {
     this.simulateMatch();
@@ -40,7 +40,7 @@ export default Ember.Controller.extend({
         var winner = team1.get('score') > team2.get('score') ? team1 : team2;
 
         match.set('winnerId', winner.get('id'));
-        // match.set('winner', winner);
+        match.set('winner', winner);
         match.save();
 
         var matchesController = this.get('matchesController');
@@ -49,6 +49,6 @@ export default Ember.Controller.extend({
         this.simulateRound(match, team1, team2);
 
       }
-    }.bind(this), 2000);
+    }.bind(this), 100);
   }
 });
