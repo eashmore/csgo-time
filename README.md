@@ -11,7 +11,7 @@ This app will allow for the betting of items on the outcome of CS:GO matches. It
 
 ## To-Do
 * Write integration tests
-* Limit users to one bet
+* Limit users to only one bet
 * Handle tie games
 * Display errors on failed bet
 * Improve accuracy of payout algorithm
