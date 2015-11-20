@@ -1,4 +1,10 @@
 # CS:GO Time
+
+[Live link][link]
+
+[link]: https://csgotime.herokuapp.com/
+
+
 ## Minimum Viable Product
 This app will allow for the betting of items on the outcome of CS:GO matches. It will be built on Rails and Ember and allow users to:
 
