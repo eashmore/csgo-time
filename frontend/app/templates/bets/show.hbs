@@ -1,0 +1,21 @@
+<div class="center-text">
+
+  {{#if model.betItems}}
+    <br>
+    <label>Total Value:</label>
+    <p class="prize-pool" >${{model.bet.totalValue}}</p>
+    <br>
+
+    <div class="inv-list bet-show">
+      <ul>
+        {{#each model.betItems as |item|}}
+          {{inventory-item item=item}}
+        {{/each}}
+      </ul>
+    </div>
+
+
+  {{else}}
+    No bet has been placed
+  {{/if}}
+</div>

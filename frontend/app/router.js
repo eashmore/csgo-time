@@ -11,10 +11,11 @@ Router.map(function() {
 
     this.resource('teams', function() {
       this.route('show', {path: '/:team_id'});
-
-      this.resource('bets', function() {
-        this.route('new');
-      });
+    });
+    
+    this.resource('bets', function() {
+      this.route('new');
+      this.route('show', { path: '/' });
     });
   });
 
@@ -24,6 +25,7 @@ Router.map(function() {
       this.route('generate');
     });
   });
+
 });
 
 export default Router;

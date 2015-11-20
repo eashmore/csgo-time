@@ -8,6 +8,10 @@ export default Ember.Controller.extend({
 
     toUserPage() {
       this.transitionToRoute('users');
+    },
+
+    toBetPage() {
+      this.transitionToRoute('bets.show');
     }
   }
 });

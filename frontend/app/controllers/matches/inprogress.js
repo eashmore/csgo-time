@@ -43,8 +43,6 @@ export default Ember.Controller.extend({
         // match.set('winner', winner);
         match.save();
 
-        Ember.Logger.log('here');
-
         var matchesController = this.get('matchesController');
         matchesController.payBets();
       } else {

@@ -7,8 +7,9 @@ export default DS.Model.extend({
   matchId: DS.attr('number'),
   teamId: DS.attr('number'),
 
+  items: DS.hasMany('item'),
+
   user: DS.belongsTo('user'),
   match: DS.belongsTo('match'),
-  team: DS.belongsTo('team'),
-  items: DS.hasMany('item'),
+  team: DS.belongsTo('team')
 });

@@ -32,9 +32,7 @@
       <input type="submit" class="btn btn-default btn-warning" value="Log In">
     </form>
 
-    <hr>
-
-    <form class="" action="<%= sessions_url %>" method="post">
+    <form class="guest-login" action="<%= sessions_url %>" method="post">
       <input type="hidden" name="authenticity_token"
         value="<%= form_authenticity_token %>"
       >

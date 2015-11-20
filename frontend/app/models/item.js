@@ -12,6 +12,6 @@ export default DS.Model.extend({
   userId: DS.attr('number'),
   betId: DS.attr('number'),
 
-  user: DS.belongsTo('user'),
+  user: DS.belongsTo('user', {inverse:'items'}),
   bet: DS.belongsTo('bet')
 });

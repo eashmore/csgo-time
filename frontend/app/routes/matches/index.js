@@ -49,7 +49,6 @@ export default Ember.Route.extend({
     bets = bets.toArray().reverse();
 
     for (var i = 0; i < 6; i++) {
-    Ember.Logger.log(bets[i]);
       if (i >= bets.length) {
         break;
       }
