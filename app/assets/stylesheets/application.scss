@@ -20,6 +20,10 @@
  @import "font-awesome";
 
 // general
+html {
+  height: 1px;
+}
+
 body {
   color: black;
 }
@@ -48,11 +52,11 @@ body {
   float: right;
   margin-right: 15%;
   position: relative;
-  bottom: 37em;
+  bottom: 51em;
 }
 
 .log-in {
-  margin-top: 15%;
+  margin-top: 20%;
   background-color: rgba(135, 135, 135, .7);
   width: 16em;
   padding-bottom: 5%;
@@ -81,8 +85,8 @@ body {
 }
 
 .login-image {
+  height: 500px;
   width: 100%;
-  min-height: 500px;
   position: absolute;
   z-index: -1000;
   opacity: .7;
@@ -98,13 +102,26 @@ body {
 }
 
 .site-info {
-
+  font-size: 18px;
 }
 
 .left-info {
   float: left;
+  max-width: 45%;
+  margin-right: 10%;
+}
+
+.left-info>div {
+  font-weight: bold;
+  font-size: 20px;
+  margin-bottom: -1%;
 }
 
 .right-info {
-  float: right;
+  float: left;
+  max-width: 45%;
+}
+
+.right-info>ul>li {
+  margin-bottom: 5%;
 }
