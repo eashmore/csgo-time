@@ -109,7 +109,9 @@ export default Ember.Route.extend({
     };
 
     for (var i = 1; i <= 10; i++) {
-      this.store.findRecord('bet', i).then(setBet);
+      this.store.findRecord('bet', i).then(function(bet) {
+        setBet(bet);
+      });
     }
   }
 });

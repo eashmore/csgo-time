@@ -24,3 +24,5 @@ group :development, :test do
 
   gem 'seed_dump'
 end
+
+gem 'rails_12factor', group: [:staging, :production]
