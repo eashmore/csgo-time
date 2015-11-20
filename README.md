@@ -23,8 +23,10 @@ This app will allow for the betting of items on the outcome of CS:GO matches. It
 * Refactor everything!
 
 ## Design Docs
-* [Proposed DB schema][schema]
 * [Payout Algorithm][payout]
+* [Proposed DB schema][schema]
+* [View Wireframes][views]
 
-[schema]: ./docs/schema.md
 [payout]: ./docs/payout.md
+[schema]: ./docs/schema.md
+[views]: ./docs/views.md
