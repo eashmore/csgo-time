@@ -39,35 +39,51 @@ function getRake(target, items) {
 #Payout Algorithm
 Implemented in Ember Matches Controller
 
-* `sortedItems` is an array of all the bet item sorted by price
-* `winBets` is an array of all the bets placed on the winning team
-* `payoutRatio` is the total value of bets on winner over total value of bets in the prize pool
+* `itemsList` is an array of all the bet item sorted by price
+* `winBets` is an array of all the bets placed on the winning team sorted by price value of winnings
 
 <pre><code>
-winBets.forEach(function(bet) {
-  var payout = bet.get('totalValue') * payoutRatio;
-  bet.set('payout', payout);
-});
+var distributeItems = function(itemsList) {
+  while(itemsList.length) {
+    var itemPrice = itemsList[0].get('price');
 
-var betIdx = 0;
-winBets = winBets.sort(function(a, b) {
-  return b.get('payout') - a.get('payout');
-});
+    if (itemPrice > largestPayout) {
+      var handledItem = itemsList.shift();
+      expensiveItems.push(handledItem);
+      continue;
+    }
 
-while (sortedItems.length) {
-  var itemPrice = sortedItems[0].get('price');
-  var userCurrentPayout = winBets[0].get('payout');
+    for(var i = 0; i < winBets.length; i++) {
+      var userCurrentPayout = winBets[i].get('payout');
 
-  if (itemPrice <= userCurrentPayout) {
-    payUser(sortedItems[0], winBets[0]);
+      if (itemPrice <= userCurrentPayout) {
+        payUser(itemsList[0], winBets[i]);
 
-    var newPayout = userCurrentPayout - itemPrice;
-    winBets[0].set('payout', newPayout);
+        var newPayout = userCurrentPayout - itemPrice;
+        winBets[i].set('payout', newPayout);
 
-    sortedItems.shift();
+        if (userCurrentPayout > winBets[i].get('payout')) {
+          largestPayout = winBets[i].get('payout');
+        }
+
+        var handledBet = winBets.shift();
+        winBets.push(handledBet);
+
+        itemsList.shift();
+        break;
+      }
+    }
   }
+</code></pre>
 
-  var handledBet = winBets.shift();
-  winBets.push(handledBet);
-}
+`distributeItems` will then compare any items too expensive to evenly distribute to its calculated rake. If the value of the extra items are larger then the rake value, it will redistribute it's calculated rake and take the expensive items as its rake instead.
+
+<pre><code>
+  if (expensiveItems.length && expensiveItems[0].get('price') > cutValue) {
+    cutValue = expensiveItems[0].get('price');
+    sortItems(cutItems);
+    cutItems = expensiveItems;
+  }
+};
+
 </code></pre>

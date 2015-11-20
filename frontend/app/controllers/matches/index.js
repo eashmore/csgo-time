@@ -78,22 +78,6 @@ export default Ember.Controller.extend({
   },
 
   payBets() {
-    var that = this;
-    var match = this.get('model');
-    var bets = match.get('bets');
-    var currentUser = this.store.peekRecord('user', window.CURRENT_USER);
-    var allBets = this.store.peekAll('bet');
-
-    if (!bets) {
-      return null;
-    }
-
-    var items = match.get('items');
-    var sortedItems = items.sortBy('price').toArray().reverse();
-
-    var winTeam = match.get('winner');
-    var winBets = [];
-
     var getPayoutRatio = function() {
       var betPool = 0;
       var winnerPool = 0;
@@ -112,9 +96,6 @@ export default Ember.Controller.extend({
       var payout = (betPool/winnerPool);
       return payout;
     };
-
-    var cutValue = 0;
-    var cutItems = [];
 
     var takeCut = function(betValue) {
       cutValue = betValue * 0.2;
@@ -135,18 +116,7 @@ export default Ember.Controller.extend({
       return pool;
     };
 
-    var payUser = function(item, bet) {
-      var user = bet.get('user');
-      var userId = user.get('id');
-
-      user.get('items').pushObject(item);
-      match.get('items').removeObject(item);
-
-      item.setProperties({ 'userId': userId, 'betId': null });
-      item.save();
-    };
-
-    var sortItems = function(itemsList) {
+    var distributeItems = function(itemsList) {
       while(itemsList.length) {
         var itemPrice = itemsList[0].get('price');
 
@@ -180,9 +150,20 @@ export default Ember.Controller.extend({
 
       if (expensiveItems.length && expensiveItems[0].get('price') > cutValue) {
         cutValue = expensiveItems[0].get('price');
-        sortItems(cutItems);
+        distributeItems(cutItems);
         cutItems = expensiveItems;
       }
+    };
+
+    var payUser = function(item, bet) {
+      var user = bet.get('user');
+      var userId = user.get('id');
+
+      user.get('items').pushObject(item);
+      match.get('items').removeObject(item);
+
+      item.setProperties({ 'userId': userId, 'betId': null });
+      item.save();
     };
 
     var removeBets = function() {
@@ -196,6 +177,26 @@ export default Ember.Controller.extend({
 
       currentUser.get('bets').clear();
     };
+
+
+    var that = this;
+    var match = this.get('model');
+    var bets = match.get('bets');
+    var currentUser = this.store.peekRecord('user', window.CURRENT_USER);
+    var allBets = this.store.peekAll('bet');
+
+    if (!bets) {
+      return null;
+    }
+
+    var items = match.get('items');
+    var sortedItems = items.sortBy('price').toArray().reverse();
+
+    var winTeam = match.get('winner');
+    var winBets = [];
+
+    var cutValue = 0;
+    var cutItems = [];
 
     var payoutRatio = getPayoutRatio();
 
@@ -213,7 +214,7 @@ export default Ember.Controller.extend({
     var largestPayout = winBets[0].get('payout');
     var expensiveItems = [];
 
-    sortItems(sortedItems);
+    distributeItems(sortedItems);
 
     removeBets();
   }
