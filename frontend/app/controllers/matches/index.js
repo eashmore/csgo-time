@@ -173,7 +173,6 @@ export default Ember.Controller.extend({
       currentUser.get('bets').clear();
     }
 
-
     var that = this;
     var match = this.get('model');
     var bets = match.get('bets');
@@ -194,8 +193,6 @@ export default Ember.Controller.extend({
     var cutItems = [];
 
     var payoutRatio = getPayoutRatio();
-
-    sortedItems = items.sortBy('price').toArray().reverse();
 
     winBets.forEach(function(bet) {
       var payout = bet.get('totalValue') * payoutRatio;
