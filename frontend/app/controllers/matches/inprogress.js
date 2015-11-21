@@ -51,6 +51,6 @@ export default Ember.Controller.extend({
         this.simulateRound(match, team1, team2);
 
       }
-    }.bind(this), 100);
+    }.bind(this), 2000);
   }
 });
