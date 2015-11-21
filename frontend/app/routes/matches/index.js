@@ -86,10 +86,16 @@ export default Ember.Route.extend({
   },
 
   resetMatch() {
-    var startTime = function() {
+    function startTime() {
       var start = new Date().setHours(20,0,0);
       return new Date(start);
-    };
+    }
+
+    function setBet(bet) {
+      var userId = parseInt(bet.get('id'));
+      bet.setProperties({ 'matchId': 1, 'userId': userId });
+      bet.save();
+    }
 
     this.currentMatch.setProperties({
       'hasStarted': false,
@@ -105,16 +111,8 @@ export default Ember.Route.extend({
 
     this.currentMatch.save();
 
-    function setBet(bet) {
-      var userId = bet.get('id');
-      bet.setProperties({ 'matchId': 1, 'userId': userId });
-      bet.save();
-    }
-
     for (var i = 1; i <= 10; i++) {
-      this.store.findRecord('bet', i).then(function(bet) {
-        setBet(bet);
-      });
+      this.store.findRecord('bet', i).then(setBet);
     }
   }
 });

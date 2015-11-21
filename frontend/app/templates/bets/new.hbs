@@ -1,4 +1,3 @@
-
 <div class="inv-list new-bet center-text">
   <label>Your Bet</label>
   <ul class="newbet"></ul>
@@ -7,3 +6,10 @@
 <button class="btn btn-success place-bet" {{action "submitBet"}}>
   Place Bet
 </button>
+
+{{log model.errors.totalValue}}
+{{#each model.errors.totalValue as |error|}}
+  <div class="error">
+    {{error.message}}
+  </div>
+{{/each}}

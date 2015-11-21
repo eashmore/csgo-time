@@ -25,23 +25,26 @@ export default Ember.Controller.extend({
     return itemIds;
   },
 
-  successfulSave(bet, itemHash, currentUser, match) {
-    var keys = Object.keys(itemHash);
-    for (var i = 0; i < keys.length; i++) {
-      var item = itemHash[keys[i]];
-
-      item.setProperties({'userId': null, 'betId': bet.get('id'), 'user': null});
-      item.save();
-      match.get('bets').pushObject(bet);
-      currentUser.get('items').removeObject(item);
-      currentUser.get('betItems').pushObject(item);
-
-      this.transitionToRoute('matches.index');
-    }
-  },
-
   actions: {
     submitBet() {
+      function successfulSave(bet) {
+        var keys = Object.keys(itemIds);
+        for (var i = 0; i < keys.length; i++) {
+          var item = itemIds[keys[i]];
+          item.setProperties(
+            {'userId': null, 'betId': bet.get('id'), 'user': null}
+          );
+          item.save();
+          
+          nextMatch.get('bets').pushObject(bet);
+          currentUser.get('items').removeObject(item);
+          currentUser.get('betItems').pushObject(item);
+
+          that.transitionToRoute('matches.index');
+        }
+      }
+
+      var that = this;
       var itemIds = this.getItemIds();
       var totalBet = 0;
       var currentUser = this.store.peekRecord('user', window.CURRENT_USER);
@@ -55,12 +58,10 @@ export default Ember.Controller.extend({
 
         newBet.get('items').pushObject(item);
         totalBet += item.get('price');
-      }.bind(this));
+      });
 
       newBet.set('totalValue', totalBet);
-      newBet.save().then(function() {
-        this.successfulSave(newBet, itemIds, currentUser, nextMatch);
-      }.bind(this));
+      newBet.save().then(successfulSave);
     }
   }
 });

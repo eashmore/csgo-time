@@ -20,11 +20,13 @@ export default Ember.Controller.extend({
 
   actions: {
     generateItem(item) {
+      function giveItemToUser(user) {
+        user.get('items').pushObject(newItem);
+      }
+
       var newItem = this.createItem(item, window.CURRENT_USER);
 
-      this.store.findRecord('user', window.CURRENT_USER).then(function(user) {
-        user.get('items').pushObject(newItem);
-      });
+      this.store.findRecord('user', window.CURRENT_USER).then(giveItemToUser);
     }
   }
 });

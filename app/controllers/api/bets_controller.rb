@@ -1,4 +1,4 @@
-class Api::BetsController < ApplicationController  
+class Api::BetsController < ApplicationController
   def create
     @bet = Bet.new(bet_params)
 
