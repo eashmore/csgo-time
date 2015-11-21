@@ -4,7 +4,7 @@ export default Ember.Controller.extend({
   timeLeft: "",
 
   updateTime(match) {
-    var secToHours = function(sec) {
+    function secToHours(sec) {
       var sec_num = parseInt(sec, 10);
       var hours = Math.floor(sec_num / 3600);
       var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
@@ -22,17 +22,12 @@ export default Ember.Controller.extend({
 
       var time = hours + ' hours : ' + minutes + ' mins : ' + seconds + ' secs';
       return time;
-    };
+    }
 
     var startTime = match.get('startTime');
 
     var timeLeft = new Date(startTime) - (new Date());
     timeLeft = timeLeft / 1000;
-
-    // for testing
-    // timeLeft = 0;
-    // timeLeft = -14400011;
-    // timeLeft = 100;
 
     var timeLeftString = timeLeft < 0 ? secToHours(0) : secToHours(timeLeft);
     this.set('timeLeft', timeLeftString);
@@ -78,7 +73,7 @@ export default Ember.Controller.extend({
   },
 
   payBets() {
-    var getPayoutRatio = function() {
+    function getPayoutRatio() {
       var betPool = 0;
       var winnerPool = 0;
 
@@ -95,9 +90,9 @@ export default Ember.Controller.extend({
 
       var payout = (betPool/winnerPool);
       return payout;
-    };
+    }
 
-    var takeCut = function(betValue) {
+    function takeCut(betValue) {
       cutValue = betValue * 0.2;
 
       cutItems = that.getRake(cutValue, sortedItems);
@@ -114,9 +109,9 @@ export default Ember.Controller.extend({
       });
 
       return pool;
-    };
+    }
 
-    var distributeItems = function(itemsList) {
+    function distributeItems(itemsList) {
       while(itemsList.length) {
         var itemPrice = itemsList[0].get('price');
 
@@ -153,9 +148,9 @@ export default Ember.Controller.extend({
         distributeItems(cutItems);
         cutItems = expensiveItems;
       }
-    };
+    }
 
-    var payUser = function(item, bet) {
+    function payUser(item, bet) {
       var user = bet.get('user');
       var userId = user.get('id');
 
@@ -164,9 +159,9 @@ export default Ember.Controller.extend({
 
       item.setProperties({ 'userId': userId, 'betId': null });
       item.save();
-    };
+    }
 
-    var removeBets = function() {
+    function removeBets() {
       allBets.forEach(function(bet) {
         if (bet) {
           bet.setProperties({ 'matchId': 0, 'userId': 0 });
@@ -176,7 +171,7 @@ export default Ember.Controller.extend({
       });
 
       currentUser.get('bets').clear();
-    };
+    }
 
 
     var that = this;

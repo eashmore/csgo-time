@@ -105,11 +105,11 @@ export default Ember.Route.extend({
 
     this.currentMatch.save();
 
-    var setBet = function(bet) {
+    function setBet(bet) {
       var userId = bet.get('id');
       bet.setProperties({ 'matchId': 1, 'userId': userId });
       bet.save();
-    };
+    }
 
     for (var i = 1; i <= 10; i++) {
       this.store.findRecord('bet', i).then(function(bet) {
