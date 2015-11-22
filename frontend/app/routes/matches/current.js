@@ -3,15 +3,11 @@ import Ember from 'ember';
 export default Ember.Route.extend({
 
   model() {
-    var modelId = this.modelFor('matches').objectAt(0).get('id');
+    var modelId = this.modelFor('matches').get('firstObject').get('id');
     return this.store.findRecord('match', modelId);
   },
 
   afterModel(match) {
-
-    // var currentMatch = match.objectAt(0);
-    // this.set('currentMatch', currentMatch);
-
     this.timeUntilMatch(match);
 
     var currentBets = match.get('bets');
@@ -21,9 +17,6 @@ export default Ember.Route.extend({
     }
 
     this.getRecentBets(currentBets);
-    // Ember.addObserver(
-    //   currentMatch, currentMatch.get('bets'), this, this.prizePool
-    // );
   },
 
   renderTemplate(c, model) {
@@ -98,10 +91,17 @@ export default Ember.Route.extend({
       return new Date(start);
     }
 
-    function setBet(bet) {
+    function resetBet(bet) {
       var userId = parseInt(bet.get('id'));
       bet.setProperties({ 'matchId': 1, 'userId': userId });
       bet.save();
+    }
+
+    function resetScores(teams) {
+      teams.forEach(function(team) {
+        team.set('score', 0);
+        team.save();
+      });
     }
 
     match.setProperties({
@@ -118,8 +118,10 @@ export default Ember.Route.extend({
 
     match.save();
 
+    resetScores(match.get('teams'));
+
     for (var i = 1; i <= 10; i++) {
-      this.store.findRecord('bet', i).then(setBet);
+      this.store.findRecord('bet', i).then(resetBet);
     }
   }
 });

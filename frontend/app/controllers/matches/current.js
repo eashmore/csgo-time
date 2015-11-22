@@ -31,7 +31,7 @@ export default Ember.Controller.extend({
     var timeLeft = new Date(startTime) - (new Date());
     timeLeft = timeLeft / 1000;
 
-    timeLeft = 100;
+    // timeLeft = 100;
 
     var timeLeftString = timeLeft < 0 ? secToHours(0) : secToHours(timeLeft);
     this.set('timeLeft', timeLeftString);
