@@ -1,11 +1,14 @@
+
 <div class="inv-list new-bet center-text">
   <label>Your Bet</label>
-  <ul class="newbet"></ul>
-</div>
 
-<button class="btn btn-success place-bet" {{action "submitBet"}}>
-  Place Bet
-</button>
+  <button class="btn btn-primary place-bet" {{action "submitBet"}}>
+    Make your Bet
+  </button>
+
+  <ul class="newbet"></ul>
+
+</div>
 
 {{log model.errors.totalValue}}
 {{#each model.errors.totalValue as |error|}}

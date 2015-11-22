@@ -13,7 +13,7 @@
 
       <a class="navbar-brand" href="#" {{action "toHomePage"}}>
         <img class="nav-logo"
-          src="http://res.cloudinary.com/dqucbuno8/image/upload/c_scale,h_40/v1447967648/gotimelogo_lhemor.png"
+          src="https://res.cloudinary.com/dqucbuno8/image/upload/c_scale,h_40/v1447967648/gotimelogo_lhemor.png"
         />
       </a>
     </div>
@@ -22,15 +22,15 @@
 
       <ul class="nav navbar-nav navbar-left">
         <li><a href="#" {{action "toHomePage"}}>Home</a></li>
-        <li><a href="#" {{action "toUserPage"}}>My Inventory</a></li>
-        <li><a href="#" {{action "toBetPage"}}>My Bet</a></li>
+        <li><a href="user" {{action "toUserPage"}}>My Inventory</a></li>
+        <li><a href="bets" {{action "toBetPage"}}>My Bet</a></li>
       </ul>
 
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#" {{action "toUserPage"}}>{{model.username}}</a></li>
+        <li><a href="user" {{action "toUserPage"}}>{{model.username}}</a></li>
         <li><a href="/sessions/new">Sign Out</a></li>
       </ul>
-      
+
     </div>
   </div>
 </nav>

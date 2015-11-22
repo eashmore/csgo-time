@@ -1,5 +1,5 @@
 body {
-  background: url('http://res.cloudinary.com/dqucbuno8/image/upload/v1447826196/Counter-Strike-Wallpaper-1920x1080-4_utq3oz.jpg') center top no-repeat #000000;
+  background: url('https://res.cloudinary.com/dqucbuno8/image/upload/v1447826196/Counter-Strike-Wallpaper-1920x1080-4_utq3oz.jpg') center top no-repeat #000000;
   color: white;
 }
 
@@ -102,20 +102,24 @@ nav.navbar-default .navbar-nav>li>a {
 }
 
 .btn.place-bet {
-  position: relative;
-  left: 1em;
-  top: 1em;
+  width: 100%;
+  bottom:0;
 }
 
 // items
 .inv-list {
-  width: 36%;
-  max-width: 515%;
+  width: 37%;
+  max-width: 525px;
   height: 600px;
   overflow-y: scroll;
   border: 3px solid #303358;
   border-radius: 3px;
   background-color: rgba(58, 71, 106, .8);
+}
+
+.inv-list>label {
+  display: block;
+  background-color: #000123;
 }
 
 .inv-list.stash {
@@ -151,6 +155,7 @@ nav.navbar-default .navbar-nav>li>a {
   border: 5px solid darkgrey;
   border-style: inset;
   background-color: grey;
+  padding: 0px;
 }
 
 .item-image {
