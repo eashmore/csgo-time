@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
 
   def index
-    @users = User.all
+    @users = User.includes(:bets).includes(:items).all
 
     render json: @users
   end

@@ -1,6 +1,6 @@
 class Api::ItemsController < ApplicationController
   def index
-    @items = Item.all
+    @items = Item.includes(:user).includes(:bet).all
 
     render json: @items
   end
@@ -17,7 +17,7 @@ class Api::ItemsController < ApplicationController
 
   def show
     @item = Item.find(params[:id])
-    
+
     render json: @item
   end
 
