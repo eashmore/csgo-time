@@ -52,9 +52,6 @@ export default Ember.Controller.extend({
         this.set('totalValue', newValue);
       }
 
-      Ember.Logger.log(this.totalValue);
-      Ember.Logger.log($bettingButton.attr('disabled'));
-
       isValidBet();
     }
   }
