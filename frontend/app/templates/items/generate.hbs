@@ -1,7 +1,7 @@
 <div class="inv-list item-db center-text">
   <label>Item Database</label>
-  
-    <ul>
+
+    <ul class="item-list">
       {{#each model as |item|}}
         {{item-generator action="generateItem" item=item}}
       {{/each}}

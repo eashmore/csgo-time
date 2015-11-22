@@ -31,7 +31,7 @@ export default Ember.Controller.extend({
       $el.attr("data-item-id", itemId);
 
       if (isBet) {
-        $('.stash').append($el);
+        $('div.stash ul').append($el);
         isBet = false;
         this.numberOfItems -= 1;
         this.totalValue -= price;
