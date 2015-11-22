@@ -1,18 +1,10 @@
-
 <div class="inv-list new-bet center-text">
   <label>Your Bet</label>
 
-  <button class="btn btn-primary place-bet" {{action "submitBet"}}>
-    Make your Bet
+  <button class="btn btn-warning place-bet" disabled {{action "submitBet"}}>
+    Place your Bet
   </button>
 
   <ul class="newbet"></ul>
 
 </div>
-
-{{log model.errors.totalValue}}
-{{#each model.errors.totalValue as |error|}}
-  <div class="error">
-    {{error.message}}
-  </div>
-{{/each}}
