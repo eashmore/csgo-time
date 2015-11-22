@@ -72,8 +72,6 @@ export default Ember.Route.extend({
           that.resetMatch(match);
         } else {
           clearInterval(timer);
-          match.set('hasStarted', true);
-          match.save();
 
           that.render('matches.inprogress', {
             into: 'matches',
@@ -99,34 +97,24 @@ export default Ember.Route.extend({
 
     function resetBets(bets) {
       bets.forEach(function(bet) {
-        bet.set('userId', null);
+        if (bet.get('id') > 10) {
+          bet.setProperties({ 'matchId': 0, 'userId': 0});
+          bet.save();
+        }
       });
 
       currentUser.get('bets').clear();
     }
 
-    var userId = 1;
-    function reseedBet(bet) {
-      bet.setProperties({ 'matchId': 1, 'userId': userId });
-      bet.save().then(function(){ userId++; });
-    }
-
     var currentUser = this.store.peekRecord('user', window.CURRENT_USER);
-
 
     match.get('teams').forEach(function(team) {
       team.set('score', 0);
       team.save();
     });
 
-    match.save();
-
     resetScores(match.get('teams'));
     resetBets(match.get('bets'));
-
-    for(var i = 1; i < 11; i++) {
-      this.store.findRecord('bet', i).then(reseedBet);
-    }
 
     match.setProperties({
       'hasStarted': false,
@@ -134,5 +122,6 @@ export default Ember.Route.extend({
       'currentRound': 1,
       'winnerId': null
     });
+    match.save();
   }
 });
