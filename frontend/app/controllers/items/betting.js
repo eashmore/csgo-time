@@ -29,17 +29,27 @@ export default Ember.Controller.extend({
 
       $el.remove();
       $el.attr("data-item-id", itemId);
+      var newValue = 0;
+      var newNumberOfItems = 0;
 
       if (isBet) {
         $('div.stash ul').append($el);
         isBet = false;
-        this.numberOfItems -= 1;
-        this.totalValue -= price;
+
+        newNumberOfItems = this.numberOfItems - 1;
+        this.set('numberOfItems', newNumberOfItems);
+
+        newValue = this.totalValue - price;
+        this.set('totalValue', newValue);
       } else {
         $('.newbet').append($el);
         isBet = true;
-        this.numberOfItems += 1;
-        this.totalValue += price;
+
+        newNumberOfItems = this.numberOfItems + 1;
+        this.set('numberOfItems', newNumberOfItems);
+
+        newValue = this.totalValue + price;
+        this.set('totalValue', newValue);
       }
 
       Ember.Logger.log(this.totalValue);

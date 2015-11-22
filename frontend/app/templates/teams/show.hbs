@@ -1,16 +1,18 @@
-<div class="center-text">
+<div class="container">  
+  <div class="center-text">
 
-  <h3>Place your bet on {{model.name}}</h3>
+    <h3>Place your bet on {{model.name}}</h3>
 
-  <p>
-    Minimum bet is $10.
-    <br>
+    <p>
+      Minimum bet is $10.
+      <br>
 
-    Bet can have no more than 10 items.
-  </p>
+      Bet can have no more than 10 items.
+    </p>
+  </div>
+
+
+  {{outlet "stash"}}
+
+  {{outlet "new-bet"}}
 </div>
-
-
-{{outlet "stash"}}
-
-{{outlet "new-bet"}}

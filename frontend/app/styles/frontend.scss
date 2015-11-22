@@ -36,7 +36,7 @@ nav.navbar-default .navbar-nav>li>a {
   margin-left: 7%;
 }
 
-// splash page
+// landing page
 .next-match {
   background-color: rgba(35, 35, 35, .8);
   margin-top: 1%;
@@ -69,8 +69,8 @@ nav.navbar-default .navbar-nav>li>a {
 // teams
 .team-idx {
   background-color: rgba(100, 100, 100, .4);
-  margin-left: 25%;
-  margin-right: 25%;
+  margin-left: 15%;
+  margin-right: 15%;
   padding-bottom: 2%;
   border: 3px solid black;
   border-radius: 7px;
@@ -104,18 +104,9 @@ nav.navbar-default .navbar-nav>li>a {
   box-shadow: 0 0 20px #ffbd6c;
 }
 
-.btn.betting-page {
-  margin-top: 7%;
-}
-
-.btn.place-bet {
-  width: 100%;
-  bottom:0;
-}
-
 // items
 .inv-list {
-  width: 37%;
+  width: 46%;
   max-width: 525px;
   height: 600px;
   overflow-y: scroll;
@@ -131,17 +122,14 @@ nav.navbar-default .navbar-nav>li>a {
 
 .inv-list.stash {
   float: left;
-  margin-left: 10%;
 }
 
 .inv-list.item-db {
-  margin-right: 10%;
   float: right;
   overflow: hidden;
 }
 
 .inv-list.new-bet {
-  margin-right: 10%;
   float: right;
 }
 
@@ -208,9 +196,19 @@ ul.item-list div.inv-item:hover {
 }
 
 //bets
+.btn.betting-page {
+  margin-top: 7%;
+}
+
+.btn.place-bet {
+  width: 100%;
+  bottom:0;
+}
+
 .recent-bets-list {
   margin-top: 1%;
   padding-bottom: 1%;
+  min-height: 100px;
   background-color: rgba(0, 1, 35, .6);
   border: 3px solid #000123;
   border-radius: 3px;
@@ -229,12 +227,8 @@ ul.item-list div.inv-item:hover {
 }
 
 .bet-show {
-  position: relative;
-  left: 10%;
-  width: 81%;
   max-width: 1150px;
-  height: auto;
-  overflow-y: scroll;
+  overflow-y: auto;
   border: 3px solid #303358;
   border-radius: 3px;
   background-color: rgba(58, 71, 106, .8);
