@@ -1,53 +1,60 @@
 import Ember from 'ember';
 
 export default Ember.Route.extend({
+
   model() {
-    return this.store.findAll('match');
+    var modelId = this.modelFor('matches').objectAt(0).get('id');
+    return this.store.findRecord('match', modelId);
   },
 
-  currentMatch: "",
+  afterModel(match) {
 
-  afterModel(matches) {
-    var currentMatch = matches.objectAt(0);
-    this.set('currentMatch', currentMatch);
+    // var currentMatch = match.objectAt(0);
+    // this.set('currentMatch', currentMatch);
 
-    this.timeUntilMatch(currentMatch);
+    this.timeUntilMatch(match);
 
-    this.prizePool();
-    this.recentBets(currentMatch.get('bets'));
-    Ember.addObserver(
-      currentMatch, currentMatch.get('bets'), this, this.prizePool
-    );
+    var currentBets = match.get('bets');
+
+    if (currentBets.get('length')) {
+      this.prizePool(match);
+    }
+
+    this.getRecentBets(currentBets);
+    // Ember.addObserver(
+    //   currentMatch, currentMatch.get('bets'), this, this.prizePool
+    // );
   },
 
-  renderTemplate(controller) {
-    this.render('matches.index', {
-      model: this.currentMatch,
-      controller: controller
+  renderTemplate(c, model) {
+    this.render('matches.current', {
+      model: model
     });
 
     var teamController = this.controllerFor('teams.index');
     this.render('teams.index', {
-      into: 'matches.index',
+      into: 'matches.current',
       outlet: 'teams',
       controller: teamController,
-      model: this.currentMatch.get('teams'),
+      model: model.get('teams'),
     });
-
   },
 
-  prizePool() {
+  prizePool(match) {
     var pool = 0;
-    var bets = this.currentMatch.get('bets');
+    var bets = match.get('bets');
     bets.forEach(function(bet) {
       pool += bet.get('totalValue');
     });
 
-    this.currentMatch.set('prizePool', Math.round(pool));
+    match.set('prizePool', Math.round(pool));
+    match.save();
   },
 
-  recentBets(bets) {
+  getRecentBets(bets) {
+    var controller = this.controllerFor('matches.current');
     var recentBets = [];
+
     bets = bets.toArray().reverse();
 
     for (var i = 0; i < 6; i++) {
@@ -58,23 +65,23 @@ export default Ember.Route.extend({
       recentBets.push(bets[i]);
     }
 
-    this.currentMatch.set('recentBets', recentBets);
+    controller.set('recentBets', recentBets);
   },
 
   timeUntilMatch(match) {
     var that = this;
-    var controller = this.controllerFor('matches.index');
+    var controller = this.controllerFor('matches.current');
 
     var timer = setInterval(function() {
-      var time = controller.updateTime(that.currentMatch);
+      var time = controller.updateTime(match);
       if (time <= 0) {
-        if (time <= -14400001 && that.currentMatch.get('hasStarted')) {
+        if (time <= -14400001 && match.get('hasStarted')) {
           clearInterval(timer);
-          that.resetMatch();
+          that.resetMatch(match);
         } else {
           clearInterval(timer);
-          that.currentMatch.set('hasStarted', true);
-          that.currentMatch.save();
+          match.set('hasStarted', true);
+          match.save();
 
           that.render('matches.inprogress', {
             into: 'matches',
@@ -85,7 +92,7 @@ export default Ember.Route.extend({
     }.bind(controller), 1000);
   },
 
-  resetMatch() {
+  resetMatch(match) {
     function startTime() {
       var start = new Date().setHours(20,0,0);
       return new Date(start);
@@ -97,19 +104,19 @@ export default Ember.Route.extend({
       bet.save();
     }
 
-    this.currentMatch.setProperties({
+    match.setProperties({
       'hasStarted': false,
       'startTime': startTime(),
       'currentRound': 1,
       'winnerId': null
     });
 
-    this.currentMatch.get('teams').forEach(function(team) {
+    match.get('teams').forEach(function(team) {
       team.set('score', 0);
       team.save();
     });
 
-    this.currentMatch.save();
+    match.save();
 
     for (var i = 1; i <= 10; i++) {
       this.store.findRecord('bet', i).then(setBet);

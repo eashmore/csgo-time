@@ -35,12 +35,12 @@ export default Ember.Controller.extend({
             {'userId': null, 'betId': bet.get('id'), 'user': null}
           );
           item.save();
-          
+
           nextMatch.get('bets').pushObject(bet);
           currentUser.get('items').removeObject(item);
           currentUser.get('betItems').pushObject(item);
 
-          that.transitionToRoute('matches.index');
+          that.transitionToRoute('matches.current');
         }
       }
 

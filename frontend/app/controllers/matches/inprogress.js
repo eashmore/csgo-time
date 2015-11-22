@@ -1,7 +1,7 @@
 import Ember from 'ember';
 
 export default Ember.Controller.extend({
-  matchesController: Ember.inject.controller('matches.index'),
+  matchesController: Ember.inject.controller('matches.current'),
 
   init() {
     this.simulateMatch();

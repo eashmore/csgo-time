@@ -8,9 +8,6 @@
 
   </h2>
 
-  {{outlet}}
-
-
   <div class="container">
     <div class="team-idx clearfix">
       {{outlet 'teams'}}
@@ -35,8 +32,8 @@
     <div class="bets-label col-xs-12">
       Recent Bets:
     </div>
-
-    {{#each model.recentBets as |bet|}}
+{{log recentBets}}
+    {{#each recentBets as |bet|}}
       <div class="recent-bet col-xs-2">
         <label>{{bet.user.username}}</label>
 
