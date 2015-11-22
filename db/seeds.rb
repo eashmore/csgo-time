@@ -1,35 +1,36 @@
 User.create!([
-  {id: 1, username: "device", password: "password", created_at: "2015-11-20 05:48:29", updated_at: "2015-11-20 05:48:29"},
-  {id: 2, username: "kennyS", password: "password", created_at: "2015-11-20 05:48:29", updated_at: "2015-11-20 05:48:29"},
-  {id: 3, username: "Skadoodle", password: "password", created_at: "2015-11-20 05:48:29", updated_at: "2015-11-20 05:48:29"},
-  {id: 4, username: "s1mple", password: "password", created_at: "2015-11-20 05:48:30", updated_at: "2015-11-20 05:48:30"},
-  {id: 5, username: "flusha", password: "password", created_at: "2015-11-20 05:48:30", updated_at: "2015-11-20 05:48:30"},
-  {id: 6, username: "KRiMZ", password: "password", created_at: "2015-11-20 05:48:30", updated_at: "2015-11-20 05:48:30"},
-  {id: 7, username: "Snax", password: "password", created_at: "2015-11-20 05:48:30", updated_at: "2015-11-20 05:48:30"},
-  {id: 8, username: "Happy", password: "password", created_at: "2015-11-20 05:48:30", updated_at: "2015-11-20 05:48:30"},
-  {id: 9, username: "GuardiaN", password: "password", created_at: "2015-11-20 05:48:30", updated_at: "2015-11-20 05:48:30"},
-  {id: 10, username: "olofm", password: "password", created_at: "2015-11-20 05:48:30", updated_at: "2015-11-20 05:48:30"},
-  {id: 11, username: "Guest", password: "password", created_at: "2015-11-20 05:48:30", updated_at: "2015-11-20 05:48:37"}
+  {username: "device", password: "password", created_at: "2015-11-20 05:48:29", updated_at: "2015-11-20 05:48:29"},
+  {username: "kennyS", password: "password", created_at: "2015-11-20 05:48:29", updated_at: "2015-11-20 05:48:29"},
+  {username: "Skadoodle", password: "password", created_at: "2015-11-20 05:48:29", updated_at: "2015-11-20 05:48:29"},
+  {username: "s1mple", password: "password", created_at: "2015-11-20 05:48:30", updated_at: "2015-11-20 05:48:30"},
+  {username: "flusha", password: "password", created_at: "2015-11-20 05:48:30", updated_at: "2015-11-20 05:48:30"},
+  {username: "KRiMZ", password: "password", created_at: "2015-11-20 05:48:30", updated_at: "2015-11-20 05:48:30"},
+  {username: "Snax", password: "password", created_at: "2015-11-20 05:48:30", updated_at: "2015-11-20 05:48:30"},
+  {username: "Happy", password: "password", created_at: "2015-11-20 05:48:30", updated_at: "2015-11-20 05:48:30"},
+  {username: "GuardiaN", password: "password", created_at: "2015-11-20 05:48:30", updated_at: "2015-11-20 05:48:30"},
+  {username: "olofm", password: "password", created_at: "2015-11-20 05:48:30", updated_at: "2015-11-20 05:48:30"},
+
+  {username: "Guest", password: "password", created_at: "2015-11-20 05:48:30", updated_at: "2015-11-20 05:48:37"}
 ])
 
 Itemdb.create!([
-  {id: 1, name: "Frontside Misty", price: 5.0, gun_type: "AK-47", condition: "Field-Tested", rarity: "Classified", is_stattrack: true, is_souvenir: false, image_url: "http://res.cloudinary.com/dqucbuno8/image/upload/v1447814183/frontsidemisty_xfeh8a.png", created_at: "2015-11-20 04:45:59", updated_at: "2015-11-20 04:45:59"},
-  {id: 2, name: "Mudder", price: 1.23, gun_type: "Desert Eagle", condition: "Well-Worm", rarity: "Industrial Grade", is_stattrack: false, is_souvenir: false, image_url: "http://res.cloudinary.com/dqucbuno8/image/upload/v1447814183/mudder_weljxg.png", created_at: "2015-11-20 04:45:59", updated_at: "2015-11-20 04:45:59"},
-  {id: 3, name: "Forest DDPAT", price: 0.77, gun_type: "MP7", condition: "Battle-Scarred", rarity: "Consumer Grade", is_stattrack: false, is_souvenir: false, image_url: "http://res.cloudinary.com/dqucbuno8/image/upload/v1447814186/ddpat_suubqw.png", created_at: "2015-11-20 04:45:59", updated_at: "2015-11-20 04:45:59"},
-  {id: 4, name: "Howl", price: 500.0, gun_type: "M4A4", condition: "Factory New", rarity: "Contraband", is_stattrack: true, is_souvenir: false, image_url: "http://res.cloudinary.com/dqucbuno8/image/upload/v1447814183/howl_uhr4yy.png", created_at: "2015-11-20 04:45:59", updated_at: "2015-11-20 04:45:59"},
-  {id: 5, name: "Origami", price: 4.0, gun_type: "Sawed-Off", condition: "Minimal Wear", rarity: "Mil-Spec", is_stattrack: false, is_souvenir: false, image_url: "http://res.cloudinary.com/dqucbuno8/image/upload/v1447814183/origami_xopke7.png", created_at: "2015-11-20 04:45:59", updated_at: "2015-11-20 04:45:59"},
-  {id: 6, name: "Blue Steel", price: 9.51, gun_type: "Bayonet", condition: "Field-Tested", rarity: "Covert", is_stattrack: false, is_souvenir: true, image_url: "http://res.cloudinary.com/dqucbuno8/image/upload/v1447814183/bluesteel_er3oeo.png", created_at: "2015-11-20 04:45:59", updated_at: "2015-11-20 04:45:59"}
+  {name: "Frontside Misty", price: 5.0, gun_type: "AK-47", condition: "Field-Tested", rarity: "Classified", is_stattrack: true, is_souvenir: false, image_url: "http://res.cloudinary.com/dqucbuno8/image/upload/v1447814183/frontsidemisty_xfeh8a.png", created_at: "2015-11-20 04:45:59", updated_at: "2015-11-20 04:45:59"},
+  {name: "Mudder", price: 1.23, gun_type: "Desert Eagle", condition: "Well-Worm", rarity: "Industrial Grade", is_stattrack: false, is_souvenir: false, image_url: "http://res.cloudinary.com/dqucbuno8/image/upload/v1447814183/mudder_weljxg.png", created_at: "2015-11-20 04:45:59", updated_at: "2015-11-20 04:45:59"},
+  {name: "Forest DDPAT", price: 0.77, gun_type: "MP7", condition: "Battle-Scarred", rarity: "Consumer Grade", is_stattrack: false, is_souvenir: false, image_url: "http://res.cloudinary.com/dqucbuno8/image/upload/v1447814186/ddpat_suubqw.png", created_at: "2015-11-20 04:45:59", updated_at: "2015-11-20 04:45:59"},
+  {name: "Howl", price: 500.0, gun_type: "M4A4", condition: "Factory New", rarity: "Contraband", is_stattrack: true, is_souvenir: false, image_url: "http://res.cloudinary.com/dqucbuno8/image/upload/v1447814183/howl_uhr4yy.png", created_at: "2015-11-20 04:45:59", updated_at: "2015-11-20 04:45:59"},
+  {name: "Origami", price: 4.0, gun_type: "Sawed-Off", condition: "Minimal Wear", rarity: "Mil-Spec", is_stattrack: false, is_souvenir: false, image_url: "http://res.cloudinary.com/dqucbuno8/image/upload/v1447814183/origami_xopke7.png", created_at: "2015-11-20 04:45:59", updated_at: "2015-11-20 04:45:59"},
+  {name: "Blue Steel", price: 9.51, gun_type: "Bayonet", condition: "Field-Tested", rarity: "Covert", is_stattrack: false, is_souvenir: true, image_url: "http://res.cloudinary.com/dqucbuno8/image/upload/v1447814183/bluesteel_er3oeo.png", created_at: "2015-11-20 04:45:59", updated_at: "2015-11-20 04:45:59"}
 ])
 Match.create!([
-  {id: 1, has_started: true, current_round: 12, winner_id: 1, created_at: "2015-11-20 05:48:30", updated_at: "2015-11-20 05:48:41", start_time: nil, map: "de_dust2"}
+  {has_started: true, current_round: 12, winner_id: 1, created_at: "2015-11-20 05:48:30", updated_at: "2015-11-20 05:48:41", start_time: nil, map: "de_dust2"}
 ])
 Team.create!([
-  {id: 1, name: "WOW_WE_LAGGED", odds: 1.0, avatar_url: "http://res.cloudinary.com/dqucbuno8/image/upload/h_250,w_250/v1447814571/lag-kills-people_nrbbgr.png", created_at: "2015-11-20 04:45:59", updated_at: "2015-11-20 05:48:40", score: 9},
-  {id: 2, name: "php_poets", odds: 1.0, avatar_url: "http://res.cloudinary.com/dqucbuno8/image/upload/c_fill,h_250,w_250/v1447827745/dedicated-php-developer_zfcdls.png", created_at: "2015-11-20 04:45:59", updated_at: "2015-11-20 05:48:40", score: 2}
+  {name: "WOW_WE_LAGGED", odds: 1.0, avatar_url: "http://res.cloudinary.com/dqucbuno8/image/upload/h_250,w_250/v1447814571/lag-kills-people_nrbbgr.png", created_at: "2015-11-20 04:45:59", updated_at: "2015-11-20 05:48:40", score: 9},
+  {name: "php_poets", odds: 1.0, avatar_url: "http://res.cloudinary.com/dqucbuno8/image/upload/c_fill,h_250,w_250/v1447827745/dedicated-php-developer_zfcdls.png", created_at: "2015-11-20 04:45:59", updated_at: "2015-11-20 05:48:40", score: 2}
 ])
 MatchLineup.create!([
-  {id: 1, match_id: 1, team_id: 1, created_at: "2015-11-20 04:45:59", updated_at: "2015-11-20 04:45:59"},
-  {id: 2, match_id: 1, team_id: 2, created_at: "2015-11-20 04:45:59", updated_at: "2015-11-20 04:45:59"}
+  {match_id: 1, team_id: 1, created_at: "2015-11-20 04:45:59", updated_at: "2015-11-20 04:45:59"},
+  {match_id: 1, team_id: 2, created_at: "2015-11-20 04:45:59", updated_at: "2015-11-20 04:45:59"}
 ])
 
   Item.create({name: "Blue Steel", price: 9.51, gun_type: "Bayonet", condition: "Field-Tested", rarity: "Covert", is_stattrack: false, is_souvenir: true, image_url: "http://res.cloudinary.com/dqucbuno8/image/upload/v1447814183/bluesteel_er3oeo.png", user_id: nil, bet_id: 1, created_at: "2015-11-20 04:47:51", updated_at: "2015-11-20 04:48:06"})
