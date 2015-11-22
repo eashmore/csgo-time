@@ -31,8 +31,6 @@ export default Ember.Controller.extend({
     var timeLeft = new Date(startTime) - (new Date());
     timeLeft = timeLeft / 1000;
 
-    // timeLeft = 100;
-
     var timeLeftString = timeLeft < 0 ? secToHours(0) : secToHours(timeLeft);
     this.set('timeLeft', timeLeftString);
 
@@ -168,19 +166,16 @@ export default Ember.Controller.extend({
     function removeBets() {
       allBets.forEach(function(bet) {
         if (bet) {
-          bet.setProperties({ 'matchId': 0, 'userId': 0 });
+          bet.setProperties({ 'matchId': 0 });
           bet.save();
           match.get('bets').removeObject(bet);
         }
       });
-
-      currentUser.get('bets').clear();
     }
 
     var that = this;
     var match = this.get('model');
     var bets = match.get('bets');
-    var currentUser = this.store.peekRecord('user', window.CURRENT_USER);
     var allBets = this.store.peekAll('bet');
 
     if (!bets.get('length')) {

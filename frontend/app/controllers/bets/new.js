@@ -49,7 +49,7 @@ export default Ember.Controller.extend({
       var totalBet = 0;
       var currentUser = this.store.peekRecord('user', window.CURRENT_USER);
       var matches = this.model.get('matches');
-      var nextMatch = matches.objectAt(0);
+      var nextMatch = matches.get('firstObject');
 
       var newBet = this.newBet(nextMatch, currentUser);
 

@@ -1,14 +1,15 @@
 <div class="container center-text">
-
-  {{#if model.bet}}
+  {{#if model}}
+  {{log model.match}}
+    <h2>You bet on: <label>{{model.team.name}}</label></h2>
     <br>
     <label>Total Value:</label>
-    <p class="prize-pool" >${{model.bet.totalValue}}</p>
+    <p class="prize-pool" >${{model.totalValue}}</p>
     <br>
 
     <div class="bet-show">
       <ul>
-        {{#each model.betItems as |item|}}
+        {{#each model.items as |item|}}
           {{inventory-item item=item}}
         {{/each}}
       </ul>

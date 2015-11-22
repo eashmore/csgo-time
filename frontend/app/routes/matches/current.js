@@ -3,8 +3,7 @@ import Ember from 'ember';
 export default Ember.Route.extend({
 
   model() {
-    var modelId = this.modelFor('matches').get('firstObject').get('id');
-    return this.store.findRecord('match', modelId);
+    return this.modelFor('matches').get('firstObject');
   },
 
   afterModel(match) {
@@ -91,17 +90,26 @@ export default Ember.Route.extend({
       return new Date(start);
     }
 
-    function resetBet(bet) {
-      var userId = parseInt(bet.get('id'));
-      bet.setProperties({ 'matchId': 1, 'userId': userId });
-      bet.save();
-    }
-
     function resetScores(teams) {
       teams.forEach(function(team) {
         team.set('score', 0);
         team.save();
       });
+    }
+
+    function resetBets(bets) {
+      bets.forEach(function(bet) {
+        bet.set('userId', 0);
+        bet.save();
+      });
+
+      var currentUser = this.store.peekRecord('user', window.CURRENT_USER);
+      currentUser.get('bets').clear();
+    }
+
+    function reseedBet(bet) {
+      bet.setProperties({ 'matchId': 1, 'userId': userId });
+      bet.save();
     }
 
     match.setProperties({
@@ -119,9 +127,12 @@ export default Ember.Route.extend({
     match.save();
 
     resetScores(match.get('teams'));
+    resetBets(match.get('bets'));
 
-    for (var i = 1; i <= 10; i++) {
-      this.store.findRecord('bet', i).then(resetBet);
+    var userId = 1;
+    while (userId <= 10) {
+      this.store.findRecord('bet', userId).then(reseedBet);
+      userId++;
     }
   }
 });

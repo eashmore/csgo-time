@@ -1,13 +1,16 @@
 import Ember from 'ember';
 
 export default Ember.Route.extend({
+  beforeModel() {
+    // Need to fix. Can't GET items or team through nested association
+    // `user.get('bets').get('*')`
+    
+    this.store.findAll('item');
+    this.store.findAll('team');
+  },
+
   model() {
     var user = this.store.peekRecord('user', window.CURRENT_USER);
-    var bet = user.get('bets').get('lastObject');
-
-    return Ember.RSVP.hash({
-      bet: bet,
-      betItems: user.get('betItems')
-    });
+    return user.get('bets').get('firstObject');
   }
 });

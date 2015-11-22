@@ -5,5 +5,4 @@ class UserSerializer < ActiveModel::Serializer
 
   has_many :items
   has_many :bets
-  has_many :bet_items
 end

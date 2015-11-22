@@ -5,7 +5,6 @@ class User < ActiveRecord::Base
 
   has_many :items
   has_many :bets
-  has_many :bet_items, through: :bets, source: :items
 
   attr_reader :password
   after_initialize :ensure_session_token
