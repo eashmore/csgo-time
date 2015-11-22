@@ -38,7 +38,6 @@ export default Ember.Controller.extend({
 
           nextMatch.get('bets').pushObject(bet);
           currentUser.get('items').removeObject(item);
-          currentUser.get('betItems').pushObject(item);
 
           that.transitionToRoute('matches.current');
         }

@@ -99,25 +99,20 @@ export default Ember.Route.extend({
 
     function resetBets(bets) {
       bets.forEach(function(bet) {
-        bet.set('userId', 0);
-        bet.save();
+        bet.set('userId', null);
       });
 
-      var currentUser = this.store.peekRecord('user', window.CURRENT_USER);
       currentUser.get('bets').clear();
     }
 
+    var userId = 1;
     function reseedBet(bet) {
       bet.setProperties({ 'matchId': 1, 'userId': userId });
-      bet.save();
+      bet.save().then(function(){ userId++; });
     }
 
-    match.setProperties({
-      'hasStarted': false,
-      'startTime': startTime(),
-      'currentRound': 1,
-      'winnerId': null
-    });
+    var currentUser = this.store.peekRecord('user', window.CURRENT_USER);
+
 
     match.get('teams').forEach(function(team) {
       team.set('score', 0);
@@ -129,10 +124,15 @@ export default Ember.Route.extend({
     resetScores(match.get('teams'));
     resetBets(match.get('bets'));
 
-    var userId = 1;
-    while (userId <= 10) {
-      this.store.findRecord('bet', userId).then(reseedBet);
-      userId++;
+    for(var i = 1; i < 11; i++) {
+      this.store.findRecord('bet', i).then(reseedBet);
     }
+
+    match.setProperties({
+      'hasStarted': false,
+      'startTime': startTime(),
+      'currentRound': 1,
+      'winnerId': null
+    });
   }
 });
