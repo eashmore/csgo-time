@@ -7,5 +7,4 @@ export default Ember.Route.extend({
   },
 
   controllerName: 'teams',
-
 });

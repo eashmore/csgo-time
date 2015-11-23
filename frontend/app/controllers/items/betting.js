@@ -4,7 +4,7 @@ import $ from 'jquery';
 export default Ember.Controller.extend({
   totalValue: 0,
 
-  numberOfItems:0,
+  numberOfItems: 0,
 
   actions: {
     betItem(item, isBet) {

@@ -5,21 +5,22 @@ export default Ember.Route.extend({
     return this.modelFor('matches').get('lastObject');
   },
 
+  afterModel(match) {
+    if (match.get('hasStarted')) {
+      this.transitionTo('matches.inprogress');
+    }
+  },
+
   setupController(controller, match) {
     controller.set('model', match);
+    controller.timeUntilMatch(match);
 
-    if (match.get('hasStarted')) {
-      controller.transitionToInprogress();
-    } else {
-      controller.timeUntilMatch(match);
-
-      var currentBets = match.get('bets');
-      if (currentBets.get('length')) {
-        controller.prizePool(match);
-      }
-
-      controller.getRecentBets(currentBets);
+    var currentBets = match.get('bets');
+    if (currentBets.get('length')) {
+      controller.prizePool(match);
     }
+
+    controller.getRecentBets(currentBets);
   },
 
   renderTemplate(c, model) {

@@ -5,10 +5,6 @@ export default Ember.Controller.extend({
 
   timeLeft: "",
 
-  transitionToInprogress() {
-    this.transitionToRoute('matches.inprogress');
-  },
-
   prizePool(match) {
     var pool = 0;
     var bets = match.get('bets');
