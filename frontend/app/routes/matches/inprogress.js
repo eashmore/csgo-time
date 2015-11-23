@@ -5,9 +5,14 @@ export default Ember.Route.extend({
     return this.modelFor('matches').get('lastObject');
   },
 
+  afterModel(model) {
+    if (!model.get('hasStarted')) {
+      this.transitionTo('matches.current');
+    }
+  },
+
   setupController(controller, model) {
     controller.set('model', model);
-    
     controller.simulateMatch(model);
   }
 });

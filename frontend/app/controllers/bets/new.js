@@ -23,7 +23,7 @@ export default Ember.Controller.extend({
 
         for (var i = 0; i < itemElements.length; i++) {
           var id = $(itemElements[i]).attr('data-item-id');
-          itemIds[id] = this.store.peekRecord('item', id);
+          itemIds[id] = that.store.peekRecord('item', id);
         }
 
         return itemIds;

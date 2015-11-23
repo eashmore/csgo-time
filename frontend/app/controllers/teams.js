@@ -9,7 +9,9 @@ export default Ember.Controller.extend({
       var mostRecentBet = currentUser.get('bets').get('lastObject');
       var currentMatch = team.get('matches').get('lastObject');
 
-      if (parseInt(currentMatch.get('id')) === mostRecentBet.get('matchId')) {
+      if (mostRecentBet &&
+          parseInt(currentMatch.get('id')) === mostRecentBet.get('matchId')
+        ) {
         this.transitionToRoute('bets.show');
       } else {
         this.transitionToRoute('teams.show', team.get('id'));
