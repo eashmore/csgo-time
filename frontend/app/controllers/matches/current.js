@@ -19,14 +19,16 @@ export default Ember.Controller.extend({
   getRecentBets(bets) {
     var recentBets = [];
 
-    bets = bets.toArray().reverse();
+    var mostRecentBet = bets.get('lastObject');
+    var mostRecentBetId = parseInt(mostRecentBet.get('id'));
 
-    for (var i = 0; i < 6; i++) {
-      if (i >= bets.length) {
+    for (var i = mostRecentBetId; i > mostRecentBetId - 6; i--) {
+      var bet = this.store.peekRecord('bet', i);
+      if (bet){
+        recentBets.push(bet);
+      } else {
         break;
       }
-
-      recentBets.push(bets[i]);
     }
 
     this.set('recentBets', recentBets);
@@ -79,7 +81,7 @@ export default Ember.Controller.extend({
   },
 
   // payout and rake
-  getRake(target, items) {
+  takeRake(target, items) {
     target = (Math.round(target * 100)) / 100;
 
     if (items.length < 1) {
@@ -103,7 +105,7 @@ export default Ember.Controller.extend({
       var remainder = target - price;
       var remainingItems = items.slice(i + 1, items.length);
 
-      var currentPayout = this.getRake(remainder, remainingItems);
+      var currentPayout = this.takeRake(remainder, remainingItems);
       if (!currentPayout) {
         continue;
       }
@@ -120,25 +122,27 @@ export default Ember.Controller.extend({
     function getPayoutRatio() {
       var betPool = 0;
       var winnerPool = 0;
+
       bets.forEach(function(bet) {
         var betValue = bet.get('totalValue');
         betPool += betValue;
+
         if (bet.get('teamId') === parseInt(winTeam.get('id'))) {
           winnerPool += betValue;
           winBets.push(bet);
         }
       });
 
-      betPool = takeCut(betPool);
+      betPool = getPoolAfterCut(betPool);
 
       var payout = (betPool/winnerPool);
       return payout;
     }
 
-    function takeCut(betValue) {
+    function getPoolAfterCut(betValue) {
       cutValue = betValue * 0.2;
 
-      cutItems = that.getRake(cutValue, sortedItems);
+      cutItems = that.takeRake(cutValue, sortedItems);
 
       cutItems.forEach(function(item) {
         item.set('betId', 0);
@@ -155,6 +159,8 @@ export default Ember.Controller.extend({
     }
 
     function distributeItems(itemsList) {
+      var betQueue = winBets;
+
       while(itemsList.length) {
         var itemPrice = itemsList[0].get('price');
 
@@ -164,21 +170,21 @@ export default Ember.Controller.extend({
           continue;
         }
 
-        for(var i = 0; i < winBets.length; i++) {
-          var userCurrentPayout = winBets[i].get('payout');
+        for(var i = 0; i < betQueue.length; i++) {
+          var userCurrentPayout = betQueue[i].get('payout');
 
           if (itemPrice <= userCurrentPayout) {
-            payUser(itemsList[0], winBets[i]);
+            payUser(itemsList[0], betQueue[i]);
 
             var newPayout = userCurrentPayout - itemPrice;
-            winBets[i].set('payout', newPayout);
+            betQueue[i].set('payout', newPayout);
 
-            if (userCurrentPayout > winBets[i].get('payout')) {
-              largestPayout = winBets[i].get('payout');
+            if (userCurrentPayout > betQueue[i].get('payout')) {
+              largestPayout = betQueue[i].get('payout');
             }
 
-            var handledBet = winBets.shift();
-            winBets.push(handledBet);
+            var handledBets = betQueue.shift();
+            betQueue.push(handledBets);
 
             itemsList.shift();
             break;
@@ -186,10 +192,17 @@ export default Ember.Controller.extend({
         }
       }
 
-      if (expensiveItems.length && expensiveItems[0].get('price') > cutValue) {
-        cutValue = expensiveItems[0].get('price');
-        distributeItems(cutItems);
-        cutItems = expensiveItems;
+      if (expensiveItems.length) {
+        var totalValueRemaining = 0;
+        expensiveItems.forEach(function(item) {
+          totalValueRemaining += item.get('price');
+        });
+
+        if(totalValueRemaining > cutValue) {
+          cutValue = totalValueRemaining;
+          distributeItems(cutItems);
+          cutItems = expensiveItems;
+        }
       }
     }
 
@@ -205,12 +218,9 @@ export default Ember.Controller.extend({
     }
 
     var that = this;
-    if (match.get('hasEnded')) {
-      return;
-    }
     var bets = match.get('bets');
 
-    if (!bets.get('length')) {
+    if (match.get('hasEnded') || !bets.get('length')) {
       return;
     }
 
