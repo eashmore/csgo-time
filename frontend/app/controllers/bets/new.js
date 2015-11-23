@@ -39,11 +39,12 @@ export default Ember.Controller.extend({
           item.save();
 
           nextMatch.get('bets').pushObject(bet);
-          currentUser.get('items').removeObject(item);
 
           that.get('betsController').set('isBetForCurrentMatch', true);
           that.transitionToRoute('bets.show');
         }
+
+        currentUser.reload();
       }
 
       var that = this;
