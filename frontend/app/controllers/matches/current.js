@@ -112,14 +112,13 @@ export default Ember.Controller.extend({
 
       payout = [items[i]].concat(currentPayout);
       return payout;
-
     }
 
     return payout;
   },
 
   payBets(match) {
-    function getPayoutRatio() {
+    function getPayoutRatioAndWinningBets() {
       var betPool = 0;
       var winnerPool = 0;
 
@@ -225,7 +224,9 @@ export default Ember.Controller.extend({
     }
 
     var items = match.get('items');
-    var sortedItems = items.sortBy('price').toArray().reverse();
+    var sortedItems = items.toArray().sort(function(a, b) {
+      return b.get('price') - a.get('price');
+    });
 
     var winTeam = match.get('winner');
     var winBets = [];
@@ -233,7 +234,7 @@ export default Ember.Controller.extend({
     var cutValue = 0;
     var cutItems = [];
 
-    var payoutRatio = getPayoutRatio();
+    var payoutRatio = getPayoutRatioAndWinningBets();
 
     winBets.forEach(function(bet) {
       var payout = bet.get('totalValue') * payoutRatio;
