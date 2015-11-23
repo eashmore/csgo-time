@@ -18,7 +18,7 @@ export default Ember.Route.extend({
     controller.set('model', model);
     if (model) {
       var match = this.modelFor('matches').get('lastObject');
-      controller.checkCurrentMatch(match, model);
+      controller.checkIsBetForCurrentMatch(match, model);
     }
   }
 });

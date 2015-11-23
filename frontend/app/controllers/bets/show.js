@@ -1,13 +1,13 @@
 import Ember from 'ember';
 
 export default Ember.Controller.extend({
-  isCurrentMatch: false,
+  isBetForCurrentMatch: false,
 
-  checkCurrentMatch (match, bet) {
+  checkIsBetForCurrentMatch (match, bet) {
     if (parseInt(match.get('id')) === bet.get('matchId')) {
-      this.set('isCurrentMatch', true);
+      this.set('isBetForCurrentMatch', true);
     } else {
-      this.set('isCurrentMatch', false);
+      this.set('isBetForCurrentMatch', false);
     }
   },
 

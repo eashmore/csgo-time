@@ -5,11 +5,51 @@ export default Ember.Controller.extend({
 
   timeLeft: "",
 
-  renderInprogress() {
+  transitionToInprogress() {
     this.transitionToRoute('matches.inprogress');
   },
 
-  updateTime(match) {
+  prizePool(match) {
+    var pool = 0;
+    var bets = match.get('bets');
+    bets.forEach(function(bet) {
+      pool += bet.get('totalValue');
+    });
+
+    match.set('prizePool', Math.round(pool));
+    match.save();
+  },
+
+  getRecentBets(bets) {
+    var recentBets = [];
+
+    bets = bets.toArray().reverse();
+
+    for (var i = 0; i < 6; i++) {
+      if (i >= bets.length) {
+        break;
+      }
+
+      recentBets.push(bets[i]);
+    }
+
+    this.set('recentBets', recentBets);
+  },
+
+  //timer setup
+  timeUntilMatch(match) {
+    function updateTime() {
+      var startTime = match.get('startTime');
+
+      var timeLeft = new Date(startTime) - (new Date());
+      timeLeft = timeLeft / 1000;
+
+      var timeLeftString = timeLeft < 0 ? secToHours(0) : secToHours(timeLeft);
+      that.set('timeLeft', timeLeftString);
+
+      return timeLeft;
+    }
+
     function secToHours(sec) {
       var sec_num = parseInt(sec, 10);
       var hours = Math.floor(sec_num / 3600);
@@ -30,17 +70,19 @@ export default Ember.Controller.extend({
       return time;
     }
 
-    var startTime = match.get('startTime');
+    var that = this;
 
-    var timeLeft = new Date(startTime) - (new Date());
-    timeLeft = timeLeft / 1000;
-
-    var timeLeftString = timeLeft < 0 ? secToHours(0) : secToHours(timeLeft);
-    this.set('timeLeft', timeLeftString);
-
-    return timeLeft;
+    updateTime();
+    setInterval(function() {
+      updateTime();
+      // if (match.get('hasStarted')) {
+      //   clearInterval(timer);
+      //   renderInprogress();
+      // }
+    }, 1000);
   },
 
+  // payout and rake
   getRake(target, items) {
     target = (Math.round(target * 100)) / 100;
 
