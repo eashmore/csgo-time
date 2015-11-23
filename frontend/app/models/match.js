@@ -7,6 +7,7 @@ export default DS.Model.extend({
   map: DS.attr('string'),
   winnerId: DS.attr('number'),
   prizePool: DS.attr('number'),
+  hasEnded: DS.attr('boolean'),
 
   startTime: Ember.computed(function() {
     var start = new Date().setHours(20,0,0);

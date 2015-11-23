@@ -16,6 +16,7 @@ gem 'bootstrap-sass'
 gem 'active_model_serializers', '~> 0.10.0.rc3'
 gem 'normalize-rails'
 gem 'newrelic_rpm'
+gem 'clockwork', '~> 1.2'
 
 gem 'rails_12factor', group: [:staging, :production]
 

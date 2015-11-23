@@ -7,7 +7,7 @@ export default Ember.Route.extend({
 
     this.store.findAll('user');
   },
-  
+
   model() {
     return this.store.findRecord('user', window.CURRENT_USER);
   }

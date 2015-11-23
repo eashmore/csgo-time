@@ -24,7 +24,6 @@ export default DS.RESTSerializer.extend(DS.EmbeddedRecordsMixin, {
 
     // users, matches and bets
     items: { deserialize: 'records', serialize: false },
-    item: { deserialize: 'records', serialize: false },
 
     // bets
     user: { deserialize: 'records', serialize: false },

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151122034737) do
+ActiveRecord::Schema.define(version: 20151122230126) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -79,6 +79,7 @@ ActiveRecord::Schema.define(version: 20151122034737) do
     t.float    "start_time"
     t.string   "map"
     t.integer  "prize_pool",    default: 0
+    t.boolean  "has_ended",     default: false
   end
 
   add_index "matches", ["winner_id"], name: "index_matches_on_winner_id", using: :btree

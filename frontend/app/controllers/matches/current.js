@@ -5,6 +5,10 @@ export default Ember.Controller.extend({
 
   timeLeft: "",
 
+  renderInprogress() {
+    this.transitionToRoute('matches.inprogress');
+  },
+
   updateTime(match) {
     function secToHours(sec) {
       var sec_num = parseInt(sec, 10);
@@ -74,11 +78,10 @@ export default Ember.Controller.extend({
     return payout;
   },
 
-  payBets() {
+  payBets(match) {
     function getPayoutRatio() {
       var betPool = 0;
       var winnerPool = 0;
-
       bets.forEach(function(bet) {
         var betValue = bet.get('totalValue');
         betPool += betValue;
@@ -164,8 +167,7 @@ export default Ember.Controller.extend({
     }
 
     var that = this;
-    var match = this.get('model');
-    if (match.get('hasStarted')) {
+    if (match.get('hasEnded')) {
       return;
     }
     var bets = match.get('bets');
@@ -199,7 +201,7 @@ export default Ember.Controller.extend({
 
     distributeItems(sortedItems);
 
-    match.set('hasStarted', true);
+    match.set('hasEnded', true);
     match.save();
   }
 });

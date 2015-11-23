@@ -3,54 +3,66 @@ import Ember from 'ember';
 export default Ember.Controller.extend({
   matchesController: Ember.inject.controller('matches.current'),
 
-  init() {
-    this.simulateMatch();
-  },
+  sortedTeams: [],
 
-  sortedTeams: function(){
-    var teams = this.model.get('teams');
-    return teams.sortBy('id');
-  }.property('boardItems.@each.id'),
+  simulateMatch(match) {
+    this.set('model', match);
 
-  simulateRound(match, team1, team2) {
-    var win = Math.round(Math.random() - 0.2);
-
-    if (win === 0) {
-      team1.incrementProperty('score');
-      team1.save();
-    } else {
-      team2.incrementProperty('score');
-      team2.save();
+    function sortTeams() {
+      var teams = match.get('teams');
+      return teams.sortBy('id');
     }
 
-    if (match.get('currentRound') < 16) {
-      match.incrementProperty('currentRound');
-      match.save();
+    function simulateRound() {
+      var win = Math.round(Math.random() - 0.2);
+      if (win === 0) {
+        team1.incrementProperty('score');
+        team1.save();
+      } else {
+        team2.incrementProperty('score');
+        team2.save();
+      }
+
+      if (match.get('currentRound') < 16) {
+        match.incrementProperty('currentRound');
+        match.save();
+      }
     }
-  },
 
-  simulateMatch() {
-    var sim = setInterval(function() {
-      var match = this.model;
-      var teams = this.get('sortedTeams');
+    function isOver() {
+      var teams = sortTeams();
+      that.set('sortedTeams', teams);
 
-      var team1 = teams.get('firstObject');
-      var team2 = teams.get('lastObject');
+      team1 = teams.get('firstObject');
+      team2 = teams.get('lastObject');
 
       if (team1.get('score') >= 9 || team2.get('score') >= 9) {
-        clearInterval(sim);
+
         var winner = team1.get('score') > team2.get('score') ? team1 : team2;
 
         match.set('winnerId', winner.get('id'));
         match.set('winner', winner);
         match.save();
 
-        var matchesController = this.get('matchesController');
-        matchesController.payBets();
-      } else {
-        this.simulateRound(match, team1, team2);
-
+        var matchesController = that.get('matchesController');
+        matchesController.payBets(match);
+        return true;
       }
-    }.bind(this), 2000);
+      return false;
+    }
+
+    var that = this;
+    var team1 = null;
+    var team2 = null;
+
+    isOver(team1, team2);
+
+    var sim = setInterval(function() {
+        if (isOver()) {
+          clearInterval(sim);
+      } else {
+        simulateRound();
+      }
+    }, 2000);
   }
 });

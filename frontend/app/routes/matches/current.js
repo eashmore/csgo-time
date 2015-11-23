@@ -1,21 +1,24 @@
 import Ember from 'ember';
 
 export default Ember.Route.extend({
-
   model() {
-    return this.modelFor('matches').get('firstObject');
+    return this.modelFor('matches').get('lastObject');
   },
 
   afterModel(match) {
-    this.timeUntilMatch(match);
+    var controller = this.controllerFor('matches.current');
 
-    var currentBets = match.get('bets');
+    if (match.get('hasStarted')) {
+      controller.renderInprogress();
+    } else {
+      this.timeUntilMatch(match, controller);
+      var currentBets = match.get('bets');
+      if (currentBets.get('length')) {
+        this.prizePool(match);
+      }
 
-    if (currentBets.get('length')) {
-      this.prizePool(match);
+      this.getRecentBets(currentBets);
     }
-
-    this.getRecentBets(currentBets);
   },
 
   renderTemplate(c, model) {
@@ -60,68 +63,16 @@ export default Ember.Route.extend({
     controller.set('recentBets', recentBets);
   },
 
-  timeUntilMatch(match) {
-    var that = this;
-    var controller = this.controllerFor('matches.current');
+  timeUntilMatch(match, controller) {
+    // var timer =
+    controller.updateTime(match);
+    setInterval(function() {
+      controller.updateTime(match);
 
-    var timer = setInterval(function() {
-      var time = controller.updateTime(match);
-      if (time <= 0) {
-        if (time <= -14400001 && match.get('hasStarted')) {
-          clearInterval(timer);
-          that.resetMatch(match);
-        } else {
-          clearInterval(timer);
-
-          that.render('matches.inprogress', {
-            into: 'matches',
-            model: match
-          });
-        }
-      }
-    }.bind(controller), 1000);
-  },
-
-  resetMatch(match) {
-    function startTime() {
-      var start = new Date().setHours(20,0,0);
-      return new Date(start);
-    }
-
-    function resetScores(teams) {
-      teams.forEach(function(team) {
-        team.set('score', 0);
-        team.save();
-      });
-    }
-
-    function resetBets(bets) {
-      bets.forEach(function(bet) {
-        if (bet.get('id') > 10) {
-          bet.setProperties({ 'matchId': 0, 'userId': 0});
-          bet.save();
-        }
-      });
-
-      currentUser.get('bets').clear();
-    }
-
-    var currentUser = this.store.peekRecord('user', window.CURRENT_USER);
-
-    match.get('teams').forEach(function(team) {
-      team.set('score', 0);
-      team.save();
-    });
-
-    resetScores(match.get('teams'));
-    resetBets(match.get('bets'));
-
-    match.setProperties({
-      'hasStarted': false,
-      'startTime': startTime(),
-      'currentRound': 1,
-      'winnerId': null
-    });
-    match.save();
+      // if (match.get('hasStarted')) {
+      //   clearInterval(timer);
+      //   renderInprogress();
+      // }
+    }, 1000);
   }
 });
