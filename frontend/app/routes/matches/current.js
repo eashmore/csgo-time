@@ -6,6 +6,10 @@ export default Ember.Route.extend({
   },
 
   afterModel(match) {
+    // Need to fix. Can't GET users through nested association
+    // `match.get('bets').get('user')`
+    this.store.findAll('user');
+
     if (match.get('hasStarted')) {
       this.transitionTo('matches.inprogress');
     }

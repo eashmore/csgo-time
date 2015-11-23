@@ -6,6 +6,13 @@ export default Ember.Route.extend({
     return user.get('bets').get('lastObject');
   },
 
+  afterModel() {
+    // Need to fix. Can't GET items or team through nested association
+    // `user.get('bets').get('items'/'team')`
+    this.store.findAll('item');
+    this.store.findAll('team');
+  },
+
   setupController(controller, model) {
     controller.set('model', model);
     if (model) {

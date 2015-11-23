@@ -13,7 +13,7 @@ module Clockwork
     match.save
   }
 
-  every(1.day, 'fill_db', :at => '21:25') {
+  every(1.day, 'fill_db', :at => '00:00') {
     new_match = Match.create(
       {has_started: false, map: "de_dust2", current_round: 1}
     )

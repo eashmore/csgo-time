@@ -71,12 +71,16 @@ export default Ember.Controller.extend({
     var that = this;
 
     updateTime();
-    setInterval(function() {
-      updateTime();
-      // if (match.get('hasStarted')) {
-      //   clearInterval(timer);
-      //   renderInprogress();
-      // }
+    var timer = setInterval(function() {
+      var timeLeft = updateTime();
+      if (timeLeft <= 0) {
+        match.reload();
+      }
+
+      if (match.get('hasStarted')) {
+        clearInterval(timer);
+        that.transitionToRoute('matches.inprogress');
+      }
     }, 1000);
   },
 

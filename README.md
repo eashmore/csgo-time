@@ -2,7 +2,7 @@
 
 [Live link][link]
 
-[link]: https://csgotime.herokuapp.com/
+[link]: http://www.csgotime.co/
 
 
 ## Minimum Viable Product
