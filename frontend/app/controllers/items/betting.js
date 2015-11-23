@@ -8,6 +8,28 @@ export default Ember.Controller.extend({
 
   actions: {
     betItem(item, isBet) {
+      function updateBetInfo() {
+        if (isBet) {
+          $('div.stash ul').append($el);
+          isBet = false;
+
+          newNumberOfItems = that.numberOfItems - 1;
+          that.set('numberOfItems', newNumberOfItems);
+
+          newValue = that.totalValue - price;
+          that.set('totalValue', newValue);
+        } else {
+          $('.newbet').append($el);
+          isBet = true;
+
+          newNumberOfItems = that.numberOfItems + 1;
+          that.set('numberOfItems', newNumberOfItems);
+
+          newValue = that.totalValue + price;
+          that.set('totalValue', newValue);
+        }
+      }
+
       function isValidBet() {
         if(that.totalValue >= 10 &&
           (that.numberOfItems > 0 && that.numberOfItems < 11)
@@ -17,6 +39,7 @@ export default Ember.Controller.extend({
           $bettingButton.attr('disabled', true);
         }
       }
+
       var that = this;
 
       var itemId = item.get('id');
@@ -32,25 +55,7 @@ export default Ember.Controller.extend({
       var newValue = 0;
       var newNumberOfItems = 0;
 
-      if (isBet) {
-        $('div.stash ul').append($el);
-        isBet = false;
-
-        newNumberOfItems = this.numberOfItems - 1;
-        this.set('numberOfItems', newNumberOfItems);
-
-        newValue = this.totalValue - price;
-        this.set('totalValue', newValue);
-      } else {
-        $('.newbet').append($el);
-        isBet = true;
-
-        newNumberOfItems = this.numberOfItems + 1;
-        this.set('numberOfItems', newNumberOfItems);
-
-        newValue = this.totalValue + price;
-        this.set('totalValue', newValue);
-      }
+      updateBetInfo();
 
       isValidBet();
     }

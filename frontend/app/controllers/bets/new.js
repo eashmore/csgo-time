@@ -15,20 +15,20 @@ export default Ember.Controller.extend({
     return newBet;
   },
 
-  getItemIds() {
-    var itemElements = $('.newbet').find('.list-item');
-    var itemIds = {};
-
-    for (var i = 0; i < itemElements.length; i++) {
-      var id = $(itemElements[i]).attr('data-item-id');
-      itemIds[id] = this.store.peekRecord('item', id);
-    }
-
-    return itemIds;
-  },
-
   actions: {
     submitBet() {
+      function getItemIds() {
+        var itemElements = $('.newbet').find('.list-item');
+        var itemIds = {};
+
+        for (var i = 0; i < itemElements.length; i++) {
+          var id = $(itemElements[i]).attr('data-item-id');
+          itemIds[id] = this.store.peekRecord('item', id);
+        }
+
+        return itemIds;
+      }
+
       function successfulSave(bet) {
         var keys = Object.keys(itemIds);
         for (var i = 0; i < keys.length; i++) {
@@ -47,7 +47,7 @@ export default Ember.Controller.extend({
       }
 
       var that = this;
-      var itemIds = this.getItemIds();
+      var itemIds = getItemIds();
       var totalBet = 0;
       var currentUser = this.store.peekRecord('user', window.CURRENT_USER);
       var matches = this.model.get('matches');

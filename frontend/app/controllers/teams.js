@@ -5,8 +5,6 @@ export default Ember.Controller.extend({
 
   actions: {
     toTeamPage(team) {
-      // var user = this.store.peekRecord('user', window.CURRENT_USER);
-
       if (this.get('betsController').isCurrentMatch) {
         this.transitionToRoute('bets.show');
       } else {
