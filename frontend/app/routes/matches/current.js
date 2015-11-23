@@ -12,6 +12,7 @@ export default Ember.Route.extend({
       controller.renderInprogress();
     } else {
       this.timeUntilMatch(match, controller);
+
       var currentBets = match.get('bets');
       if (currentBets.get('length')) {
         this.prizePool(match);
@@ -64,7 +65,6 @@ export default Ember.Route.extend({
   },
 
   timeUntilMatch(match, controller) {
-    // var timer =
     controller.updateTime(match);
     setInterval(function() {
       controller.updateTime(match);

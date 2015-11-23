@@ -6,8 +6,6 @@ export default Ember.Controller.extend({
   sortedTeams: [],
 
   simulateMatch(match) {
-    this.set('model', match);
-
     function sortTeams() {
       var teams = match.get('teams');
       return teams.sortBy('id');
@@ -58,8 +56,8 @@ export default Ember.Controller.extend({
     isOver(team1, team2);
 
     var sim = setInterval(function() {
-        if (isOver()) {
-          clearInterval(sim);
+      if (isOver()) {
+        clearInterval(sim);
       } else {
         simulateRound();
       }

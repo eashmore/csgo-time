@@ -2,6 +2,8 @@ import Ember from 'ember';
 import $ from 'jquery';
 
 export default Ember.Controller.extend({
+  betsController: Ember.inject.controller('bets.show'),
+
   newBet(nextMatch, currentUser) {
     var team = this.model;
     var newBet = this.store.createRecord('bet', {
@@ -39,7 +41,8 @@ export default Ember.Controller.extend({
           nextMatch.get('bets').pushObject(bet);
           currentUser.get('items').removeObject(item);
 
-          that.transitionToRoute('matches.current');
+          that.get('betsController').set('isCurrentMatch', true);
+          that.transitionToRoute('bets.show');
         }
       }
 
