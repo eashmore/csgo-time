@@ -1,8 +1,8 @@
 class Api::ItemdbsController < ApplicationController
   def index
-    @itemDbs = Itemdb.all
+    @item_dbs = Itemdb.all
 
-    render json: @itemDbs
+    render json: @item_dbs
   end
 
   def create

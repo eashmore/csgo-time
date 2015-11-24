@@ -7,20 +7,19 @@ module Clockwork
     puts "Running #{job}"
   end
 
-  every(1.day, 'start_match', :at => '20:00') {
+  every(1.day, 'start_match', :at => '18:33') do
     match = Match.all.last
-    match.has_started = true
-    match.save
-  }
+    match.simulate_match
+  end
 
-  every(1.day, 'fill_db', :at => '00:00') {
+  every(1.day, 'fill_db', :at => '00:00') do
     new_match = Match.create(
-      {has_started: false, map: "de_dust2", current_round: 1}
+      { has_started: false, map: 'de_dust2', current_round: 0 }
     )
     new_match.save
 
     Team.all.each do |team|
-      team.score = 0;
+      team.rounds_won = 0
       team.save
     end
 
@@ -156,5 +155,6 @@ module Clockwork
     item_array.each do |item|
       item.save
     end
-  }
+  end
+
 end

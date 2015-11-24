@@ -1,12 +1,12 @@
 <div class="match-inprogress container center-text">
   <div>
-    {{#each sortedTeams as |team|}}
+    {{#each model.teams as |team|}}
       <div class="teams team{{team.id}} team-inprogress">
 
         <img class="team-avatar" src="{{team.avatarUrl}}" alt="" />
 
         <p>{{team.name}}</p>
-        <p>Rounds Won: {{team.score}}</p>
+        <p>Rounds Won: {{team.roundsWon}}</p>
 
       </div>
     {{/each}}

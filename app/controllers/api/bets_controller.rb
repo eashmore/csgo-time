@@ -32,6 +32,7 @@ class Api::BetsController < ApplicationController
   end
 
   private
+
   def bet_params
     params.require(:bet).permit(:total_value, :user_id, :team_id, :match_id)
   end

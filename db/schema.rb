@@ -90,7 +90,7 @@ ActiveRecord::Schema.define(version: 20151122230126) do
     t.string   "avatar_url", default: ""
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
-    t.integer  "score",      default: 0
+    t.integer  "rounds_won", default: 0
   end
 
   create_table "users", force: :cascade do |t|

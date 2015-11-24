@@ -23,11 +23,11 @@ Itemdb.create!([
 ])
 
 Match.create!([
-  {has_started: false, map: "de_dust2", current_round: 1}
+  {has_started: false, map: "de_dust2", current_round: 0}
 ])
 Team.create!([
-  {name: "WOW_WE_LAGGED", odds: 1.0, avatar_url: "https://res.cloudinary.com/dqucbuno8/image/upload/h_250,w_250/v1447814571/lag-kills-people_nrbbgr.png", score: 0},
-  {name: "php_poets", odds: 1.0, avatar_url: "https://res.cloudinary.com/dqucbuno8/image/upload/c_fill,h_250,w_250/v1447827745/dedicated-php-developer_zfcdls.png", score: 0}
+  {name: "WOW_WE_LAGGED", odds: 1.0, avatar_url: "https://res.cloudinary.com/dqucbuno8/image/upload/h_250,w_250/v1447814571/lag-kills-people_nrbbgr.png"},
+  {name: "php_poets", odds: 1.0, avatar_url: "https://res.cloudinary.com/dqucbuno8/image/upload/c_fill,h_250,w_250/v1447827745/dedicated-php-developer_zfcdls.png"}
 ])
 MatchLineup.create!([
   {match_id: 1, team_id: 1},

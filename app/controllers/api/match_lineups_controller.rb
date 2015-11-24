@@ -10,6 +10,7 @@ class Api::MatchLineupsController < ApplicationController
   end
 
   private
+
   def match_lineup_params
     params.require(:match_lineup).permit(:team_id, :match_id)
   end

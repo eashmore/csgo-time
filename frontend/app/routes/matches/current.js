@@ -10,20 +10,21 @@ export default Ember.Route.extend({
     // `match.get('bets').get('user/team')`
     this.store.findAll('user');
     this.store.findAll('team');
-
-    if (match.get('hasStarted')) {
-      this.transitionTo('matches.inprogress');
-    }
   },
 
   setupController(controller, match) {
     controller.set('model', match);
-    controller.timeUntilMatch(match);
 
     var currentBets = match.get('bets');
     if (currentBets.get('length')) {
       controller.prizePool(match);
     }
+
+    if (match.get('hasStarted')) {
+      this.transitionTo('matches.inprogress');
+    }
+
+    controller.timeUntilMatch(match);
 
     controller.getRecentBets(currentBets);
   },

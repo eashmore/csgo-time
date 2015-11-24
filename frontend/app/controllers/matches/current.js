@@ -223,7 +223,7 @@ export default Ember.Controller.extend({
     var that = this;
     var bets = match.get('bets');
 
-    if (match.get('hasEnded') || !bets.get('length')) {
+    if (!bets.get('length')) {
       return;
     }
 
@@ -253,8 +253,5 @@ export default Ember.Controller.extend({
     var expensiveItems = [];
 
     distributeItems(sortedItems);
-
-    match.set('hasEnded', true);
-    match.save();
   }
 });
