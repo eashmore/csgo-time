@@ -24,6 +24,8 @@ export default Ember.Controller.extend({
 
     for (var i = mostRecentBetId; i > mostRecentBetId - 6; i--) {
       var bet = this.store.peekRecord('bet', i);
+      this.store.findRecord('user', bet.get('userId'));
+
       if (bet){
         recentBets.push(bet);
       } else {
@@ -223,6 +225,29 @@ export default Ember.Controller.extend({
       });
     }
 
+    function hashifyItems(items) {
+      var itemsHash = {};
+      var itemIdx = items.get('length');
+
+      items.forEach(function(item) {
+        itemIdx -= 1;
+        itemsHash[itemIdx] = item;
+      });
+
+      return itemsHash;
+    }
+
+    function sortBetsByPayout(winBets) {
+      winBets.forEach(function(bet) {
+        var payout = bet.get('totalValue') * payoutRatio;
+        bet.set('payout', payout);
+      });
+
+      winBets = winBets.sort(function(a, b) {
+        return b.get('payout') - a.get('payout');
+      });
+    }
+
     var that = this;
     var bets = match.get('bets');
     if (!bets.get('length')) {
@@ -230,13 +255,7 @@ export default Ember.Controller.extend({
     }
 
     var items = match.get('items').sortBy('price');
-    var itemsHash = {};
-
-    var itemIdx = items.get('length');
-    items.forEach(function(item) {
-      itemIdx -= 1;
-      itemsHash[itemIdx] = item;
-    });
+    var itemsHash = hashifyItems(items, itemsHash);
 
     var winTeam = match.get('winner');
     var winBets = [];
@@ -246,14 +265,7 @@ export default Ember.Controller.extend({
 
     var payoutRatio = getPayoutRatioAndWinningBets(bets);
 
-    winBets.forEach(function(bet) {
-      var payout = bet.get('totalValue') * payoutRatio;
-      bet.set('payout', payout);
-    });
-
-    winBets = winBets.sort(function(a, b) {
-      return b.get('payout') - a.get('payout');
-    });
+    sortBetsByPayout(winBets);
 
     var largestPayout = winBets[0].get('payout');
     var expensiveItems = {};

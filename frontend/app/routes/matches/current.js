@@ -5,11 +5,8 @@ export default Ember.Route.extend({
     return this.modelFor('matches').get('lastObject');
   },
 
-  afterModel() {
-    // Need to fix. Can't GET users through nested association
-    // `match.get('bets').get('user/team')`
-    this.store.findAll('user');
-    this.store.findAll('team');
+  afterModel(model) {
+    this.store.query('team', { matchId: model.get('id') });
   },
 
   setupController(controller, match) {

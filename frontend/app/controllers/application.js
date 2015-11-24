@@ -3,7 +3,12 @@ import Ember from 'ember';
 export default Ember.Controller.extend({
   actions: {
     toHomePage() {
-      this.transitionToRoute('matches.current');
+      var match = this.store.peekAll('match').get('lastObject');
+      if (match.get('hasStarted')) {
+        this.transitionToRoute('matches.inprogress');
+      } else {
+        this.transitionToRoute('matches.current');
+      }
     },
 
     toUserPage() {
