@@ -148,8 +148,6 @@ export default Ember.Controller.extend({
       cutItems = that.takeRake(cutValue, sortedItems);
 
       cutItems.forEach(function(item) {
-        item.set('betId', 0);
-        item.save();
         items.removeObject(item);
       });
 
@@ -216,7 +214,7 @@ export default Ember.Controller.extend({
       user.get('items').pushObject(item);
       match.get('items').removeObject(item);
 
-      item.setProperties({ 'userId': userId, 'betId': null });
+      item.set('userId', userId);
       item.save();
     }
 
@@ -247,6 +245,10 @@ export default Ember.Controller.extend({
 
     winBets = winBets.sort(function(a, b) {
       return b.get('payout') - a.get('payout');
+    });
+
+    sortedItems = items.toArray().sort(function(a, b) {
+      return b.get('price') - a.get('price');
     });
 
     var largestPayout = winBets[0].get('payout');
