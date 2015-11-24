@@ -7,7 +7,7 @@ module Clockwork
     puts "Running #{job}"
   end
 
-  every(1.day, 'start_match', :at => '18:44') do
+  every(1.day, 'start_match', :at => '20:00') do
     match = Match.all.last
     match.simulate_match
   end
