@@ -1,6 +1,9 @@
+require 'rubygems'
 require 'clockwork'
 require './config/boot'
 require './config/environment'
+include Clockwork
+
 
 module Clockwork
   handler do |job|
