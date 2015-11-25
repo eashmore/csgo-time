@@ -45,14 +45,16 @@ function takeRake(target, items) {
 #Payout Algorithm
 Implemented in Ember Matches Controller
 
-* `items` is a hash of item objects in the betting pool
-* `itemsKeys` is an array of all the bet item keys sorted by their item value's price
-* `winBets` is an array of all the bets placed on the winning team sorted by price value of winnings
+* `items` is a hash of item objects in the betting pool. Keys are ordered by
+their item value's price
+* `winBets` is an array of all the bets placed on the winning team sorted by
+price value of winnings
 
 <pre><code>
 var expensiveItems = {};
 
-function distributeItems(items, itemKeys) {
+function distributeItems(items) {
+  var itemKeys = Object.keys(items);
   var betQueue = winBets;
 
   while(itemKeys.length) {
@@ -109,8 +111,7 @@ if (expensiveKeys.length) {
 
   if(totalValueRemaining > cutValue) {
     cutValue = totalValueRemaining;
-    var cutItemKeys = Object.keys(cutItems);
-    distributeItems(cutItems, cutItemKeys);
+    distributeItems(cutItems);
     cutItems = expensiveItems;
   }
 }

@@ -162,7 +162,8 @@ export default Ember.Controller.extend({
       return pool;
     }
 
-    function distributeItems(items, itemKeys) {
+    function distributeItems(items) {
+      var itemKeys = Object.keys(items);
       var betQueue = winBets;
 
       while(itemKeys.length) {
@@ -198,6 +199,10 @@ export default Ember.Controller.extend({
         }
       }
 
+      redistributeRake();
+    }
+
+    function redistributeRake() {
       var expensiveKeys = Object.keys(expensiveItems);
       if (expensiveKeys.length) {
         var totalValueRemaining = 0;
@@ -207,8 +212,7 @@ export default Ember.Controller.extend({
 
         if(totalValueRemaining > cutValue) {
           cutValue = totalValueRemaining;
-          var cutItemKeys = Object.keys(cutItems);
-          distributeItems(cutItems, cutItemKeys);
+          distributeItems(cutItems);
           cutItems = expensiveItems;
         }
       }
@@ -270,7 +274,6 @@ export default Ember.Controller.extend({
     var largestPayout = winBets[0].get('payout');
     var expensiveItems = {};
 
-    var itemKeys = Object.keys(itemsHash);
-    distributeItems(itemsHash, itemKeys);
+    distributeItems(itemsHash);
   }
 });
