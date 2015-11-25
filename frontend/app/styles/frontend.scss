@@ -52,8 +52,8 @@ nav.navbar-default .navbar-nav>li>a {
 
 .match-info {
   position: relative;
-  z-index: -100;
   top: 50px;
+  display: inline-block;
 }
 
 .vs {
@@ -68,7 +68,7 @@ nav.navbar-default .navbar-nav>li>a {
 
 // teams
 .team-idx {
-  background-color: rgba(100, 100, 100, .4);
+  background-color: rgba(100, 100, 100, .8);
   margin-left: 15%;
   margin-right: 15%;
   padding-bottom: 2%;
@@ -95,7 +95,7 @@ nav.navbar-default .navbar-nav>li>a {
 .team-avatar {
   max-width: 250px;
   border-radius: 3px;
-  border: 2px solid black;
+  border: 3px solid #303358;
 }
 
 .team-avatar.team-bets:hover {
