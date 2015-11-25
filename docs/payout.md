@@ -1,17 +1,23 @@
 # Rake Algorithm
-Implemented in Ember Matches Controller
+Implemented in frontend matches.current controller
 
 * `target` is amount to payout
-* `items` is an Ember array of item objects sorted by price (highest to lowest)
+* `items` is an array of item objects sorted by price (highest to lowest)
 
 <pre><code>
-function getRake(target, items) {
+function takeRake(target, items) {
   target = (Math.round(target * 100)) / 100;
+
+  if (items.length < 1) {
+    return null;
+  }
+
   if (target <= 0) {
     return [];
   }
 
   var payout = [];
+
   for (var i = 0; i < items.length; i++) {
     var item = items[i];
     var price = item.get('price');
@@ -21,9 +27,9 @@ function getRake(target, items) {
     }
 
     var remainder = target - price;
-    var remainingItems = items.slice(i, items.length);
+    var remainingItems = items.slice(i + 1, items.length);
 
-    var currentPayout = this.getPayout(remainder, remainingItems);
+    var currentPayout = takeRake(remainder, remainingItems);
     if (!currentPayout) {
       continue;
     }
@@ -39,51 +45,73 @@ function getRake(target, items) {
 #Payout Algorithm
 Implemented in Ember Matches Controller
 
-* `itemsList` is an array of all the bet item sorted by price
+* `items` is a hash of item objects in the betting pool
+* `itemsKeys` is an array of all the bet item keys sorted by their item value's price
 * `winBets` is an array of all the bets placed on the winning team sorted by price value of winnings
 
 <pre><code>
-var distributeItems = function(itemsList) {
-  while(itemsList.length) {
-    var itemPrice = itemsList[0].get('price');
+var expensiveItems = {};
+
+function distributeItems(items, itemKeys) {
+  var betQueue = winBets;
+
+  while(itemKeys.length) {
+    var firstKey = itemKeys[0];
+    var itemPrice = items[firstKey].get('price');
 
     if (itemPrice > largestPayout) {
-      var handledItem = itemsList.shift();
-      expensiveItems.push(handledItem);
+      var handledItem = itemKeys.shift();
+      expensiveItems[handledItem] = items[handledItem];
+      delete items[handledItem];
       continue;
     }
 
-    for(var i = 0; i < winBets.length; i++) {
-      var userCurrentPayout = winBets[i].get('payout');
+    for(var i = 0; i < betQueue.length; i++) {
+      var userCurrentPayout = betQueue[i].get('payout');
 
       if (itemPrice <= userCurrentPayout) {
-        payUser(itemsList[0], winBets[i]);
+        payUser(items[firstKey], betQueue[i]);
 
         var newPayout = userCurrentPayout - itemPrice;
-        winBets[i].set('payout', newPayout);
+        betQueue[i].set('payout', newPayout);
 
-        if (userCurrentPayout > winBets[i].get('payout')) {
-          largestPayout = winBets[i].get('payout');
+        if (userCurrentPayout > betQueue[i].get('payout')) {
+          largestPayout = betQueue[i].get('payout');
         }
 
-        var handledBet = winBets.shift();
-        winBets.push(handledBet);
+        var handledBets = betQueue.shift();
+        betQueue.push(handledBets);
 
-        itemsList.shift();
+        itemKeys.shift();
         break;
       }
     }
   }
+}
 </code></pre>
 
-`distributeItems` will then compare any items too expensive to evenly distribute to its calculated rake. If the value of the extra items are larger then the rake value, it will redistribute it's calculated rake and take the expensive items as its rake instead.
+`distributeItems` will then compare any items too expensive to evenly distribute
+to its calculated rake. If the value of the extra items are larger then the rake
+value, it will redistribute it's calculated rake and take the expensive items as
+its rake instead.
+
+* `cutValue` is the total value of the site's 15% cut from the betting pool.
+* `cutItems` is a hash containing the site's rake (the `payout` from
+the `takeRake` function). Keys are ordered by value item's price.
 
 <pre><code>
-  if (expensiveItems.length && expensiveItems[0].get('price') > cutValue) {
-    cutValue = expensiveItems[0].get('price');
-    sortItems(cutItems);
+var expensiveKeys = Object.keys(expensiveItems);
+if (expensiveKeys.length) {
+  var totalValueRemaining = 0;
+  expensiveKeys.forEach(function(key) {
+    totalValueRemaining += expensiveItems[key].get('price');
+  });
+
+  if(totalValueRemaining > cutValue) {
+    cutValue = totalValueRemaining;
+    var cutItemKeys = Object.keys(cutItems);
+    distributeItems(cutItems, cutItemKeys);
     cutItems = expensiveItems;
   }
-};
-
+}
 </code></pre>
