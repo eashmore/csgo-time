@@ -15,7 +15,7 @@ module Clockwork
     match.simulate_match
   end
 
-  every(1.day, 'fill_db', :at => '01:00') do
+  every(1.day, 'fill_db', :at => '09:00', :tz => 'UTC') do
     new_match = Match.create(
       { has_started: false, map: 'de_dust2', current_round: 0 }
     )
