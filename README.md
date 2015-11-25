@@ -24,7 +24,6 @@ This app will allow for the betting of items on the outcome of CS:GO matches. It
 * Calculate odds for each team
 * Display more information for ongoing match (ie. kill count, round time left)
 * Move content into component to keep code organized and DRY
-* More seeds data
 * Improve general UX
 * Refactor everything!
 
