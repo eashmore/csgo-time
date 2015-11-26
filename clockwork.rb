@@ -10,12 +10,12 @@ module Clockwork
     puts "Running #{job}"
   end
 
-  every(1.day, 'start_match', :at => '04:00', :tz => 'UTC') do
+  every(1.day, 'start_match', :at => '20:00') do
     match = Match.all.last
     match.simulate_match
   end
 
-  every(1.day, 'fill_db', :at => '08:00', :tz => 'UTC') do
+  every(1.day, 'fill_db', :at => '16:45') do
     new_match = Match.create(
       { has_started: false, map: 'de_dust2', current_round: 0 }
     )
