@@ -2,7 +2,8 @@ import Ember from 'ember';
 
 export default Ember.Route.extend({
   model() {
-    return this.modelFor('matches').get('lastObject');
+    var matches = this.modelFor('matches').sortBy('id');
+    return matches.objectAt(matches.get('length') - 1);
   },
 
   afterModel(model) {
