@@ -8,16 +8,19 @@
 
   </h2>
 
-  <div class="container">
-    <div class="team-idx clearfix">
+  <div class="container-fluid team-idx generic-bg clearfix">
       {{outlet 'teams'}}
 
+      <p class="vs">VS</p>
       <div class="match-info">
           Total Prize Pool:
           <br>
 
-          <p class="prize-pool">${{model.prizePool}}</p>
-          <p class="vs">VS</p>
+          <p class="prize-pool">
+            <label>
+              ${{model.prizePool}}
+            </label>
+          </p>
 
           Match starts at:
           <br>
@@ -25,10 +28,9 @@
           8:00pm PST
       </div>
 
-    </div>
   </div>
 
-  <div class="recent-bets-list container">
+  <div class="recent-bets-list generic-bg container-fluid">
     <div class="bets-label col-xs-12">
       Recent Bets:
     </div>
@@ -36,10 +38,9 @@
     {{#each recentBets as |bet|}}
       <div class="recent-bet col-xs-2">
         <label>{{bet.user.username}}</label>
-
-         bet:
+         bet
         <br>
-
+        
         ${{bet.totalValue}}
         <br>
 

@@ -1,10 +1,17 @@
-<div class="container center-text">
+<div class="container generic-bg center-text">
   {{#if isBetForCurrentMatch}}
-    <h2>You bet on: <label>{{model.team.name}}</label></h2>
+    <h2>You bet on:
+      <br>
+      <label>{{model.team.name}}</label>
+    </h2>
     <br>
-    
-    <label>Total Value:</label>
-    <p class="prize-pool" >${{model.totalValue}}</p>
+
+    <strong>Total Value:</strong>
+      <p class="prize-pool">
+        <label>
+          ${{model.totalValue}}
+        </label>
+      </p>
     <br>
 
     <div class="bet-show">

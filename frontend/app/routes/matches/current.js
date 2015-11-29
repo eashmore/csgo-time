@@ -16,6 +16,7 @@ export default Ember.Route.extend({
     var currentBets = match.get('bets');
     if (currentBets.get('length')) {
       controller.prizePool(match);
+      controller.getRecentBets(currentBets);
     }
 
     if (match.get('hasStarted')) {
@@ -24,7 +25,6 @@ export default Ember.Route.extend({
 
     controller.timeUntilMatch(match);
 
-    controller.getRecentBets(currentBets);
   },
 
   renderTemplate(c, model) {
