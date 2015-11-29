@@ -1,4 +1,6 @@
 <div class="match-inprogress container center-text">
+  <div class="match-inprogress-img"></div>
+
   <div>
     {{#each model.teams as |team|}}
       <div class="teams team{{team.id}} team-inprogress">
@@ -17,7 +19,9 @@
       WINNER:
       <br>
 
-      {{model.winner.name}}
+      <label class="">
+        {{model.winner.name}}
+      </label>
 
       <p>Come back tomorrow to bet on a new match!</p>
 

@@ -24,6 +24,10 @@ label {
   color: darkorange;
 }
 
+label.dark {
+  color: #d45500;
+}
+
 .generic-bg {
   background-color: white;
   padding-bottom: 1%;
@@ -198,29 +202,52 @@ ul.item-list div.inv-item:hover {
 // inprogress match
 .match-details {
   font-size: 20px;
+  position: relative;
+  z-index: 1000;
 }
 
 .match-inprogress {
   color: white;
-  margin-top: 4%;
+  margin-top: 2%;
+  background-color: darkblue;
+  width: 100%;
+  height: 650px;
+}
+
+.match-inprogress-img {
+  background: url("http://res.cloudinary.com/dqucbuno8/image/upload/c_scale,h_650/v1448666824/KjPZARD_bcdzfe.jpg") top center no-repeat;
+  height: inherit;
+  width: 100%;
+  position: absolute;
+  opacity: .6;
+  left: 0px;
 }
 
 .teams.team-inprogress {
-  background-color: rgba(20, 20, 20, .8);
+  color: darkorange;
+  background-color: rgba(25, 25, 25, .7);
   padding: 20px;
   border-radius: 3px;
   border: 3px solid black;
+  position: relative;
+  z-index: 10000;
+  width: 275px;
+  margin: 100px;
+  font-weight: bold;
 }
 
 .winner {
   font-size: 40px;
   font-weight: bold;
   height: 150px;
+  position: relative;
+  z-index: 1000;
 }
 
 .winner>p{
   position: relative;
-  top: 300px;
+  top: 400px;
+  z-index: 1000;
 }
 
 //bets
