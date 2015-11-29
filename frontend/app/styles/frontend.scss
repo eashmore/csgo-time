@@ -59,17 +59,35 @@ nav.navbar-default .navbar-nav>li>a {
 }
 
 .next-match {
+  background-color: darkblue;
   margin-top: 1%;
   color: #d45500;
   width: 100%;
-  background: url('http://res.cloudinary.com/dqucbuno8/image/upload/v1448660817/gSC7CN_bjr6bb.png') center top;
   border: 1px solid black;
+  min-height: 150px;
+}
+
+.next-match-image {
+  background: url('http://res.cloudinary.com/dqucbuno8/image/upload/c_scale,w_1920/v1448660817/gSC7CN_bjr6bb.png') center top no-repeat;
+  width: 100%;
+  height: 150px;
+  position: absolute;
+  opacity: 0.7;
+  left: 0px;
+}
+
+.next-match > h2 {
+  position: relative;
+  z-index: 10000;
+  text-shadow: 1px 1px #000000;
 }
 
 .time-left {
   font-size: 75px;
   font-weight: bold;
   min-height: 85px;
+  position: relative;
+  z-index: 10000;
 }
 
 .match-info {
@@ -204,6 +222,7 @@ ul.item-list div.inv-item:hover {
   font-size: 20px;
   position: relative;
   z-index: 1000;
+  text-shadow: 2px 2px #000000;
 }
 
 .match-inprogress {
@@ -212,6 +231,7 @@ ul.item-list div.inv-item:hover {
   background-color: darkblue;
   width: 100%;
   height: 650px;
+  text-shadow: 2px 2px #000000;
 }
 
 .match-inprogress-img {
@@ -219,13 +239,13 @@ ul.item-list div.inv-item:hover {
   height: inherit;
   width: 100%;
   position: absolute;
-  opacity: .6;
+  opacity: .7;
   left: 0px;
 }
 
 .teams.team-inprogress {
   color: darkorange;
-  background-color: rgba(25, 25, 25, .7);
+  background-color: rgba(255, 255, 255, .7);
   padding: 20px;
   border-radius: 3px;
   border: 3px solid black;
@@ -234,6 +254,7 @@ ul.item-list div.inv-item:hover {
   width: 275px;
   margin: 100px;
   font-weight: bold;
+  text-shadow: 1px 1px #000000;
 }
 
 .winner {

@@ -1,12 +1,16 @@
 <div class="landing-content center-text">
-  <h2 class="next-match">GO time starts in:
-    <br>
+  <div class="next-match">
+    <div class="next-match-image"></div>
 
-    <p class="time-left">
-      {{timeLeft}}
-    </p>
+    <h2>GO time starts in:
+      <br>
 
-  </h2>
+      <p class="time-left">
+        {{timeLeft}}
+      </p>
+
+    </h2>
+  </div>
 
   <div class="container-fluid team-idx generic-bg clearfix">
       {{outlet 'teams'}}
@@ -40,7 +44,7 @@
         <label>{{bet.user.username}}</label>
          bet
         <br>
-        
+
         ${{bet.totalValue}}
         <br>
 
