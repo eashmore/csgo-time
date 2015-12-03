@@ -2,21 +2,16 @@ import Ember from 'ember';
 
 export default Ember.Route.extend({
   model() {
-    var matches = this.modelFor('matches').sortBy('id');
-    return matches.objectAt(matches.get('length') - 1);
-  },
-
-  afterModel(model) {
-    this.store.query('team', { matchId: model.get('id') });
+    return this.store.queryRecord('match', { isCurrent: true });
   },
 
   setupController(controller, match) {
     controller.set('model', match);
 
-    var currentBets = match.get('bets');
-    if (currentBets.get('length')) {
-      controller.prizePool(match);
-      controller.getRecentBets(currentBets);
+    var bets = match.get('bets');
+    if (bets.get('length')) {
+      controller.prizePool(match, bets);
+      controller.getRecentBets(bets);
     }
 
     if (match.get('hasStarted')) {
@@ -24,20 +19,24 @@ export default Ember.Route.extend({
     }
 
     controller.timeUntilMatch(match);
-
   },
 
-  renderTemplate(c, model) {
+  renderTemplate(controller, model) {
+    var that = this;
+
     this.render('matches.current', {
       model: model
     });
 
     var teamController = this.controllerFor('teams.index');
-    this.render('teams.index', {
+
+    that.render('teams.index', {
       into: 'matches.current',
       outlet: 'teams',
       controller: teamController,
       model: model.get('teams'),
     });
+
+    this.store.query('team', { matchId: model.get('id') });
   }
 });

@@ -5,9 +5,8 @@ export default Ember.Controller.extend({
 
   timeLeft: "",
 
-  prizePool(match) {
+  prizePool(match, bets) {
     var pool = 0;
-    var bets = match.get('bets');
     bets.forEach(function(bet) {
       pool += bet.get('totalValue');
     });

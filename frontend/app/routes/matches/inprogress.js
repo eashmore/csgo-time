@@ -2,8 +2,7 @@ import Ember from 'ember';
 
 export default Ember.Route.extend({
   model() {
-    var matches = this.modelFor('matches').sortBy('id');
-    return matches.objectAt(matches.get('length') - 1);
+    return this.store.queryRecord('match', { isCurrent: true });
   },
 
   afterModel(model) {

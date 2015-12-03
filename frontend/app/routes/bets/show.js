@@ -9,10 +9,11 @@ export default Ember.Route.extend({
   setupController(controller, model) {
     controller.set('model', model);
     if (model) {
-      var match = this.modelFor('matches').get('lastObject');
-      controller.checkIsBetForCurrentMatch(match, model);
       this.store.query('team', { id: model.get('teamId') });
       this.store.query('item', { betId: model.get('id') });
+      
+      var match = this.modelFor('matches').get('lastObject');
+      controller.checkIsBetForCurrentMatch(match, model);
     }
   }
 });

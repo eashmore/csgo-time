@@ -4,7 +4,6 @@ require './config/boot'
 require './config/environment'
 include Clockwork
 
-
 module Clockwork
   handler do |job|
     puts "Running #{job}"
@@ -16,6 +15,10 @@ module Clockwork
   end
 
   every(1.day, 'fill_db', :at => '00:01') do
+    old_match = Match.last
+    old_match.is_current = false
+    old_match.save
+
     new_match = Match.create(
       { has_started: false, map: 'de_dust2', current_round: 0 }
     )
