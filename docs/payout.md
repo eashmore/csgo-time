@@ -46,7 +46,7 @@ function takeRake(target, items) {
 Implemented in Ember Matches Controller
 
 * `items` is a hash of item objects in the betting pool. Keys are ordered by
-their item value's price
+their item value's price (lowest to highest)
 * `winBets` is an array of all the bets placed on the winning team sorted by
 total value of winnings
 
@@ -56,7 +56,7 @@ var expensiveItems = {};
 function distributeItems(items) {
   var itemKeys = Object.keys(items);
   itemKeys = itemKeys.sort(function(a, b) {
-      return a - b;
+      return b - a;
     })
 
   while(itemKeys.length) {

@@ -87,17 +87,13 @@ export default Ember.Controller.extend({
 
   // payout and rake
   payBets(match) {
-    function getPayoutRatioAndWinningBets(bets) {
-      var betPool = 0;
-      var winnerPool = 0;
-
+    function getPayoutRatio(bets) {
       bets.forEach(function(bet) {
         var betValue = bet.get('totalValue');
         betPool += betValue;
 
         if (bet.get('teamId') === parseInt(winTeam.get('id'))) {
           winnerPool += betValue;
-          winningBets.push(bet);
         }
       });
 
@@ -105,6 +101,31 @@ export default Ember.Controller.extend({
 
       var payout = (betPool/winnerPool);
       return payout;
+    }
+
+    function updatePayout(item, bet) {
+      betPool -= item.get('price');
+
+      if (bet.get('newValue')) {
+        bet.set('newValue', (bet.get('newValue') - item.get('price')));
+      } else {
+        bet.set('newValue', (bet.get('totalValue') - item.get('price')));
+      }
+
+      var payout = (betPool/winnerPool);
+      var newPayout = bet.get('newValue') * payout;
+      bet.set('payout', newPayout);
+    }
+
+    function getWinningBets(bets) {
+      var winningBets = [];
+      bets.forEach(function(bet) {
+        if (bet.get('teamId') === parseInt(winTeam.get('id'))) {
+          winningBets.push(bet);
+        }
+      });
+
+      return winningBets;
     }
 
     function takeRake(target, itemKeys) {
@@ -163,55 +184,28 @@ export default Ember.Controller.extend({
 
     function distributeItems(items) {
       var itemKeys = Object.keys(items);
+      itemKeys = itemKeys.sort(function(a, b) {
+        return a - b;
+      });
 
       while(itemKeys.length) {
         var firstKey = itemKeys[0];
-        var itemPrice = items[firstKey].get('price');
 
-        if (itemPrice > largestPayout) {
-          var handledItem = itemKeys.shift();
-          expensiveItems[handledItem] = items[handledItem];
-          delete items[handledItem];
-          continue;
-        }
-
-        for(var i = 0; i < winningBets.length; i++) {
-          var userCurrentPayout = winningBets[i].get('payout');
-
-          if (itemPrice <= userCurrentPayout) {
-            payUser(items[firstKey], winningBets[i]);
-
-            var newPayout = userCurrentPayout - itemPrice;
-            winningBets[i].set('payout', newPayout);
-
-            if (userCurrentPayout > winningBets[i].get('payout')) {
-              largestPayout = winningBets[i].get('payout');
-            }
-
-            var handledBets = winningBets.shift();
-            winningBets.push(handledBets);
-
-            itemKeys.shift();
-            break;
-          }
-        }
-      }
-
-      distributeExpensiveItems();
-    }
-
-    function distributeExpensiveItems() {
-      var expensiveKeys = Object.keys(expensiveItems);
-      while (expensiveKeys.length) {
         var max = null;
         for (var i = 0; i < winningBets.length; i++) {
-          if (max === null || winningBets[i].get('payout') > max) {
+          if (max === null || winningBets[i].get('payout') > max.get('payout')) {
             max = winningBets[i];
           }
         }
 
-        payUser(expensiveItems[expensiveKeys[0]], max);
-        expensiveKeys.shift();
+        payUser(items[firstKey], max);
+        if (max.get('payout') - items[firstKey].get('price') <= 0) {
+          var idx = winningBets.indexOf(max);
+          winningBets.splice(idx, 1);
+        }
+
+        updatePayout(items[firstKey], max);
+        itemKeys.shift();
       }
     }
 
@@ -238,16 +232,16 @@ export default Ember.Controller.extend({
       return itemsHash;
     }
 
-    function sortBetsByPayout(winningBets) {
-      winningBets.forEach(function(bet) {
-        var payout = bet.get('totalValue') * payoutRatio;
-        bet.set('payout', payout);
-      });
-
-      winningBets = winningBets.sort(function(a, b) {
-        return b.get('payout') - a.get('payout');
-      });
-    }
+    // function sortBetsByPayout(winningBets) {
+    //   winningBets.forEach(function(bet) {
+    //     var payout = bet.get('totalValue') * payoutRatio;
+    //     bet.set('payout', payout);
+    //   });
+    //
+    //   winningBets = winningBets.sort(function(a, b) {
+    //     return b.get('payout') - a.get('payout');
+    //   });
+    // }
 
     var that = this;
     var bets = match.get('bets');
@@ -259,17 +253,21 @@ export default Ember.Controller.extend({
     var itemsHash = hashifyItems(items, itemsHash);
 
     var winTeam = match.get('winner');
-    var winningBets = [];
+    var winningBets = getWinningBets(bets);
 
     var cutValue = 0;
     var cutItems = {};
 
-    var payoutRatio = getPayoutRatioAndWinningBets(bets);
+    var betPool = 0;
+    var winnerPool = 0;
+    var payoutRatio = getPayoutRatio(bets);
 
-    sortBetsByPayout(winningBets);
+    winningBets.forEach(function(bet) {
+      var payout = bet.get('totalValue') * payoutRatio;
+      bet.set('payout', payout);
+    });
 
-    var largestPayout = winningBets[0].get('payout');
-    var expensiveItems = {};
+    // var expensiveItems = {};
 
     distributeItems(itemsHash);
   }

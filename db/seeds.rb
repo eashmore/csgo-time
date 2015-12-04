@@ -23,7 +23,7 @@ Itemdb.create!([
 ])
 
 Match.create!([
-  {has_started: false, map: "de_dust2", current_round: 0, has_started: true, has_ended: true, winner_id: 1}
+  {has_started: false, map: "de_dust2", current_round: 0}
 ])
 Team.create!([
   {name: "WOW_WE_LAGGED", odds: 1.0, avatar_url: "https://res.cloudinary.com/dqucbuno8/image/upload/h_250,w_250/v1447814571/lag-kills-people_nrbbgr.png"},
