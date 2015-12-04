@@ -1,5 +1,5 @@
 # Rake Algorithm
-Implemented in frontend matches.current controller
+Implemented in Ember matches.current controller
 
 * `target` is amount to payout
 * `items` is an array of item objects sorted by price (highest to lowest)
@@ -43,76 +43,43 @@ function takeRake(target, items) {
 </code></pre>
 
 #Payout Algorithm
-Implemented in Ember Matches Controller
+Implemented in Ember matches.current controller
 
 * `items` is a hash of item objects in the betting pool. Keys are ordered by
-their item value's price (lowest to highest)
+their item value's price (highest to lowest)
 * `winBets` is an array of all the bets placed on the winning team sorted by
 total value of winnings
+* `payUser()` adds the item to the user's stash and disassociates it with the
+current match
+* `updatePayout` redetermines the total value of a user's payout after an item
+is removed from the pool. This is done to ensure a more even distribution across
+all winning users
 
 <pre><code>
-var expensiveItems = {};
-
 function distributeItems(items) {
   var itemKeys = Object.keys(items);
   itemKeys = itemKeys.sort(function(a, b) {
-      return b - a;
-    })
+    return a - b;
+  });
 
   while(itemKeys.length) {
     var firstKey = itemKeys[0];
-    var itemPrice = items[firstKey].get('price');
 
-    if (itemPrice > largestPayout) {
-      var handledItem = itemKeys.shift();
-      expensiveItems[handledItem] = items[handledItem];
-      delete items[handledItem];
-      continue;
-    }
-
-    for(var i = 0; i < winningBets.length; i++) {
-      var userCurrentPayout = winningBets[i].get('payout');
-
-      if (itemPrice <= userCurrentPayout) {
-        payUser(items[firstKey], winningBets[i]);
-
-        var newPayout = userCurrentPayout - itemPrice;
-        winningBets[i].set('payout', newPayout);
-
-        if (userCurrentPayout > winningBets[i].get('payout')) {
-          largestPayout = winningBets[i].get('payout');
-        }
-
-        var handledBets = winningBets.shift();
-        winningBets.push(handledBets);
-
-        itemKeys.shift();
-        break;
-      }
-    }
-  }
-
-  distributeExpensiveItems();
-}
-</code></pre>
-
-`distributeExpensiveItems` will then attempt to payout items to expensive to
-distributed evenly are as fairly as it can by giving them to the users with the
-highest remaining payout.
-
-<pre><code>
-function distributeExpensiveItems() {
-  var expensiveKeys = Object.keys(expensiveItems);
-  while (expensiveKeys.length) {
-    var max = null;
+    var maxBet = null;
     for (var i = 0; i < winningBets.length; i++) {
-      if (max === null || winningBets[i].get('payout') > max) {
-        max = winningBets[i];
+      if (maxBet === null || winningBets[i].get('payout') > maxBet.get('payout')) {
+        maxBet = winningBets[i];
       }
     }
 
-    payUser(expensiveItems[expensiveKeys[0]], max);
-    expensiveKeys.shift();
+    payUser(items[firstKey], maxBet);
+    if (maxBet.get('payout') - items[firstKey].get('price') <= 0) {
+      var idx = winningBets.indexOf(maxBet);
+      winningBets.splice(idx, 1);
+    }
+
+    updatePayout(items[firstKey], maxBet);
+    itemKeys.shift();
   }
 }
 </code></pre>
