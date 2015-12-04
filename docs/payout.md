@@ -48,13 +48,16 @@ Implemented in Ember Matches Controller
 * `items` is a hash of item objects in the betting pool. Keys are ordered by
 their item value's price
 * `winBets` is an array of all the bets placed on the winning team sorted by
-price value of winnings
+total value of winnings
 
 <pre><code>
 var expensiveItems = {};
 
 function distributeItems(items) {
   var itemKeys = Object.keys(items);
+  itemKeys = itemKeys.sort(function(a, b) {
+      return a - b;
+    })
 
   while(itemKeys.length) {
     var firstKey = itemKeys[0];
