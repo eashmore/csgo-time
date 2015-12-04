@@ -55,7 +55,6 @@ var expensiveItems = {};
 
 function distributeItems(items) {
   var itemKeys = Object.keys(items);
-  var betQueue = winBets;
 
   while(itemKeys.length) {
     var firstKey = itemKeys[0];
@@ -68,51 +67,49 @@ function distributeItems(items) {
       continue;
     }
 
-    for(var i = 0; i < betQueue.length; i++) {
-      var userCurrentPayout = betQueue[i].get('payout');
+    for(var i = 0; i < winningBets.length; i++) {
+      var userCurrentPayout = winningBets[i].get('payout');
 
       if (itemPrice <= userCurrentPayout) {
-        payUser(items[firstKey], betQueue[i]);
+        payUser(items[firstKey], winningBets[i]);
 
         var newPayout = userCurrentPayout - itemPrice;
-        betQueue[i].set('payout', newPayout);
+        winningBets[i].set('payout', newPayout);
 
-        if (userCurrentPayout > betQueue[i].get('payout')) {
-          largestPayout = betQueue[i].get('payout');
+        if (userCurrentPayout > winningBets[i].get('payout')) {
+          largestPayout = winningBets[i].get('payout');
         }
 
-        var handledBets = betQueue.shift();
-        betQueue.push(handledBets);
+        var handledBets = winningBets.shift();
+        winningBets.push(handledBets);
 
         itemKeys.shift();
         break;
       }
     }
   }
+
+  distributeExpensiveItems();
 }
 </code></pre>
 
-`distributeItems` will then compare any items too expensive to evenly distribute
-to its calculated rake. If the value of the extra items are larger then the rake
-value, it will redistribute it's calculated rake and take the expensive items as
-its rake instead.
-
-* `cutValue` is the total value of the site's 15% cut from the betting pool.
-* `cutItems` is a hash containing the site's rake (the `payout` from
-the `takeRake` function). Keys are ordered by value item's price.
+`distributeExpensiveItems` will then make sure the items to expensive to
+distributed evenly are handed out as fairly as possible by giving them to the
+users with the highest remaining payout.
 
 <pre><code>
-var expensiveKeys = Object.keys(expensiveItems);
-if (expensiveKeys.length) {
-  var totalValueRemaining = 0;
-  expensiveKeys.forEach(function(key) {
-    totalValueRemaining += expensiveItems[key].get('price');
-  });
+function distributeExpensiveItems() {
+  var expensiveKeys = Object.keys(expensiveItems);
+  while (expensiveKeys.length) {
+    var max = null;
+    for (var i = 0; i < winningBets.length; i++) {
+      if (max === null || winningBets[i].get('payout') > max) {
+        max = winningBets[i];
+      }
+    }
 
-  if(totalValueRemaining > cutValue) {
-    cutValue = totalValueRemaining;
-    distributeItems(cutItems);
-    cutItems = expensiveItems;
+    payUser(expensiveItems[expensiveKeys[0]], max);
+    expensiveKeys.shift();
   }
 }
 </code></pre>
