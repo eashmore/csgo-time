@@ -1,7 +1,7 @@
 # Rake Algorithm
 Implemented in Ember matches.current controller
 
-* `target` is amount to payout
+* `target` is the total value of the rake
 * `items` is an array of item objects sorted by price (highest to lowest)
 
 <pre><code>
@@ -48,10 +48,10 @@ Implemented in Ember matches.current controller
 * `items` is a hash of item objects in the betting pool. Keys are ordered by
 their item value's price (highest to lowest)
 * `winBets` is an array of all the bets placed on the winning team sorted by
-total value of winnings
+total value of winnings (highest to lowest)
 * `payUser()` adds the item to the user's stash and disassociates it with the
 current match
-* `updatePayout` redetermines the total value of a user's payout after an item
+* `updatePayout()` redetermines the total value of a user's payout after an item
 is removed from the pool. This is done to ensure a more even distribution across
 all winning users
 
