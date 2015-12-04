@@ -93,9 +93,9 @@ function distributeItems(items) {
 }
 </code></pre>
 
-`distributeExpensiveItems` will then make sure the items to expensive to
-distributed evenly are handed out as fairly as possible by giving them to the
-users with the highest remaining payout.
+`distributeExpensiveItems` will then attempt to payout items to expensive to
+distributed evenly are as fairly as it can by giving them to the users with the
+highest remaining payout.
 
 <pre><code>
 function distributeExpensiveItems() {
