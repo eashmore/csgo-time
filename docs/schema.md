@@ -14,10 +14,10 @@ column name     | data type | details
 id              | integer   | not null, primary key
 start_time      | date      |
 map             | string    | not null
-current_round   | integer   | not null, default: 0
-prize_pool      | integer   | not null, default: 0
-has_started     | boolean   | not null, default: false
-is_current      | boolean   | not null, default: true
+current_round   | integer   | default: 0
+prize_pool      | integer   | default: 0
+has_started     | boolean   | default: false
+is_current      | boolean   | default: true
 winner_id       | integer   | foreign key
 
 ## teams
@@ -27,7 +27,7 @@ id              | integer   | not null, primary key
 name            | string    | not null, unique
 odds            | float     | not null
 avatar_url      | string    |
-rounds_won      | integer   | not null, default: 0
+rounds_won      | integer   | default: 0
 match_id        | integer   | foreign key
 
 ## match_linups
@@ -46,8 +46,8 @@ price           | float     | not null
 gun_type        | string    | not null
 condition       | string    | not null
 rarity          | string    | not null
-is_stattrack    | boolean   | not null, default: false
-is_souvenir     | boolean   | not null, default: false
+is_stattrack    | boolean   | default: false
+is_souvenir     | boolean   | default: false
 image_url       | string    | not null
 user_id         | integer   | foreign key
 bet_id          | integer   | foreign key
