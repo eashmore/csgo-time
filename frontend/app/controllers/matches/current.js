@@ -185,7 +185,10 @@ export default Ember.Controller.extend({
         }
 
         payUser(items[firstKey], max);
-        if (max.get('payout') - items[firstKey].get('price') <= 0) {
+        var newPayout = max.get('payout') - items[firstKey].get('price');
+        max.set('payout', newPayout);
+
+        if (max.get('payout') <= 0) {
           var idx = winningBets.indexOf(max);
           winningBets.splice(idx, 1);
 
@@ -193,9 +196,6 @@ export default Ember.Controller.extend({
             break;
           }
         }
-
-        var newPayout = max.get('payout') - items[firstKey].get('price');
-        max.set('payout', newPayout);
 
         itemKeys.shift();
       }

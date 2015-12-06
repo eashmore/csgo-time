@@ -62,21 +62,25 @@ function distributeItems(items) {
   while(itemKeys.length) {
     var firstKey = itemKeys[0];
 
-    var maxBet = null;
+    var max = null;
     for (var i = 0; i < winningBets.length; i++) {
-      if (maxBet === null || winningBets[i].get('payout') > maxBet.get('payout')) {
-        maxBet = winningBets[i];
+      if (max === null || winningBets[i].get('payout') > max.get('payout')) {
+        max = winningBets[i];
       }
     }
 
-    payUser(items[firstKey], maxBet);
-    if (maxBet.get('payout') - items[firstKey].get('price') <= 0) {
-      var idx = winningBets.indexOf(maxBet);
-      winningBets.splice(idx, 1);
-    }
-
+    payUser(items[firstKey], max);
     var newPayout = max.get('payout') - items[firstKey].get('price');
     max.set('payout', newPayout);
+
+    if (max.get('payout') <= 0) {
+      var idx = winningBets.indexOf(max);
+      winningBets.splice(idx, 1);
+
+      if (!winningBets.length) {
+        break;
+      }
+    }
 
     itemKeys.shift();
   }
