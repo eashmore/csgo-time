@@ -8,8 +8,6 @@ export default Ember.Route.extend({
   setupController(controller, match) {
     controller.set('model', match);
 
-    Ember.Logger.log(match);
-
     var bets = match.get('bets');
     if (bets.get('length')) {
       controller.prizePool(match, bets);

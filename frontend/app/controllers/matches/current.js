@@ -103,20 +103,6 @@ export default Ember.Controller.extend({
       return payout;
     }
 
-    function updatePayout(item, bet) {
-      betPool -= item.get('price');
-
-      if (bet.get('newValue')) {
-        bet.set('newValue', (bet.get('newValue') - item.get('price')));
-      } else {
-        bet.set('newValue', (bet.get('totalValue') - item.get('price')));
-      }
-
-      var payout = (betPool/winnerPool);
-      var newPayout = bet.get('newValue') * payout;
-      bet.set('payout', newPayout);
-    }
-
     function getWinningBets(bets) {
       var winningBets = [];
       bets.forEach(function(bet) {
@@ -202,9 +188,15 @@ export default Ember.Controller.extend({
         if (max.get('payout') - items[firstKey].get('price') <= 0) {
           var idx = winningBets.indexOf(max);
           winningBets.splice(idx, 1);
+
+          if (!winningBets.length) {
+            break;
+          }
         }
 
-        updatePayout(items[firstKey], max);
+        var newPayout = max.get('payout') - items[firstKey].get('price');
+        max.set('payout', newPayout);
+
         itemKeys.shift();
       }
     }
@@ -234,7 +226,8 @@ export default Ember.Controller.extend({
 
     var that = this;
     var bets = match.get('bets');
-    if (!bets.get('length')) {
+
+    if (!bets.get('length') || match.get('hasEnded') === true) {
       return;
     }
 
@@ -257,5 +250,8 @@ export default Ember.Controller.extend({
     });
 
     distributeItems(itemsHash);
+
+    match.set('hasEnded', true);
+    match.save();
   }
 });

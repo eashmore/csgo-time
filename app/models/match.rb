@@ -44,7 +44,6 @@ class Match < ActiveRecord::Base
       winner = team1.rounds_won > team2.rounds_won ? team1 : team2
       self.winner_id = winner.id
 
-      self.has_ended = true
       save
 
       return true

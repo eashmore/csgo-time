@@ -51,9 +51,6 @@ their item value's price (highest to lowest)
 total value of winnings (highest to lowest)
 * `payUser()` adds the item to the user's stash and disassociates it with the
 current match
-* `updatePayout()` redetermines the total value of a user's payout after an item
-is removed from the pool. This is done to ensure a more even distribution across
-all winning users
 
 <pre><code>
 function distributeItems(items) {
@@ -78,7 +75,9 @@ function distributeItems(items) {
       winningBets.splice(idx, 1);
     }
 
-    updatePayout(items[firstKey], maxBet);
+    var newPayout = max.get('payout') - items[firstKey].get('price');
+    max.set('payout', newPayout);
+
     itemKeys.shift();
   }
 }

@@ -38,7 +38,8 @@ class Api::MatchesController < ApplicationController
 
   def match_params
     params.require(:match).permit(:start_time, :current_round, :has_started,
-                                  :map, :winner_id, :prize_pool, :is_current
+                                  :map, :winner_id, :prize_pool, :is_current,
+                                  :has_ended
                                  )
   end
 end

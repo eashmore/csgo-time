@@ -13,7 +13,7 @@ export default Ember.Controller.extend({
 
     var checkMatch = setInterval(function() {
       match.reload();
-      if (match.get('hasEnded')) {
+      if (match.get('winnerId')) {
         clearInterval(checkMatch);
         payBets();
       }
