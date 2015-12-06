@@ -1,9 +1,9 @@
 class Api::MatchesController < ApplicationController
   def index
     if params[:is_current]
-      @matches = Match.current_match
+      @matches = Match.includes(:bets).current_match
     else
-      @matches = Match.all
+      @matches = Match.includes(:winner, :teams, :bets, :items).all
     end
 
     render json: @matches

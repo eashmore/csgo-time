@@ -1,6 +1,6 @@
 class Api::TeamsController < ApplicationController
   def index
-    @teams = Team.includes(:matches, :bets).all
+    @teams = Team.includes(:bets, :matches).all
 
     render json: @teams
   end
