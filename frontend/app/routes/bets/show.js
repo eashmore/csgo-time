@@ -9,8 +9,8 @@ export default Ember.Route.extend({
   setupController(controller, model) {
     controller.set('model', model);
     if (model) {
-      this.store.query('team', { id: model.get('teamId') });
-      this.store.query('item', { betId: model.get('id') });
+      this.store.findRecord('team', model.get('teamId'));
+      this.store.query('item', { bet_id: model.get('id') });
 
       var matches = this.store.peekAll('match');
       var currentMatch = matches.find(function(match) {

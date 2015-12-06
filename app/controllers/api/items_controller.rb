@@ -1,6 +1,10 @@
 class Api::ItemsController < ApplicationController
   def index
-    @items = Item.includes(:user).includes(:bet).all
+    if params[:bet_id]
+      @items = Item.includes(:user).includes(:bet).bet_items(params[:bet_id])
+    else
+      @items = Item.includes(:user).includes(:bet).all
+    end
 
     render json: @items
   end

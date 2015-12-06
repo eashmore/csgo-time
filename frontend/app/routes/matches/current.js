@@ -37,6 +37,6 @@ export default Ember.Route.extend({
       model: model.get('teams'),
     });
 
-    this.store.query('team', { matchId: model.get('id') });
+    this.store.findRecord('team', model.get('teamId'));    
   }
 });
