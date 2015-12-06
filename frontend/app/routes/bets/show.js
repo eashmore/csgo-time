@@ -11,8 +11,8 @@ export default Ember.Route.extend({
     if (model) {
       this.store.query('team', { id: model.get('teamId') });
       this.store.query('item', { betId: model.get('id') });
-      
-      var match = this.modelFor('matches').get('lastObject');
+
+      var match = this.store.peekAll('match').get('lastObject');
       controller.checkIsBetForCurrentMatch(match, model);
     }
   }

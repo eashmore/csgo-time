@@ -1,6 +1,11 @@
 class Api::MatchesController < ApplicationController
   def index
-    @matches = Match.all
+    if params[:is_current]
+      @matches = Match.current_match
+    else
+      @matches = Match.all
+    end
+
     render json: @matches
   end
 
@@ -16,6 +21,7 @@ class Api::MatchesController < ApplicationController
 
   def show
     @match = Match.find(params[:id])
+
     render json: @match
   end
 

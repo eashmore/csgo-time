@@ -2,7 +2,7 @@ import Ember from 'ember';
 
 export default Ember.Route.extend({
   beforeModel(){
-    this.store.findAll('match');
+    // this.store.findAll('match');
   },
 
   model() {

@@ -2,11 +2,13 @@ import Ember from 'ember';
 
 export default Ember.Route.extend({
   model() {
-    return this.store.queryRecord('match', { isCurrent: true });
+    return this.store.queryRecord('match', { is_current: true });
   },
 
   setupController(controller, match) {
     controller.set('model', match);
+
+    Ember.Logger.log(match);
 
     var bets = match.get('bets');
     if (bets.get('length')) {

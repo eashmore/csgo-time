@@ -8,6 +8,10 @@ class Match < ActiveRecord::Base
   has_many :match_lineups
   has_many :teams, through: :match_lineups
 
+  def self.current_match
+    where(is_current: true)
+  end
+
   def simulate_match
     self.has_started = true
     save
