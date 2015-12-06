@@ -12,8 +12,12 @@ export default Ember.Route.extend({
       this.store.query('team', { id: model.get('teamId') });
       this.store.query('item', { betId: model.get('id') });
 
-      var match = this.store.peekAll('match').get('lastObject');
-      controller.checkIsBetForCurrentMatch(match, model);
+      var matches = this.store.peekAll('match');
+      var currentMatch = matches.find(function(match) {
+        return match.get('isCurrent') === true;
+      });
+
+      controller.checkIsBetForCurrentMatch(currentMatch, model);
     }
   }
 });

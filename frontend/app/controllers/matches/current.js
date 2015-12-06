@@ -232,17 +232,6 @@ export default Ember.Controller.extend({
       return itemsHash;
     }
 
-    // function sortBetsByPayout(winningBets) {
-    //   winningBets.forEach(function(bet) {
-    //     var payout = bet.get('totalValue') * payoutRatio;
-    //     bet.set('payout', payout);
-    //   });
-    //
-    //   winningBets = winningBets.sort(function(a, b) {
-    //     return b.get('payout') - a.get('payout');
-    //   });
-    // }
-
     var that = this;
     var bets = match.get('bets');
     if (!bets.get('length')) {
@@ -266,8 +255,6 @@ export default Ember.Controller.extend({
       var payout = bet.get('totalValue') * payoutRatio;
       bet.set('payout', payout);
     });
-
-    // var expensiveItems = {};
 
     distributeItems(itemsHash);
   }

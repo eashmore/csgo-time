@@ -5,8 +5,12 @@ export default Ember.Controller.extend({
 
   actions: {
     toTeamPage(team) {
-      var currentMatch = team.get('matches').get('lastObject');
-      
+      var matches = team.get('matches');
+
+      var currentMatch = matches.find(function(match) {
+        return match.get('isCurrent') === true;
+      });
+
       var currentUser = this.store.peekRecord('user', window.CURRENT_USER);
       var mostRecentBet = currentUser.get('bets').get('lastObject');
 
