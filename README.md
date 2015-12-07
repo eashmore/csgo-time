@@ -41,7 +41,7 @@ It will be built on Rails and Ember and allow users to:
 * Write integration tests
 * Handle tie games
 * Display errors on failed bet
-* Improve accuracy of payout algorithm
+* Integrate Steam API
 * Calculate odds for each team
 * Display more information for ongoing match (ie. kill count, round time left)
 * Move content into component to keep code organized and DRY
