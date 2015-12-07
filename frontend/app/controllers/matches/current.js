@@ -88,11 +88,14 @@ export default Ember.Controller.extend({
   // payout and rake
   payBets(match) {
     function getPayoutRatio(bets) {
+      var betPool = 0;
+      var winnerPool = 0;
+
       bets.forEach(function(bet) {
         var betValue = bet.get('totalValue');
         betPool += betValue;
 
-        if (bet.get('teamId') === parseInt(winTeam.get('id'))) {
+        if (bet.get('teamId') === parseInt(winningTeam.get('id'))) {
           winnerPool += betValue;
         }
       });
@@ -106,7 +109,7 @@ export default Ember.Controller.extend({
     function getWinningBets(bets) {
       var winningBets = [];
       bets.forEach(function(bet) {
-        if (bet.get('teamId') === parseInt(winTeam.get('id'))) {
+        if (bet.get('teamId') === parseInt(winningTeam.get('id'))) {
           winningBets.push(bet);
         }
       });
@@ -151,8 +154,8 @@ export default Ember.Controller.extend({
     }
 
     function getPoolAfterCut(betValue) {
-      cutValue = betValue * 0.2;
-
+      var cutValue = betValue * 0.2;
+      var cutItems = {};
       var cutKeys = takeRake(cutValue, Object.keys(itemsHash));
 
       cutKeys.forEach(function(key) {
@@ -168,7 +171,7 @@ export default Ember.Controller.extend({
       return pool;
     }
 
-    function distributeItems(items) {
+    function distributeItems(items, winningBets) {
       var itemKeys = Object.keys(items);
       itemKeys = itemKeys.sort(function(a, b) {
         return b - a;
@@ -224,6 +227,11 @@ export default Ember.Controller.extend({
       return itemsHash;
     }
 
+    function setPayout(bet) {
+      var payout = bet.get('totalValue') * payoutRatio;
+      bet.set('payout', payout);
+    }
+
     var that = this;
     var bets = match.get('bets');
 
@@ -234,22 +242,16 @@ export default Ember.Controller.extend({
     var items = match.get('items').sortBy('price');
     var itemsHash = hashifyItems(items, itemsHash);
 
-    var winTeam = match.get('winner');
+    var winningTeam = match.get('winner');
     var winningBets = getWinningBets(bets);
 
-    var cutValue = 0;
-    var cutItems = {};
-
-    var betPool = 0;
-    var winnerPool = 0;
     var payoutRatio = getPayoutRatio(bets);
 
     winningBets.forEach(function(bet) {
-      var payout = bet.get('totalValue') * payoutRatio;
-      bet.set('payout', payout);
+      setPayout(bet);
     });
 
-    distributeItems(itemsHash);
+    distributeItems(itemsHash, winningBets);
 
     match.set('hasEnded', true);
     match.save();
