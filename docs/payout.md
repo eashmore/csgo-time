@@ -56,11 +56,11 @@ current match
 function distributeItems(items) {
   var itemKeys = Object.keys(items);
   itemKeys = itemKeys.sort(function(a, b) {
-    return a - b;
+    return b - a;
   });
 
   while(itemKeys.length) {
-    var firstKey = itemKeys[0];
+    var currentKey = itemKeys[itemKeys.length - 1];
 
     var max = null;
     for (var i = 0; i < winningBets.length; i++) {
@@ -69,8 +69,8 @@ function distributeItems(items) {
       }
     }
 
-    payUser(items[firstKey], max);
-    var newPayout = max.get('payout') - items[firstKey].get('price');
+    payUser(items[currentKey], max);
+    var newPayout = max.get('payout') - items[currentKey].get('price');
     max.set('payout', newPayout);
 
     if (max.get('payout') <= 0) {
@@ -82,7 +82,7 @@ function distributeItems(items) {
       }
     }
 
-    itemKeys.shift();
+    itemKeys.pop();
   }
 }
 </code></pre>
