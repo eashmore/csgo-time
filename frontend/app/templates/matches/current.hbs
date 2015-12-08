@@ -15,8 +15,9 @@
   <div class="container-fluid team-idx generic-bg clearfix">
       {{outlet 'teams'}}
 
-      <p class="vs">VS</p>
       <div class="match-info">
+        <p class="vs">VS</p>
+
           Total Prize Pool:
           <br>
 
@@ -42,14 +43,10 @@
     {{#each recentBets as |bet|}}
       <div class="recent-bet col-xs-2">
         <label>{{bet.user.username}}</label>
-         bet
         <br>
 
-        ${{bet.totalValue}}
+        bet <label>${{bet.totalValue}}</label> on
         <br>
-
-         in items on
-         <br>
 
          <label>
            {{bet.team.name}}

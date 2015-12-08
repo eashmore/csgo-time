@@ -59,6 +59,8 @@ nav.navbar-default .navbar-nav>li>a {
 }
 
 .next-match {
+  position: relative;
+  overflow-x: hidden;
   background-color: darkblue;
   margin-top: 1%;
   color: #d45500;
@@ -68,9 +70,10 @@ nav.navbar-default .navbar-nav>li>a {
 }
 
 .next-match-image {
-  background: url('http://res.cloudinary.com/dqucbuno8/image/upload/c_scale,w_1920/v1448660817/gSC7CN_bjr6bb.png') center top no-repeat;
+  background: url('http://res.cloudinary.com/dqucbuno8/image/upload/c_scale,w_1920/v1448660817/gSC7CN_bjr6bb.png') top no-repeat;
+  background-size: cover;
   width: 100%;
-  height: 150px;
+  height: 100%;
   position: absolute;
   opacity: 0.7;
   left: 0px;
