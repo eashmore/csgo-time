@@ -8,7 +8,7 @@ export default Ember.Route.extend({
   renderTemplate(c, model) {
     this.render();
 
-    var currentUser = this.modelFor('application');
+    var currentUser = this.modelFor('application').user;
     this.render('items.betting', {
       into: "teams.show",
       outlet: "stash",

@@ -3,14 +3,12 @@ import Ember from 'ember';
 export default Ember.Controller.extend({
   actions: {
     toHomePage() {
-      var that = this;
-      this.store.queryRecord('match', { is_current: true }).then(function(match) {
-        if (match.get('hasStarted')) {
-          that.transitionToRoute('matches.inprogress');
-        } else {
-          that.transitionToRoute('matches.current');
-        }
-      });
+      var match = this.model.match;
+      if (match.get('hasStarted')) {
+        this.transitionToRoute('matches.inprogress');
+      } else {
+        this.transitionToRoute('matches.current');
+      }
     },
 
     toUserPage() {

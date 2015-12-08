@@ -2,7 +2,7 @@ import Ember from 'ember';
 
 export default Ember.Route.extend({
   model() {
-    var user = this.peekRecord('user', window.CURRENT_USER);
+    var user = this.modelFor('application').user;
     return user.get('items');
   },
 });
