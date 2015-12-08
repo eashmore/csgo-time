@@ -11,6 +11,7 @@ window.App = Ember.Application.extend({
   Resolver: Resolver
 });
 
+window.App.currentUserId = window.CURRENT_USER;
 
 loadInitializers(window.App, config.modulePrefix);
 

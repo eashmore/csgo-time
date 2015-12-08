@@ -24,9 +24,9 @@ export default Ember.Controller.extend({
         user.get('items').pushObject(newItem);
       }
 
-      var newItem = this.createItem(item, window.CURRENT_USER);
+      var newItem = this.createItem(item, App.currentUserId);
 
-      var user = this.store.peekRecord('user', window.CURRENT_USER);
+      var user = this.store.peekRecord('user', App.currentUserId);
       giveItemToUser();
     }
   }

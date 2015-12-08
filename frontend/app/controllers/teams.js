@@ -11,7 +11,7 @@ export default Ember.Controller.extend({
         return match.get('isCurrent') === true;
       });
 
-      var currentUser = this.store.peekRecord('user', window.CURRENT_USER);
+      var currentUser = this.store.peekRecord('user', App.currentUserId);
       var mostRecentBet = currentUser.get('bets').get('lastObject');
 
       if (mostRecentBet &&
