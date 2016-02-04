@@ -1,23 +1,6 @@
 body {
-  // background: url('http://res.cloudinary.com/dqucbuno8/image/upload/e_brightness:30/v1447826196/Counter-Strike-Wallpaper-1920x1080-4_utq3oz.jpg') center top no-repeat #000000;
   background-color: #ccc;
   color: #666;
-}
-
-::-webkit-scrollbar {
-    background-color: white;
-    width:8px;
-}
-
-::-webkit-scrollbar-thumb {
-    background-color: grey;
-}
-
-.noselect {
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
 }
 
 label {
@@ -79,7 +62,7 @@ nav.navbar-default .navbar-nav>li>a {
   left: 0px;
 }
 
-.next-match > h2 {
+.next-match>h2 {
   position: relative;
   z-index: 10000;
   text-shadow: 1px 1px #000000;
