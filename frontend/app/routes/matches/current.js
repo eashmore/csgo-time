@@ -2,7 +2,7 @@ import Ember from 'ember';
 
 export default Ember.Route.extend({
   model() {
-    return this.modelFor('application').match;
+    return this.store.queryRecord('match', { is_current: true });
   },
 
   setupController(controller, match) {
