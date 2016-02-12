@@ -7,6 +7,11 @@
   <%= stylesheet_link_tag    'application', media: 'all' %>
   <%= javascript_include_tag 'application' %>
   <%= csrf_meta_tags %>
+
+  <script type="text/javascript">
+    window.CURRENT_USER = <%= current_user.id %>
+    window.CURRENT_MATCH = <%= Match.last.id %>
+  </script>
 </head>
 <body>
   <%= render partial: "layouts/errors" %>
