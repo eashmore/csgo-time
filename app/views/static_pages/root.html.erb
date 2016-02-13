@@ -1,1 +1,6 @@
 <%= include_ember_index_html :frontend %>
+
+<script type="text/javascript">
+  window.CURRENT_USER = <%= current_user.id %>
+  window.CURRENT_MATCH = <%= Match.last.id %>
+</script>
