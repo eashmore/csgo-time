@@ -12,9 +12,7 @@ window.App = Ember.Application.extend({
 });
 
 window.App.currentMatchId = window.CURRENT_MATCH;
-setTimeout(function() {
-  window.App.currentUserId = window.CURRENT_USER;
-},0);
+window.App.currentUserId = window.CURRENT_USER;
 
 loadInitializers(window.App, config.modulePrefix);
 

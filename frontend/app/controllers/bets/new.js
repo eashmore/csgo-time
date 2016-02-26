@@ -49,7 +49,7 @@ export default Ember.Controller.extend({
       var that = this;
       var itemIds = getItemIds();
       var totalBet = 0;
-      var currentUser = this.store.peekRecord('user', App.currentUserId);
+      var currentUser = this.store.peekRecord('user', window.CURRENT_USER);
       var matches = this.store.peekAll('match');
       var nextMatch = matches.find(function(match) {
         return match.get('isCurrent') === true;
