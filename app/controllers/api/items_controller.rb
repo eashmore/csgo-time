@@ -1,7 +1,7 @@
 class Api::ItemsController < ApplicationController
   def index
     if params[:bet_id]
-      @items = Item.includes(:user, :bet).bet_items(params[:bet_id])
+      @items = Item.includes(:user, :bet).where(bet_id: params[:bet_id])
     else
       @items = Item.includes(:user, :bet).all
     end

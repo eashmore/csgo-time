@@ -4,8 +4,4 @@ class Item < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :bet
-
-  def self.bet_items(bet_id)
-    where(bet_id: bet_id)
-  end
 end

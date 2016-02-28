@@ -20,14 +20,9 @@ export default Ember.Controller.extend({
 
   actions: {
     generateItem(item) {
-      function giveItemToUser() {
-        user.get('items').pushObject(newItem);
-      }
-
       var newItem = this.createItem(item, window.CURRENT_USER);
-
       var user = this.store.peekRecord('user', window.CURRENT_USER);
-      giveItemToUser();
+      user.get('items').pushObject(newItem);
     }
   }
 });

@@ -2,7 +2,7 @@ import Ember from 'ember';
 
 export default Ember.Route.extend({
   model(params) {
-    return this.store.findRecord('team', params.team_id);
+    return this.store.peekRecord('team', params.team_id);
   },
 
   renderTemplate(c, model) {
