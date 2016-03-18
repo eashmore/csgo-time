@@ -109,7 +109,7 @@ export default Ember.Controller.extend({
     function takeRake(target, itemKeys) {
       target = (Math.round(target * 100)) / 100;
 
-      if (items.length < 1) {
+      if (itemKeys.length < 1) {
         return null;
       }
 
@@ -229,7 +229,7 @@ export default Ember.Controller.extend({
     }
 
     var items = match.get('items').sortBy('price');
-    var itemsHash = hashifyItems(items, itemsHash);
+    var itemsHash = hashifyItems(items);
 
     var winningTeam = match.get('winner');
     var winningBets = getWinningBets(bets);

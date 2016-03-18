@@ -1,6 +1,5 @@
 # Rake Algorithm
-Website takes 15% rake on total prize pool. Implemented in Ember
-matches.current controller.
+Website takes 15% rake on total prize pool.
 
 * `target` is the total value of the rake
 * `items` is an array of item objects sorted by price (highest to lowest)
@@ -44,7 +43,7 @@ function takeRake(target, items) {
 </code></pre>
 
 #Payout Algorithm
-Pays out prize pool ti winning users. Implemented in Ember matches.current
+Pays out prize pool to winning users.
 controller.
 
 * `items` is a hash of item objects in the betting pool. Keys are ordered by
