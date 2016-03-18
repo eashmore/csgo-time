@@ -46,6 +46,7 @@ class Match < ActiveRecord::Base
       return true
     end
 
+    pay_bets
     false
   end
 
