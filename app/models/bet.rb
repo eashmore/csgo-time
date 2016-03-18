@@ -11,7 +11,5 @@ class Bet < ActiveRecord::Base
   belongs_to :team
   has_many :items
 
-  def initialize
-    @payout = 0
-  end
+  @payout = 0
 end

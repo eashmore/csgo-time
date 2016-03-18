@@ -25,6 +25,8 @@ class Match < ActiveRecord::Base
       sleep 2
       simulate_round(team1, team2)
     end
+
+    pay_bets
   end
 
   def simulate_round(team1, team2)
@@ -46,7 +48,6 @@ class Match < ActiveRecord::Base
       return true
     end
 
-    pay_bets
     false
   end
 
@@ -83,29 +84,29 @@ class Match < ActiveRecord::Base
   def pool_with_cuts(pool, rake)
     cut_val = pool * rake
     cut_items = {}
-    cut_keys = take_rake(cut_val, @item_hash.keys)
+    cut_keys = take_rake(cut_val, @items_hash.keys)
 
     cut_keys.each do |key|
-      cut_items[key] = @item_hash[key]
-      @item_hash.delete(key)
+      cut_items[key] = @items_hash[key]
+      @items_hash.delete(key)
     end
 
     new_pool = 0
-    items_hash.each_value do |value|
-      new_pool += value
+    @items_hash.each_value do |item|
+      new_pool += item.price
     end
     new_pool
   end
 
   def take_rake(cut_val, item_keys)
-    return nil if @item_keys.empty?
+    return nil if item_keys.empty?
     target = (cut_val * 100).round / 100
     return [] if target <= 0
 
     payout = []
 
-    @item_keys.count.times do |i|
-      item = @item_hash[i]
+    item_keys.each do |i|
+      item = @items_hash[i]
       price = item.price
       next if price > target
 
@@ -122,7 +123,7 @@ class Match < ActiveRecord::Base
   end
 
   def distribute_items(winning_bets)
-    item_keys = @item_hash.keys.sort { |x, y| y <=> x }
+    item_keys = @items_hash.keys.sort { |x, y| y <=> x }
     until item_keys.empty?
       key = item_keys.last
       max = nil
@@ -130,8 +131,8 @@ class Match < ActiveRecord::Base
         max = bet if max.nil? || bet.payout > max.payout
       end
 
-      pay_user(@item_hash[key], max)
-      new_payout = max.payout - @item_hash[key].price
+      pay_user(@items_hash[key], max)
+      new_payout = max.payout - @items_hash[key].price
       max.payout = new_payout
 
       if max.payout <= 0
@@ -156,7 +157,7 @@ class Match < ActiveRecord::Base
   end
 
   def update_payout(bet)
-    payout = bet.totalValue * payout_ratio
+    payout = bet.total_value * payout_ratio
     bet.payout = payout
   end
 
