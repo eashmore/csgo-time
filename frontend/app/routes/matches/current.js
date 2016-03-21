@@ -1,6 +1,8 @@
 import Ember from 'ember';
 
 export default Ember.Route.extend({
+  controllerName: 'matches', 
+
   model() {
     return this.modelFor('application').match;
   },

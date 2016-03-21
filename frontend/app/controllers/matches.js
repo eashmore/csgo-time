@@ -12,7 +12,7 @@ export default Ember.Controller.extend({
     bets.forEach(function(bet) {
       pool += bet.get('totalValue');
     });
-
+    debugger;
     this.set('prizePool', Math.round(pool));
   },
 
@@ -70,6 +70,15 @@ export default Ember.Controller.extend({
       if (match.get('hasStarted')) {
         clearInterval(timer);
         that.transitionToRoute('matches.inprogress');
+      }
+    }, 1000);
+  },
+
+  updateMatch(match){
+    var checkMatch = setInterval(function() {
+      match.reload();
+      if (match.get('winnerId')) {
+        clearInterval(checkMatch);
       }
     }, 1000);
   }

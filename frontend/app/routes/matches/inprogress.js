@@ -1,6 +1,8 @@
 import Ember from 'ember';
 
 export default Ember.Route.extend({
+  controllerName: 'matches',
+
   model() {
     return this.modelFor('application').match;
   },
@@ -13,6 +15,7 @@ export default Ember.Route.extend({
 
   setupController(controller, model) {
     controller.set('model', model);
+    controller.getPrizePool(model.get('bets'));
     controller.updateMatch(model);
   }
 });
