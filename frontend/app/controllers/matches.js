@@ -12,7 +12,7 @@ export default Ember.Controller.extend({
     bets.forEach(function(bet) {
       pool += bet.get('totalValue');
     });
-    debugger;
+    
     this.set('prizePool', Math.round(pool));
   },
 
